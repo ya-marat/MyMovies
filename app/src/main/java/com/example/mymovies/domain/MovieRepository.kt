@@ -1,6 +1,8 @@
 package com.example.mymovies.domain
 
+import androidx.lifecycle.LiveData
+
 interface MovieRepository {
 
-    suspend fun loadMovies(): List<Movie>
+    suspend fun loadMovies(page: Int): List<Movie>
 }

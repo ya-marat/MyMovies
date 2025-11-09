@@ -5,5 +5,5 @@ import com.google.gson.annotations.SerializedName
 data class RatingDto(
 
     @SerializedName("kp")
-    val kp: Double
+    val kp: Double?
 )

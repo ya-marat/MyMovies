@@ -1,5 +1,6 @@
 package com.example.mymovies.data.network
 
+import android.media.audiofx.DynamicsProcessing.Limiter
 import com.example.mymovies.Consts
 import com.example.mymovies.data.network.model.MovieResponseDto
 import retrofit2.http.GET
@@ -11,10 +12,14 @@ interface ApiService {
 
     @GET(Consts.AppRequest.MOVIES_URL)
     @Headers(Consts.AppRequest.X_API_KEY_HEADER)
-    suspend fun loadMovies(@Query("page") page: Int): MovieResponseDto
+    suspend fun loadMovies(
+        @Query("page") page: Int,
+        @Query("limit") limit: Int = 10
+    ): MovieResponseDto
 
-    @GET("movie?token=KMKT0ZR-ABQMBF0-P13XZ4F-XY9VJM6&&rating.kp=4-8&sortField=votes.kp&sortType=-1&limit=30")
-    suspend fun loadMovies1(@Query("page") page: Int): MovieResponseDto
+    @GET("movie?page=1&limit=10")
+    @Headers(Consts.AppRequest.X_API_KEY_HEADER)
+    suspend fun loadMovies1(): MovieResponseDto
 
     companion object {
         private const val QUERY_PARAM_PAGE = "page"

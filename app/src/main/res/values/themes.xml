@@ -3,6 +3,12 @@
     <style name="Base.Theme.MyMovies" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+
+        <item name="android:statusBarColor">@color/app_black</item>
+        <item name="android:windowBackground">@color/app_black</item>
+        <item name="android:colorBackground">@color/app_black</item>
+        <item name="android:fragment">@color/app_black</item>
+
     </style>
 
     <style name="Theme.MyMovies" parent="Base.Theme.MyMovies" />
