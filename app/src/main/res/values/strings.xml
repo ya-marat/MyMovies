@@ -9,9 +9,12 @@
     <string name="second_fragment_label">Second Fragment</string>
     <string name="next">Next</string>
     <string name="previous">Previous</string>
-    <string name="description_movie_detail_is_empty">Description is Empty</string>
+    <string name="description_movie_detail_is_empty">(Описание отсутствует)</string>
     <string name="starring_label">В ролях :\u0020</string>
     <string name="creators_label">Создатели :\u0020</string>
     <string name="genre_label">Жанр :\u0020</string>
     <string name="trailer_lbl">Трейлер</string>
+    <string name="list_name_new_movies">Новинки</string>
+    <string name="list_name_popular">Популярное</string>
+    <string name="list_name_day_genre">Жанр дня: %s</string>
 </resources>

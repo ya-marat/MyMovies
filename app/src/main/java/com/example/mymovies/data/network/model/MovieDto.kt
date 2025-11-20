@@ -29,5 +29,11 @@ data class MovieDto(
     val isSeries: Boolean,
 
     @SerializedName("genres")
-    val genres: List<GenreDto?>?
+    val genres: List<GenreDto?>?,
+
+    @SerializedName("persons")
+    val moviePersons: List<MoviePersonDto>?,
+
+    @SerializedName("videos")
+    val videos: MovieVideosDto
 )

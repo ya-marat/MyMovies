@@ -16,7 +16,9 @@ data class Movie(
     val rating: Double?,
     val ageRating: Int?,
     val isSeries: Boolean,
-    val genres: List<MovieGenre?>?
+    val genres: List<MovieGenre?>?,
+    val moviePersons: List<MoviePerson>?,
+    val movieTrailers: List<MovieTrailer>?
 ) : Parcelable {
 
     override fun toString(): String {

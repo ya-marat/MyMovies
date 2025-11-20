@@ -1,0 +1,499 @@
+{
+  "docs": [
+    {
+      "id": 1057760,
+      "name": "Эммануэль: Сексуальная жизнь призраков",
+      "alternativeName": "Emmanuelle the Private Collection: The Sex Lives of Ghosts",
+      "type": "movie",
+      "typeNumber": 1,
+      "year": 2004,
+      "description": null,
+      "shortDescription": null,
+      "status": null,
+      "rating": {
+        "kp": 0,
+        "imdb": 0,
+        "filmCritics": 0,
+        "russianFilmCritics": 0,
+        "await": 0
+      },
+      "votes": {
+        "kp": 0,
+        "imdb": 0,
+        "filmCritics": 0,
+        "russianFilmCritics": 0,
+        "await": 0
+      },
+      "movieLength": 86,
+      "totalSeriesLength": null,
+      "seriesLength": null,
+      "ratingMpaa": null,
+      "ageRating": 18,
+      "genres": [
+        {
+          "name": "мелодрама"
+        }
+      ],
+      "countries": [
+        {
+          "name": "США"
+        }
+      ],
+      "isSeries": false,
+      "ticketsOnSale": false
+    },
+    {
+      "id": 10020338,
+      "name": "Здравствуйте, дорогие предки",
+      "alternativeName": "Qin ai de huo zu zong",
+      "type": "tv-series",
+      "typeNumber": 2,
+      "year": 2018,
+      "description": null,
+      "shortDescription": null,
+      "status": "completed",
+      "rating": {
+        "kp": 0,
+        "imdb": 8.2,
+        "filmCritics": 0,
+        "russianFilmCritics": 0,
+        "await": 0
+      },
+      "votes": {
+        "kp": 0,
+        "imdb": 11,
+        "filmCritics": 0,
+        "russianFilmCritics": 0,
+        "await": 0
+      },
+      "movieLength": null,
+      "totalSeriesLength": null,
+      "seriesLength": 45,
+      "ratingMpaa": null,
+      "ageRating": null,
+      "poster": {
+        "url": "https://image.openmoviedb.com/kinopoisk-images/10953618/0bfd6225-8287-49b8-bd1d-750b0033d494/600x900",
+        "previewUrl": "https://image.openmoviedb.com/kinopoisk-images/10953618/0bfd6225-8287-49b8-bd1d-750b0033d494/300x450"
+      },
+      "genres": [
+        {
+          "name": "мелодрама"
+        },
+        {
+          "name": "комедия"
+        },
+        {
+          "name": "фэнтези"
+        }
+      ],
+      "countries": [
+        {
+          "name": "Китай"
+        }
+      ],
+      "releaseYears": [
+        {
+          "start": 2018,
+          "end": 2018
+        }
+      ],
+      "top10": null,
+      "top250": null,
+      "isSeries": true,
+      "ticketsOnSale": false
+    },
+    {
+      "id": 10019421,
+      "name": "Весна моего сердца",
+      "alternativeName": null,
+      "type": "tv-series",
+      "typeNumber": 2,
+      "year": 2021,
+      "description": null,
+      "shortDescription": null,
+      "status": "completed",
+      "rating": {
+        "kp": 0,
+        "imdb": 0,
+        "filmCritics": 0,
+        "russianFilmCritics": 0,
+        "await": 0
+      },
+      "votes": {
+        "kp": 0,
+        "imdb": 0,
+        "filmCritics": 0,
+        "russianFilmCritics": 0,
+        "await": 0
+      },
+      "movieLength": null,
+      "totalSeriesLength": null,
+      "seriesLength": null,
+      "ratingMpaa": null,
+      "ageRating": null,
+      "genres": [
+        {
+          "name": "мелодрама"
+        }
+      ],
+      "countries": [
+        {
+          "name": "Украина"
+        }
+      ],
+      "releaseYears": [
+        {
+          "start": 2021,
+          "end": 2021
+        }
+      ],
+      "top10": null,
+      "top250": null,
+      "isSeries": true,
+      "ticketsOnSale": false
+    },
+    {
+      "id": 10006861,
+      "name": null,
+      "alternativeName": "Diamonds of Malibu",
+      "type": "movie",
+      "typeNumber": 1,
+      "year": 2023,
+      "description": null,
+      "shortDescription": null,
+      "status": null,
+      "rating": {
+        "kp": 0,
+        "imdb": 0,
+        "filmCritics": 0,
+        "russianFilmCritics": 0,
+        "await": 0
+      },
+      "votes": {
+        "kp": 0,
+        "imdb": 0,
+        "filmCritics": 0,
+        "russianFilmCritics": 0,
+        "await": 0
+      },
+      "movieLength": 52,
+      "totalSeriesLength": null,
+      "seriesLength": null,
+      "ratingMpaa": null,
+      "ageRating": 18,
+      "genres": [
+        {
+          "name": "комедия"
+        }
+      ],
+      "countries": [
+        {
+          "name": "США"
+        }
+      ],
+      "isSeries": false,
+      "ticketsOnSale": false
+    },
+    {
+      "id": 10020277,
+      "name": "Рассвет после тёмной ночи",
+      "alternativeName": "An ye yu li ming",
+      "type": "tv-series",
+      "typeNumber": 2,
+      "year": 2024,
+      "description": null,
+      "shortDescription": null,
+      "status": "completed",
+      "rating": {
+        "kp": 0,
+        "imdb": 8.4,
+        "filmCritics": 0,
+        "russianFilmCritics": 0,
+        "await": 0
+      },
+      "votes": {
+        "kp": 0,
+        "imdb": 76,
+        "filmCritics": 0,
+        "russianFilmCritics": 0,
+        "await": 0
+      },
+      "movieLength": null,
+      "totalSeriesLength": null,
+      "seriesLength": 45,
+      "ratingMpaa": null,
+      "ageRating": null,
+      "poster": {
+        "url": "https://image.openmoviedb.com/kinopoisk-images/1898899/d1db8d26-db5e-4338-a1fa-a96bf64d8460/600x900",
+        "previewUrl": "https://image.openmoviedb.com/kinopoisk-images/1898899/d1db8d26-db5e-4338-a1fa-a96bf64d8460/300x450"
+      },
+      "genres": [
+        {
+          "name": "детектив"
+        },
+        {
+          "name": "триллер"
+        }
+      ],
+      "countries": [
+        {
+          "name": "Китай"
+        }
+      ],
+      "releaseYears": [
+        {
+          "start": 2024,
+          "end": 2024
+        }
+      ],
+      "top10": null,
+      "top250": null,
+      "isSeries": true,
+      "ticketsOnSale": false
+    },
+    {
+      "id": 10019446,
+      "name": null,
+      "alternativeName": "Le livreur de Noël",
+      "type": "movie",
+      "typeNumber": 1,
+      "year": 2024,
+      "description": null,
+      "shortDescription": null,
+      "status": null,
+      "rating": {
+        "kp": 0,
+        "imdb": 4.5,
+        "filmCritics": 0,
+        "russianFilmCritics": 0,
+        "await": 0
+      },
+      "votes": {
+        "kp": 0,
+        "imdb": 16,
+        "filmCritics": 0,
+        "russianFilmCritics": 0,
+        "await": 0
+      },
+      "movieLength": 86,
+      "totalSeriesLength": null,
+      "seriesLength": null,
+      "ratingMpaa": null,
+      "ageRating": null,
+      "genres": [
+        {
+          "name": "комедия"
+        }
+      ],
+      "countries": [
+        {
+          "name": "Франция"
+        }
+      ],
+      "isSeries": false,
+      "ticketsOnSale": false
+    },
+    {
+      "id": 10019445,
+      "name": null,
+      "alternativeName": "Dedalus",
+      "type": "movie",
+      "typeNumber": 1,
+      "year": 2024,
+      "description": null,
+      "shortDescription": null,
+      "status": null,
+      "rating": {
+        "kp": 0,
+        "imdb": 5.9,
+        "filmCritics": 0,
+        "russianFilmCritics": 0,
+        "await": 0
+      },
+      "votes": {
+        "kp": 2,
+        "imdb": 112,
+        "filmCritics": 0,
+        "russianFilmCritics": 0,
+        "await": 0
+      },
+      "movieLength": 92,
+      "totalSeriesLength": null,
+      "seriesLength": null,
+      "ratingMpaa": null,
+      "ageRating": null,
+      "genres": [
+        {
+          "name": "триллер"
+        },
+        {
+          "name": "драма"
+        },
+        {
+          "name": "комедия"
+        }
+      ],
+      "countries": [
+        {
+          "name": "Италия"
+        },
+        {
+          "name": "Испания"
+        },
+        {
+          "name": "Польша"
+        }
+      ],
+      "isSeries": false,
+      "ticketsOnSale": false
+    },
+    {
+      "id": 10019015,
+      "name": "Слоны на Мальдивах",
+      "alternativeName": null,
+      "type": "movie",
+      "typeNumber": 1,
+      "year": 2024,
+      "description": "Молодая девушка садится в электричку. Через несколько минут к ней присоединяется ее молодой человек. Они ссорятся и в результате она вспоминает, что случилось.",
+      "shortDescription": null,
+      "status": null,
+      "rating": {
+        "kp": 0,
+        "imdb": 0,
+        "filmCritics": 0,
+        "russianFilmCritics": 0,
+        "await": 0
+      },
+      "votes": {
+        "kp": 0,
+        "imdb": 0,
+        "filmCritics": 0,
+        "russianFilmCritics": 0,
+        "await": 0
+      },
+      "movieLength": null,
+      "totalSeriesLength": null,
+      "seriesLength": null,
+      "ratingMpaa": null,
+      "ageRating": null,
+      "genres": [
+        {
+          "name": "короткометражка"
+        }
+      ],
+      "countries": [
+        {
+          "name": "Россия"
+        }
+      ],
+      "isSeries": false,
+      "ticketsOnSale": false
+    },
+    {
+      "id": 10018993,
+      "name": "Обыграть пирамиду",
+      "alternativeName": null,
+      "type": "tv-series",
+      "typeNumber": 2,
+      "year": 2024,
+      "description": "Финансовый коуч Ульяна Круглова, ее муж и дети оказались в эпицентре хитрых махинаций. Другие, ради блага своих близких и возможности стать родителям, и готовы пойти на отчаянные шаги.",
+      "shortDescription": null,
+      "status": "completed",
+      "rating": {
+        "kp": 0,
+        "imdb": 0,
+        "filmCritics": 0,
+        "russianFilmCritics": 0,
+        "await": 0
+      },
+      "votes": {
+        "kp": 0,
+        "imdb": 0,
+        "filmCritics": 0,
+        "russianFilmCritics": 0,
+        "await": 0
+      },
+      "movieLength": null,
+      "totalSeriesLength": null,
+      "seriesLength": null,
+      "ratingMpaa": null,
+      "ageRating": null,
+      "genres": [
+        {
+          "name": "детектив"
+        },
+        {
+          "name": "драма"
+        },
+        {
+          "name": "криминал"
+        }
+      ],
+      "countries": [
+        {
+          "name": "Россия"
+        }
+      ],
+      "releaseYears": [
+        {
+          "start": 2024,
+          "end": 2024
+        }
+      ],
+      "top10": null,
+      "top250": null,
+      "isSeries": true,
+      "ticketsOnSale": false
+    },
+    {
+      "id": 10018988,
+      "name": "На ходу",
+      "alternativeName": "3al Mashi",
+      "type": "movie",
+      "typeNumber": 1,
+      "year": 2024,
+      "description": "Однажды ленивый 30-летний Хади Хади Абдель Хади, который живёт с отцом, узнаёт, что болен редкой болезнью. Теперь, чтобы не умереть от образования тромбов, он должен всё время ходить.",
+      "shortDescription": null,
+      "status": null,
+      "rating": {
+        "kp": 0,
+        "imdb": 3.7,
+        "filmCritics": 0,
+        "russianFilmCritics": 0,
+        "await": 0
+      },
+      "votes": {
+        "kp": 0,
+        "imdb": 148,
+        "filmCritics": 0,
+        "russianFilmCritics": 0,
+        "await": 0
+      },
+      "movieLength": 100,
+      "totalSeriesLength": null,
+      "seriesLength": null,
+      "ratingMpaa": null,
+      "ageRating": null,
+      "poster": {
+        "url": "https://image.openmoviedb.com/kinopoisk-images/4486362/09ab92b3-2a4d-4e3d-b936-de43437fb66a/600x900",
+        "previewUrl": "https://image.openmoviedb.com/kinopoisk-images/4486362/09ab92b3-2a4d-4e3d-b936-de43437fb66a/300x450"
+      },
+      "genres": [
+        {
+          "name": "комедия"
+        }
+      ],
+      "countries": [
+        {
+          "name": "Египет"
+        }
+      ],
+      "isSeries": false,
+      "ticketsOnSale": false
+    }
+  ],
+  "total": 1084090,
+  "limit": 10,
+  "page": 1,
+  "pages": 108409
+}

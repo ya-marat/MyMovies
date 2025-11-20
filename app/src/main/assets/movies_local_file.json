@@ -1,0 +1,831 @@
+{
+  "docs": [
+    {
+      "id": 6943983,
+      "name": "Берлинская неотложка",
+      "alternativeName": "Krank: Berlin",
+      "type": "tv-series",
+      "typeNumber": 2,
+      "year": 2025,
+      "description": "Доктор Сюзанна Паркер после проблем на личном фронте начинает жизнь с чистого листа и переезжает из Мюнхена в Берлин. Она становится заведующей отделением реанимации в самой загруженной больнице столицы.",
+      "shortDescription": null,
+      "status": null,
+      "rating": {
+        "kp": 7,
+        "imdb": 7.3,
+        "filmCritics": 0,
+        "russianFilmCritics": 0,
+        "await": null
+      },
+      "votes": {
+        "kp": 507,
+        "imdb": 1400,
+        "filmCritics": 0,
+        "russianFilmCritics": 0,
+        "await": 0
+      },
+      "movieLength": null,
+      "totalSeriesLength": null,
+      "seriesLength": null,
+      "ratingMpaa": null,
+      "ageRating": null,
+      "poster": {
+        "url": "https://image.openmoviedb.com/kinopoisk-images/10768063/f293cfab-c771-43df-83ae-9ca9e9a92eed/600x900",
+        "previewUrl": "https://image.openmoviedb.com/kinopoisk-images/10768063/f293cfab-c771-43df-83ae-9ca9e9a92eed/300x450"
+      },
+      "genres": [
+        {
+          "name": "драма"
+        }
+      ],
+      "countries": [
+        {
+          "name": "Германия"
+        }
+      ],
+      "releaseYears": [
+        {
+          "start": 2025,
+          "end": null
+        }
+      ],
+      "top10": null,
+      "top250": null,
+      "isSeries": true,
+      "ticketsOnSale": false,
+      "backdrop": {
+        "url": null,
+        "previewUrl": null
+      },
+      "enName": null,
+      "logo": {
+        "url": "https://image.openmoviedb.com/tmdb-images/original/oPClNCcJ0N5ELfoVpWxOBxgMA7g.png",
+        "previewUrl": "https://image.openmoviedb.com/tmdb-images/w500/oPClNCcJ0N5ELfoVpWxOBxgMA7g.png"
+      },
+      "names": [
+        {
+          "name": "KRANK",
+          "language": "DE",
+          "type": "working title"
+        },
+        {
+          "name": "KRANK Berlin",
+          "language": "DE",
+          "type": "working title"
+        },
+        {
+          "name": "טיפול נמרץ: ברלין",
+          "language": "IL",
+          "type": null
+        },
+        {
+          "name": "Berlin ER",
+          "language": "NL",
+          "type": null
+        }
+      ]
+    },
+    {
+      "id": 6747882,
+      "name": "Мотель «Калифорния»",
+      "alternativeName": "Motel Kaelliponia",
+      "type": "tv-series",
+      "typeNumber": 2,
+      "year": 2025,
+      "description": "Чи Ган-хи выросла в провинции, где её отец держал мотель. С самого детства её лучшим другом был мальчик Чхон Ён-су — он же стал её первой любовью. Из-за того что мать Ган-хи была смешанных кровей, за спиной девушки постоянно шептались, поэтому в 20 лет она уехала в Сеул, где сделала карьеру в сфере дизайна интерьеров. Ён-су же работает деревенским ветеринаром и отбивается от селян, мечтающих выдать за него своих дочерей. Внезапно Ган-хи решает вернуться в родное захолустье.",
+      "shortDescription": null,
+      "status": "completed",
+      "rating": {
+        "kp": 7,
+        "imdb": 6.5,
+        "filmCritics": 0,
+        "russianFilmCritics": 0,
+        "await": null
+      },
+      "votes": {
+        "kp": 2076,
+        "imdb": 668,
+        "filmCritics": 0,
+        "russianFilmCritics": 0,
+        "await": 0
+      },
+      "movieLength": null,
+      "totalSeriesLength": null,
+      "seriesLength": 70,
+      "ratingMpaa": null,
+      "ageRating": null,
+      "poster": {
+        "url": "https://image.openmoviedb.com/kinopoisk-images/4486362/6c9a41e1-a14e-413b-951f-9518087a8856/600x900",
+        "previewUrl": "https://image.openmoviedb.com/kinopoisk-images/4486362/6c9a41e1-a14e-413b-951f-9518087a8856/300x450"
+      },
+      "genres": [
+        {
+          "name": "мелодрама"
+        }
+      ],
+      "countries": [
+        {
+          "name": "Корея Южная"
+        }
+      ],
+      "releaseYears": [
+        {
+          "start": 2025,
+          "end": 2025
+        }
+      ],
+      "videos": {
+        "trailers": [
+          {
+            "url": "https://www.youtube.com/embed/4uhY7e4D4VA",
+            "name": "Железный человек - Трейлер",
+            "site": "youtube",
+            "type": "TRAILER"
+          },
+          {
+            "url": "https://www.youtube.com/embed/fMKZMI8ByTs",
+            "name": "Трейлер Железный человек (2008)",
+            "site": "youtube",
+            "type": "TRAILER"
+          },
+          {
+            "url": "https://www.youtube.com/embed/KAE5ymVLmZg",
+            "name": "Iron Man (Trailer) | 2008",
+            "site": "youtube",
+            "type": "TRAILER"
+          }
+        ]
+      },
+      "top10": null,
+      "top250": null,
+      "isSeries": true,
+      "ticketsOnSale": false,
+      "backdrop": {
+        "url": null,
+        "previewUrl": null
+      }
+    },
+    {
+      "id": 6458245,
+      "name": "Док",
+      "alternativeName": "Doc",
+      "type": "tv-series",
+      "typeNumber": 2,
+      "year": 2025,
+      "description": "Доктор Эми Ларсен теряет память после автомобильной аварии. Она не помнит последние 8 лет своей жизни: ни пациентов, ни коллег, ни развода с мужем, ни взросления дочери. Эми возвращается к медицинской практике, но вынуждена опять стать интерном.",
+      "shortDescription": null,
+      "status": null,
+      "rating": {
+        "kp": 7,
+        "imdb": 7.3,
+        "filmCritics": 0,
+        "russianFilmCritics": 0,
+        "await": null
+      },
+      "votes": {
+        "kp": 588,
+        "imdb": 4800,
+        "filmCritics": 0,
+        "russianFilmCritics": 0,
+        "await": 0
+      },
+      "movieLength": null,
+      "totalSeriesLength": null,
+      "seriesLength": null,
+      "ratingMpaa": null,
+      "ageRating": null,
+      "genres": [
+        {
+          "name": "драма"
+        }
+      ],
+      "countries": [
+        {
+          "name": "США"
+        }
+      ],
+      "releaseYears": [
+        {
+          "start": 2024,
+          "end": null
+        },
+        {
+          "start": 2025,
+          "end": null
+        }
+      ],
+      "top10": null,
+      "top250": null,
+      "isSeries": true,
+      "ticketsOnSale": false,
+      "backdrop": {
+        "url": null,
+        "previewUrl": null
+      },
+      "enName": null,
+      "logo": {
+        "url": "https://image.openmoviedb.com/tmdb-images/original/5TRDpGFLJnhBHttUA3uwiEiwCRW.png",
+        "previewUrl": "https://image.openmoviedb.com/tmdb-images/w500/5TRDpGFLJnhBHttUA3uwiEiwCRW.png"
+      },
+      "names": [
+        {
+          "name": "Doc (US)",
+          "language": "GB",
+          "type": null
+        }
+      ]
+    },
+    {
+      "id": 6389730,
+      "name": "Маленький гражданин",
+      "alternativeName": "Shoushimin Series",
+      "type": "anime",
+      "typeNumber": 4,
+      "year": 2024,
+      "description": null,
+      "shortDescription": null,
+      "status": null,
+      "rating": {
+        "kp": 7,
+        "imdb": 6.9,
+        "filmCritics": 0,
+        "russianFilmCritics": 0,
+        "await": null
+      },
+      "votes": {
+        "kp": 367,
+        "imdb": 608,
+        "filmCritics": 0,
+        "russianFilmCritics": 0,
+        "await": 0
+      },
+      "movieLength": null,
+      "totalSeriesLength": null,
+      "seriesLength": 23,
+      "ratingMpaa": null,
+      "ageRating": null,
+      "poster": {
+        "url": "https://image.openmoviedb.com/kinopoisk-images/10671298/12f7efab-8588-49ed-888e-fe42ee667bbc/600x900",
+        "previewUrl": "https://image.openmoviedb.com/kinopoisk-images/10671298/12f7efab-8588-49ed-888e-fe42ee667bbc/300x450"
+      },
+      "genres": [
+        {
+          "name": "аниме"
+        },
+        {
+          "name": "мультфильм"
+        },
+        {
+          "name": "драма"
+        },
+        {
+          "name": "детектив"
+        }
+      ],
+      "countries": [
+        {
+          "name": "Япония"
+        }
+      ],
+      "releaseYears": [
+        {
+          "start": 2024,
+          "end": null
+        }
+      ],
+      "top10": null,
+      "top250": null,
+      "isSeries": true,
+      "ticketsOnSale": false,
+      "backdrop": {
+        "url": null,
+        "previewUrl": null
+      },
+      "enName": "Shoshimin: How to Become Ordinary",
+      "logo": {
+        "url": "https://image.openmoviedb.com/tmdb-images/original/pjKHaDs8iSmLHgGR0Eo3mEFbsMn.png",
+        "previewUrl": "https://image.openmoviedb.com/tmdb-images/w500/pjKHaDs8iSmLHgGR0Eo3mEFbsMn.png"
+      },
+      "names": [
+        {
+          "name": "Shōshimin Shirīzu",
+          "language": "JP",
+          "type": null
+        },
+        {
+          "name": "소시민 시리즈 2기",
+          "language": "KR",
+          "type": null
+        },
+        {
+          "name": "Как стать обычным",
+          "language": "RU",
+          "type": null
+        },
+        {
+          "name": "โชชิมิง ซีรีส์",
+          "language": "TH",
+          "type": null
+        },
+        {
+          "name": "Shoshimin: How to Become Ordinary",
+          "language": "US",
+          "type": null
+        },
+        {
+          "name": "Shoushimin Series",
+          "language": "US",
+          "type": null
+        },
+        {
+          "name": "Shōshimin Series",
+          "language": "US",
+          "type": null
+        },
+        {
+          "name": "The Petit Bourgeois Series",
+          "language": "US",
+          "type": null
+        },
+        {
+          "name": "How to Become Ordinary",
+          "language": "US",
+          "type": null
+        }
+      ]
+    },
+    {
+      "id": 1008532,
+      "name": "Подставной город",
+      "alternativeName": "Jojakdoen dosi",
+      "enName": "",
+      "type": "movie",
+      "year": 2017,
+      "description": "В реальном мире Квон Ю — безработный неудачник, но в компьютерных играх — живая легенда и настоящий полевой командир. Однажды в кафе парень находит потерянный мобильник, хозяйка которого просит вернуть трубу за вознаграждение, что он и делает. А на следующий день Квон Ю забирают в полицию. Хозяйка телефона изнасилована и убита, а наш виртуальный герой — идеальный подозреваемый, чтобы присесть на пожизненный срок. Самое время вспомнить свои командирские навыки, собрать в сети преданных сторонников и показать этому миру — кто герой, а кто лузер.",
+      "shortDescription": "Геймер использует игровые навыки, чтобы избежать пожизненного срока. Корейский фильм с отличными экшен-сценами",
+      "movieLength": 126,
+      "isSeries": false,
+      "ticketsOnSale": false,
+      "totalSeriesLength": null,
+      "seriesLength": null,
+      "ratingMpaa": null,
+      "ageRating": 18,
+      "top10": null,
+      "top250": null,
+      "typeNumber": 1,
+      "status": null,
+      "names": [
+        {
+          "name": "Manipulated City",
+          "language": "US",
+          "type": "Literal title"
+        },
+        {
+          "name": "조작된 도시",
+          "language": "KR",
+          "type": "Revised romanization"
+        },
+        {
+          "name": "Manipulated City",
+          "language": "KR",
+          "type": null
+        },
+        {
+          "name": "Fabricated City",
+          "language": "US",
+          "type": null
+        },
+        {
+          "name": "Jojakdoen dosi",
+          "language": "KR",
+          "type": null
+        }
+      ],
+      "externalId": {
+        "imdb": "tt6399158",
+        "tmdb": 435366,
+        "kpHD": "4255703e6ba307379d658b9348ba5fde"
+      },
+      "logo": {
+        "url": "https://image.openmoviedb.com/tmdb-images/original/xGyJX2Qqd1QUjETwekqX4snHxK2.png",
+        "previewUrl": "https://image.openmoviedb.com/tmdb-images/w500/xGyJX2Qqd1QUjETwekqX4snHxK2.png"
+      },
+      "poster": {
+        "url": "https://image.openmoviedb.com/kinopoisk-images/4716873/d96f16cd-6d6a-4d52-9787-d17710ffbcf1/600x900",
+        "previewUrl": "https://image.openmoviedb.com/kinopoisk-images/4716873/d96f16cd-6d6a-4d52-9787-d17710ffbcf1/300x450"
+      },
+      "backdrop": {
+        "url": "https://image.openmoviedb.com/kinopoisk-ott-images/200035/2a0000017b3455512ff8eaf18cdbbbba1983/1344x756",
+        "previewUrl": "https://image.openmoviedb.com/kinopoisk-ott-images/200035/2a0000017b3455512ff8eaf18cdbbbba1983/678x380"
+      },
+      "rating": {
+        "kp": 7.302,
+        "imdb": 6.8,
+        "filmCritics": 6,
+        "russianFilmCritics": 0,
+        "await": null
+      },
+      "votes": {
+        "kp": 57978,
+        "imdb": 7200,
+        "filmCritics": 7,
+        "russianFilmCritics": 0,
+        "await": 0
+      },
+      "genres": [
+        {
+          "name": "боевик"
+        },
+        {
+          "name": "криминал"
+        }
+      ],
+      "countries": [
+        {
+          "name": "Корея Южная"
+        }
+      ],
+      "releaseYears": []
+    },
+    {
+      "id": 5901885,
+      "name": "Токийские мошенники",
+      "alternativeName": "Jimenshitachi",
+      "type": "tv-series",
+      "typeNumber": 2,
+      "year": 2024,
+      "description": "Группа преступников наживается на незаконной продаже недвижимости.",
+      "shortDescription": null,
+      "status": "completed",
+      "rating": {
+        "kp": 7,
+        "imdb": 7.2,
+        "filmCritics": 0,
+        "russianFilmCritics": 0,
+        "await": null
+      },
+      "votes": {
+        "kp": 279,
+        "imdb": 2800,
+        "filmCritics": 0,
+        "russianFilmCritics": 0,
+        "await": 0
+      },
+      "movieLength": null,
+      "totalSeriesLength": 60,
+      "seriesLength": null,
+      "ratingMpaa": null,
+      "ageRating": null,
+      "poster": {
+        "url": "https://image.openmoviedb.com/kinopoisk-images/10900341/89d34e39-af32-4f25-876a-e41dfd04b098/600x900",
+        "previewUrl": "https://image.openmoviedb.com/kinopoisk-images/10900341/89d34e39-af32-4f25-876a-e41dfd04b098/300x450"
+      },
+      "genres": [
+        {
+          "name": "триллер"
+        },
+        {
+          "name": "криминал"
+        }
+      ],
+      "countries": [
+        {
+          "name": "Япония"
+        }
+      ],
+      "releaseYears": [
+        {
+          "start": 2024,
+          "end": 2024
+        }
+      ],
+      "top10": null,
+      "top250": null,
+      "isSeries": true,
+      "ticketsOnSale": false,
+      "backdrop": {
+        "url": null,
+        "previewUrl": null
+      },
+      "enName": "TOKYO SWINDLERS",
+      "logo": {
+        "url": "https://image.openmoviedb.com/tmdb-images/original/qBk2OQo6zpfREuGWH9tEz3Rf0y8.png",
+        "previewUrl": "https://image.openmoviedb.com/tmdb-images/w500/qBk2OQo6zpfREuGWH9tEz3Rf0y8.png"
+      },
+      "names": [
+        {
+          "name": "地面师们",
+          "language": "CN",
+          "type": null
+        },
+        {
+          "name": "Jimenshi Tachi",
+          "language": "JP",
+          "type": null
+        },
+        {
+          "name": "Jimenshitachi",
+          "language": "JP",
+          "type": null
+        },
+        {
+          "name": "TOKYO SWINDLERS",
+          "language": "US",
+          "type": null
+        }
+      ]
+    },
+    {
+      "id": 5605745,
+      "name": "Притворись моей невестой",
+      "alternativeName": "L'heureuse élue",
+      "enName": null,
+      "type": "movie",
+      "typeNumber": 1,
+      "year": 2024,
+      "description": "Молодой мажор живет на широкую ногу и постоянно клянчит деньги у богатых родителей. Когда их терпению приходит конец, а бандиты требуют оплаты долгов, он решается на последнюю авантюру — убедить предков оплатить выдуманную свадьбу. Бывшие подружки не хотят иметь с ним дел, и тогда он просит случайную таксистку — девушку без комплексов, но с кучей вредных привычек — притвориться его невестой.",
+      "shortDescription": "Мажор делает таксистке предложение, от которого трудно отказаться. Отвязный французский ромком в Марракеше",
+      "status": null,
+      "rating": {
+        "kp": 7,
+        "imdb": 5.5,
+        "filmCritics": 0,
+        "russianFilmCritics": 0,
+        "await": null
+      },
+      "votes": {
+        "kp": 55694,
+        "imdb": 450,
+        "filmCritics": 0,
+        "russianFilmCritics": 1,
+        "await": 0
+      },
+      "movieLength": 91,
+      "totalSeriesLength": null,
+      "seriesLength": null,
+      "ratingMpaa": null,
+      "ageRating": 18,
+      "genres": [
+        {
+          "name": "мелодрама"
+        },
+        {
+          "name": "комедия"
+        }
+      ],
+      "countries": [
+        {
+          "name": "Франция"
+        }
+      ],
+      "top10": null,
+      "top250": null,
+      "isSeries": false,
+      "ticketsOnSale": false,
+      "poster": {
+        "previewUrl": "https://image.openmoviedb.com/kinopoisk-images/9784475/872f2925-0727-413c-bd53-92e552ab9f29/300x450",
+        "url": "https://image.openmoviedb.com/kinopoisk-images/9784475/872f2925-0727-413c-bd53-92e552ab9f29/600x900"
+      },
+      "backdrop": {
+        "url": "https://image.openmoviedb.com/kinopoisk-ott-images/1652588/2a00000196673179e0fc9441f2cec38bcb97/1344x756",
+        "previewUrl": "https://image.openmoviedb.com/kinopoisk-ott-images/1652588/2a00000196673179e0fc9441f2cec38bcb97/678x380"
+      },
+      "logo": {
+        "url": "https://image.openmoviedb.com/tmdb-images/original/b8jZkRrkzIHQjjGRwj53eTeWLVi.png",
+        "previewUrl": "https://image.openmoviedb.com/tmdb-images/w500/b8jZkRrkzIHQjjGRwj53eTeWLVi.png"
+      },
+      "names": []
+    },
+    {
+      "id": 257924,
+      "name": "Дедушка и внучек",
+      "alternativeName": null,
+      "enName": null,
+      "names": [
+        {
+          "name": "Dedushka i vnuchek",
+          "language": "SU",
+          "type": null
+        }
+      ],
+      "type": "cartoon",
+      "typeNumber": 3,
+      "year": 1950,
+      "description": "Друзья приводят медвежонка в Лесную спортивную школу, где он учится кататься на коньках.",
+      "shortDescription": "Друзья будят медвежонка зимой, чтобы вместе пойти на каток. Мультфильм, вдохновляющий на спортивные достижения",
+      "status": null,
+      "rating": {
+        "kp": 7,
+        "imdb": 6.4,
+        "filmCritics": 0,
+        "russianFilmCritics": 0,
+        "await": null
+      },
+      "votes": {
+        "kp": 1877,
+        "imdb": 41,
+        "filmCritics": 0,
+        "russianFilmCritics": 0,
+        "await": 0
+      },
+      "movieLength": 18,
+      "totalSeriesLength": null,
+      "seriesLength": null,
+      "ratingMpaa": null,
+      "ageRating": 12,
+      "poster": {
+        "url": "https://image.openmoviedb.com/kinopoisk-images/1898899/1d8c5abe-10cb-48f1-ada5-becbb22b1837/600x900",
+        "previewUrl": "https://image.openmoviedb.com/kinopoisk-images/1898899/1d8c5abe-10cb-48f1-ada5-becbb22b1837/300x450"
+      },
+      "backdrop": {
+        "url": "https://image.openmoviedb.com/kinopoisk-ott-images/212840/2a0000019450619a33f919dd1844ac5dae7f/1344x756",
+        "previewUrl": "https://image.openmoviedb.com/kinopoisk-ott-images/212840/2a0000019450619a33f919dd1844ac5dae7f/678x380"
+      },
+      "genres": [
+        {
+          "name": "мультфильм"
+        },
+        {
+          "name": "короткометражка"
+        }
+      ],
+      "countries": [
+        {
+          "name": "СССР"
+        }
+      ],
+      "top10": null,
+      "top250": null,
+      "isSeries": false,
+      "ticketsOnSale": false,
+      "logo": {
+        "url": null,
+        "previewUrl": null
+      }
+    },
+    {
+      "id": 4910100,
+      "name": "Задира",
+      "alternativeName": "Scrapper",
+      "enName": null,
+      "names": [
+        {
+          "name": "Nan",
+          "language": "GB",
+          "type": "working title"
+        },
+        {
+          "name": "Yet To Be",
+          "language": "GB",
+          "type": "working title"
+        },
+        {
+          "name": "A vadóc",
+          "language": "HU",
+          "type": null
+        },
+        {
+          "name": "Georgies Verden",
+          "language": "DK",
+          "type": null
+        },
+        {
+          "name": "SCRAPPERスクラッパー",
+          "language": "JP",
+          "type": null
+        }
+      ],
+      "type": "movie",
+      "typeNumber": 1,
+      "year": 2023,
+      "description": "12-летняя Джорджи счастливо живёт одна в своей лондонской квартире, наполняя её волшебством. Однажды в её жизни появляется отец и заставляет девочку столкнуться с реальностью.",
+      "shortDescription": "В жизнь Джорджи врывается ее молодой отец. Очаровательное британское драмеди с Харрисом Дикинсоном",
+      "status": null,
+      "rating": {
+        "kp": 7,
+        "imdb": 6.9,
+        "filmCritics": 7.4,
+        "russianFilmCritics": 66.6667,
+        "await": null
+      },
+      "votes": {
+        "kp": 17474,
+        "imdb": 7900,
+        "filmCritics": 117,
+        "russianFilmCritics": 3,
+        "await": 0
+      },
+      "movieLength": 84,
+      "totalSeriesLength": null,
+      "seriesLength": null,
+      "ratingMpaa": null,
+      "ageRating": 12,
+      "poster": {
+        "url": "https://image.openmoviedb.com/kinopoisk-images/10812607/c7f1a52c-7a81-4efd-89ab-9d1987fd43a4/600x900",
+        "previewUrl": "https://image.openmoviedb.com/kinopoisk-images/10812607/c7f1a52c-7a81-4efd-89ab-9d1987fd43a4/300x450"
+      },
+      "backdrop": {
+        "url": "https://image.openmoviedb.com/kinopoisk-ott-images/236744/2a0000018ea96f2ed056d49403fe382994d6/1344x756",
+        "previewUrl": "https://image.openmoviedb.com/kinopoisk-ott-images/236744/2a0000018ea96f2ed056d49403fe382994d6/678x380"
+      },
+      "genres": [
+        {
+          "name": "драма"
+        },
+        {
+          "name": "комедия"
+        }
+      ],
+      "countries": [
+        {
+          "name": "Великобритания"
+        }
+      ],
+      "top10": null,
+      "top250": null,
+      "isSeries": false,
+      "ticketsOnSale": false,
+      "logo": {
+        "url": null,
+        "previewUrl": null
+      }
+    },
+    {
+      "id": 5143788,
+      "name": "Фенрис",
+      "alternativeName": "Fenris",
+      "names": [
+        {
+          "name": "Фенрис",
+          "language": "RU",
+          "type": "Russian title on kinopoisk"
+        },
+        {
+          "name": "Fenris",
+          "language": null,
+          "type": "Original title on kinopoisk"
+        }
+      ],
+      "type": "tv-series",
+      "typeNumber": 2,
+      "year": 2022,
+      "description": "В маленьком норвежском городке пропадает мальчик. Начинают ходить слухи, что во всём виноваты волки. Местный биолог Эмма обнаруживает окровавленную куртку в доме своего отца, который тоже вскоре исчезает. Женщина не верит в виновность волков и начинает своё расследование.",
+      "shortDescription": "Зоозащитница расследует исчезновение подростка в норвежской глуши. Атмосферная драма режиссера «Лиллехаммера»",
+      "status": "completed",
+      "rating": {
+        "kp": 7,
+        "imdb": 6.6,
+        "filmCritics": 0,
+        "russianFilmCritics": 0,
+        "await": null
+      },
+      "votes": {
+        "kp": 11633,
+        "imdb": 708,
+        "filmCritics": 0,
+        "russianFilmCritics": 0,
+        "await": 0
+      },
+      "movieLength": null,
+      "totalSeriesLength": 270,
+      "seriesLength": 50,
+      "ratingMpaa": null,
+      "ageRating": 18,
+      "poster": {
+        "url": "https://image.openmoviedb.com/kinopoisk-images/9784475/3cd8fcb0-6e5a-49a8-9cec-14e3afa81a3c/600x900",
+        "previewUrl": "https://image.openmoviedb.com/kinopoisk-images/9784475/3cd8fcb0-6e5a-49a8-9cec-14e3afa81a3c/300x450"
+      },
+      "backdrop": {
+        "url": "https://image.openmoviedb.com/kinopoisk-ott-images/2419418/2a0000018cee73e9c9b033a4ddbf7223861e/1344x756",
+        "previewUrl": "https://image.openmoviedb.com/kinopoisk-ott-images/2419418/2a0000018cee73e9c9b033a4ddbf7223861e/678x380"
+      },
+      "genres": [
+        {
+          "name": "драма"
+        },
+        {
+          "name": "криминал"
+        }
+      ],
+      "countries": [
+        {
+          "name": "Норвегия"
+        }
+      ],
+      "releaseYears": [
+        {
+          "start": 2022,
+          "end": 2022
+        }
+      ],
+      "top10": null,
+      "top250": null,
+      "isSeries": true,
+      "ticketsOnSale": false
+    }
+  ],
+  "total": 117,
+  "limit": 10,
+  "page": 1,
+  "pages": 12
+}

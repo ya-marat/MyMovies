@@ -1,7 +1,6 @@
 package com.example.mymovies.presentation.fragments
 
 import android.content.Context
-import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -9,14 +8,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
+import com.example.mymovies.R
 import com.example.mymovies.databinding.FragmentMovieHomeScreenBinding
 import com.example.mymovies.domain.Movie
 import com.example.mymovies.presentation.App
 import com.example.mymovies.presentation.viewmodels.MovieListViewModel
-import com.example.mymovies.presentation.NavigateFragment
 import com.example.mymovies.presentation.ViewModelFactory
 import com.example.mymovies.presentation.activities.MovieDetailActivity
 import com.example.mymovies.presentation.adapter.MovieAdapter
+import com.example.mymovies.presentation.item.HorizontalItemDecoration
+import com.squareup.picasso.Picasso
 import javax.inject.Inject
 
 class MovieListFragment : Fragment() {
@@ -52,38 +53,67 @@ class MovieListFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         viewModel = ViewModelProvider(this, viewModelFactory)[MovieListViewModel::class.java]
-        val adapter = MovieAdapter(requireActivity())
+        val firstAdapter = MovieAdapter(requireActivity())
+        val secondListAdapter = MovieAdapter(requireActivity())
+        val thirdListAdapter = MovieAdapter(requireActivity())
 
-        adapter.onMovieItemClick = ::onMovieClick
-        adapter.onEndPageReached = ::onEndPageReached
+        firstAdapter.onMovieItemClick = ::onMovieClick
+        firstAdapter.onEndPageReached = ::onEndPageReached
 
-        binding.movieList.adapter = adapter
+        secondListAdapter.onMovieItemClick = ::onMovieClick
+        secondListAdapter.onEndPageReached = ::onEndPageReached
+
+        thirdListAdapter.onMovieItemClick = ::onMovieClick
+        thirdListAdapter.onEndPageReached = ::onEndPageReached
+
+        val itemDecoration = HorizontalItemDecoration(20)
+
+        binding.movieList1.adapter = firstAdapter
+        binding.movieList2.adapter = secondListAdapter
+        binding.movieList3.adapter = thirdListAdapter
+
+        binding.tvListName3.text = getString(R.string.list_name_day_genre, viewModel.genre)
+
+        binding.movieList1.addItemDecoration(itemDecoration)
+        binding.movieList2.addItemDecoration(itemDecoration)
+        binding.movieList3.addItemDecoration(itemDecoration)
 
         viewModel.movies.observe(viewLifecycleOwner) {
-            adapter.submitList(it)
-            Log.d(TAG, "Loaded Movies ${it.size}}")
+            firstAdapter.submitList(it)
         }
 
-        viewModel.loadMovies()
+        viewModel.firstMovieElement.observe(viewLifecycleOwner) {
+            Picasso.get().load(it.poster).into(binding.firstMovieElement)
+        }
+
+        viewModel.popularMovies.observe(viewLifecycleOwner) {
+            secondListAdapter.submitList(it)
+        }
+
+        viewModel.moviesByGenre.observe(viewLifecycleOwner) {
+            thirdListAdapter.submitList(it)
+        }
+
+        viewModel.isLoading.observe(viewLifecycleOwner) {
+            binding.pbLoadingMovie.visibility = if(it) View.VISIBLE else View.GONE
+            binding.nsvRoot.visibility = if(!it) View.VISIBLE else View.GONE
+        }
+
+        binding.firstMovieElement.setOnClickListener {
+            viewModel.firstMovieElement.value?.let {
+                onMovieClick(it)
+            }
+        }
     }
 
     private fun onMovieClick(movie: Movie) {
-        Log.d(TAG, "Click on movie ${movie.id} ${movie.name}")
-
-        val detailFragment = MovieDetailFragment.newInstance(movie)
-
-        val requireActivity = requireActivity();
-
-//        if(requireActivity is NavigateFragment){
-//            with(requireActivity) { navigateToFragmentWithParameter(detailFragment) }
-//        }
-
-        val intent = MovieDetailActivity.newIntent(requireActivity, movie)
+        val intent = MovieDetailActivity.newIntent(requireActivity(), movie)
         startActivity(intent)
     }
 
-    private fun onEndPageReached(){
+    private fun onEndPageReached() {
         Log.d(TAG, "OnReached")
         //viewModel.loadMovies()
     }

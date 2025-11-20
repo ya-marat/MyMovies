@@ -1,20 +1,132 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/app_black"
+    android:clickable="true"
+    android:focusable="true"
     tools:context=".presentation.fragments.MovieListFragment">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/movie_list"
+    <ProgressBar
+        android:id="@+id/pb_loading_movie"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center" />
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/nsv_root"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:spanCount="2"
-        tools:listitem="@layout/item_movie"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:layout_marginBottom="10dp"
-        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"/>
+        tools:visibility="visible">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_root_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/first_movie_element"
+                android:layout_width="match_parent"
+                android:layout_height="450dp"
+                android:adjustViewBounds="true"
+                android:contentDescription="@null"
+                android:scaleType="centerCrop"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:background="@color/white"
+                tools:minHeight="450dp" />
+
+            <LinearLayout
+                android:id="@+id/ll_list_content_1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="13dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="13dp"
+                android:orientation="vertical"
+                app:layout_constraintTop_toBottomOf="@id/first_movie_element">
+
+                <TextView
+                    android:id="@+id/tv_list_name_1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="@string/list_name_new_movies"
+                    android:textColor="@color/list_name"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    tools:text="@string/list_name_new_movies" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/movie_list_1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="13dp"
+                    android:orientation="horizontal"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    tools:listitem="@layout/item_movie" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_list_content_2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="13dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="13dp"
+                android:orientation="vertical"
+                app:layout_constraintTop_toBottomOf="@id/ll_list_content_1">
+
+                <TextView
+                    android:id="@+id/tv_list_name_2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="@string/list_name_popular"
+                    android:textColor="@color/list_name"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    tools:text="@string/list_name_popular" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/movie_list_2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="13dp"
+                    android:orientation="horizontal"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    tools:listitem="@layout/item_movie" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_list_content_3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="13dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="13dp"
+                android:orientation="vertical"
+                app:layout_constraintTop_toBottomOf="@id/ll_list_content_2">
+
+                <TextView
+                    android:id="@+id/tv_list_name_3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="@string/list_name_day_genre"
+                    android:textColor="@color/list_name"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    tools:text="@string/list_name_day_genre" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/movie_list_3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="13dp"
+                    android:orientation="horizontal"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    tools:listitem="@layout/item_movie" />
+            </LinearLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
+</FrameLayout>

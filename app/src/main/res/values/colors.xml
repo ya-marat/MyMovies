@@ -4,4 +4,7 @@
     <color name="white">#FFFFFFFF</color>
     <color name="detail_text_color">#FFFFFFFF</color>
     <color name="app_black">#121212</color>
+    <color name="list_name">#F3F3F3</color>
+    <color name="nav_bar_default">#BBBBBB</color>
+    <color name="main_color_2">#32A873</color>
 </resources>

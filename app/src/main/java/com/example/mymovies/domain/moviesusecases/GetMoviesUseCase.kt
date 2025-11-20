@@ -1,8 +1,10 @@
-package com.example.mymovies.domain
+package com.example.mymovies.domain.moviesusecases
 
 import android.util.Log
 import com.example.mymovies.Consts
 import com.example.mymovies.data.MovieRepositoryImpl
+import com.example.mymovies.domain.Movie
+import com.example.mymovies.domain.MovieRepository
 import javax.inject.Inject
 
 class GetMoviesUseCase @Inject constructor (
@@ -15,7 +17,7 @@ class GetMoviesUseCase @Inject constructor (
             return (movieRepository as MovieRepositoryImpl).loadMoviesFromFile() // TEST
         }
 
-        val result = movieRepository.loadMovies(page)
+        val result = movieRepository.loadNewMovies(page)
         return result
     }
 }
