@@ -2,6 +2,7 @@ package com.example.mymovies.presentation.fragments
 
 import android.content.Context
 import android.content.Intent
+import android.graphics.PorterDuff
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
@@ -10,9 +11,11 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
 import com.example.mymovies.R
 import com.example.mymovies.databinding.FragmentMovieDetailBinding
+import com.example.mymovies.domain.ImageManager
 import com.example.mymovies.domain.Movie
 import com.example.mymovies.domain.MoviePerson
 import com.example.mymovies.domain.MovieProfessionType
@@ -20,7 +23,10 @@ import com.example.mymovies.domain.MovieTrailer
 import com.example.mymovies.presentation.App
 import com.example.mymovies.presentation.viewmodels.MovieDetailViewModel
 import com.example.mymovies.presentation.ViewModelFactory
+import com.squareup.picasso.Callback
 import com.squareup.picasso.Picasso
+import java.io.File
+import java.lang.Exception
 import javax.inject.Inject
 
 class MovieDetailFragment : Fragment() {
@@ -31,6 +37,9 @@ class MovieDetailFragment : Fragment() {
 
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
+
+    @Inject
+    lateinit var imageManager: ImageManager
 
     private var _binding: FragmentMovieDetailBinding? = null
     private val binding: FragmentMovieDetailBinding
@@ -85,6 +94,12 @@ class MovieDetailFragment : Fragment() {
             binding.clRoot.visibility = View.INVISIBLE
             viewModel.loadMovieById(it)
         }
+
+        binding.ibFavourites.setOnClickListener {
+            imageManager.trySaveImage(binding.imgDetailMoviePoster, movie.id!!)
+            val color = ContextCompat.getColor(requireContext(), R.color.main_color_2)
+            binding.ibFavourites.setColorFilter(color)
+        }
     }
 
     private fun bindMovieToView(movie: Movie?) {
@@ -92,11 +107,23 @@ class MovieDetailFragment : Fragment() {
             return
         }
 
+        val testPath = "/data/data/com.example.mymovies/files/movies_img_10085305.png"
+        val posterFile = File(testPath)
+
         with(binding) {
+
             binding.pbLoadingMovie.visibility = View.GONE
             binding.clRoot.visibility = View.VISIBLE
             movie.poster?.let { it ->
-                Picasso.get().load(it).into(imgDetailMoviePoster)
+                Picasso.get().load(it).into(imgDetailMoviePoster, object : Callback{
+                    override fun onSuccess() {
+                        Log.d(TAG, "Succes")
+                    }
+
+                    override fun onError(e: Exception?) {
+                        Log.d(TAG, e.toString())
+                    }
+                })
             }
             tvMovieName.text = movie.name
             val detailMovieText = "${movie.year} | ${movie.rating}"

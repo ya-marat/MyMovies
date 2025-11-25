@@ -72,7 +72,6 @@ dependencies {
     implementation("androidx.room:room-ktx:$room_version")
 
     implementation ("com.squareup.picasso:picasso:2.71828")
-    implementation ("androidx.work:work-runtime-ktx:2.10.2")
     implementation ("com.squareup.picasso:picasso:2.8")
 
     testImplementation(libs.junit)

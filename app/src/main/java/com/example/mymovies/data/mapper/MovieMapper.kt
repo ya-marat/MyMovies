@@ -1,5 +1,6 @@
 package com.example.mymovies.data.mapper
 
+import com.example.mymovies.data.database.entitesdb.FavouriteMovieDbModel
 import com.example.mymovies.data.network.model.GenreDto
 import com.example.mymovies.data.network.model.MovieDto
 import com.example.mymovies.domain.Movie
@@ -34,4 +35,12 @@ class MovieMapper @Inject constructor() {
             },
             movieTrailers = dto.videos?.trailers?.map { MovieTrailer(it?.url, it?.name) })
     }
+
+//    fun mapFavouriteMovieDbModelToMovie(movieDbModel: FavouriteMovieDbModel): Movie {
+//
+//    }
+//
+//    fun mapMovieToFavouriteMovieDbModel(movie: Movie): FavouriteMovieDbModel {
+//
+//    }
 }

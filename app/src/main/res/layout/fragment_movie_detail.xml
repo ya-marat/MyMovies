@@ -49,10 +49,11 @@
                     android:id="@+id/ib_favourites"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
-                    android:src="@drawable/ic_favourites_btn"
                     android:layout_marginEnd="10dp"
                     android:layout_marginTop="10dp"
+                    android:src="@drawable/ic_favourites_btn"
                     android:background="@null"
+                    app:tint="@color/white"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent"/>
 

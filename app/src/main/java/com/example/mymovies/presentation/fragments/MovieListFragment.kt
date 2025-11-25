@@ -80,6 +80,8 @@ class MovieListFragment : Fragment() {
         binding.movieList2.addItemDecoration(itemDecoration)
         binding.movieList3.addItemDecoration(itemDecoration)
 
+
+
         viewModel.movies.observe(viewLifecycleOwner) {
             firstAdapter.submitList(it)
         }
