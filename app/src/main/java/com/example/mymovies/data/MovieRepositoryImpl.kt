@@ -1,11 +1,15 @@
 package com.example.mymovies.data
 
 import android.util.Log
+import com.example.mymovies.data.local.database.dao.DatabaseDao
+import com.example.mymovies.data.local.datasource.LocalDataSource
 import com.example.mymovies.data.mapper.MovieMapper
-import com.example.mymovies.data.network.ApiService
-import com.example.mymovies.data.network.model.MovieDto
-import com.example.mymovies.data.network.model.MoviesResponseDto
+import com.example.mymovies.data.remote.datasource.RemoteDataSource
+import com.example.mymovies.data.remote.network.ApiService
+import com.example.mymovies.data.remote.network.dto.MovieDto
+import com.example.mymovies.data.remote.network.dto.MoviesResponseDto
 import com.example.mymovies.domain.FileReaderUseCase
+import com.example.mymovies.domain.ImageManager
 import com.example.mymovies.domain.Movie
 import com.example.mymovies.domain.MovieRepository
 import retrofit2.HttpException
@@ -16,7 +20,11 @@ import kotlin.Exception
 class MovieRepositoryImpl @Inject constructor(
     private val mapper: MovieMapper,
     private val apiService: ApiService,
-    private val fileReaderUseCase: FileReaderUseCase
+    private val fileReaderUseCase: FileReaderUseCase,
+    private val databaseDao: DatabaseDao,
+    private val imageManager: ImageManager,
+    private val localDataSource: LocalDataSource,
+    private val remoteDataSource: RemoteDataSource
 ) : MovieRepository {
 
     companion object {
@@ -52,6 +60,7 @@ class MovieRepositoryImpl @Inject constructor(
     override suspend fun loadMovieById(movieId: Int): Movie? {
 
         var response: MovieDto? = null
+        remoteDataSource.getMovieById(movieId)
 
         try {
             response = apiService.loadMovieById(movieId)
@@ -86,6 +95,22 @@ class MovieRepositoryImpl @Inject constructor(
 
     fun loadMoviesFromFile(): List<Movie> {
         return fileReaderUseCase.loadMoviesFromFile()
+    }
+
+    override suspend fun getMovieFromDb(movieId: Int): Movie {
+
+        return TODO("Provide the return value")
+    }
+
+    override suspend fun insertMovieToDb(movie: Movie) {
+
+//        val posterPath = imageManager.downloadAndSaveMoviePoster(movie)
+//        val dbModel = mapper.mapMovieToMovieDb(movie, posterPath)
+//        databaseDao.insertMovieToFavourite(dbModel)
+
+        val db = mapper.mapMovieToMovieDb(movie, "")
+
+        localDataSource.saveMovie(db)
     }
 
     private suspend fun <T> runRequest(request: suspend () -> T): T? {

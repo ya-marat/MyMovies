@@ -1,4 +1,4 @@
-package com.example.mymovies.data.network
+package com.example.mymovies.data.remote.network
 
 import android.util.Log
 import com.example.mymovies.Consts

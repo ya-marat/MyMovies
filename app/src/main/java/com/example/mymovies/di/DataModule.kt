@@ -10,6 +10,7 @@ import dagger.Provides
 @Module
 interface DataModule {
 
+    @AppScope
     @Binds
     fun bindMovieRepository(impl: MovieRepositoryImpl): MovieRepository
 }

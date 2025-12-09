@@ -1,8 +1,7 @@
 package com.example.mymovies.data.mapper
 
-import com.example.mymovies.data.database.entitesdb.FavouriteMovieDbModel
-import com.example.mymovies.data.network.model.GenreDto
-import com.example.mymovies.data.network.model.MovieDto
+import com.example.mymovies.data.local.database.entites.MovieDBEntity
+import com.example.mymovies.data.remote.network.dto.MovieDto
 import com.example.mymovies.domain.Movie
 import com.example.mymovies.domain.MovieGenre
 import com.example.mymovies.domain.MoviePerson
@@ -34,6 +33,37 @@ class MovieMapper @Inject constructor() {
                 )
             },
             movieTrailers = dto.videos?.trailers?.map { MovieTrailer(it?.url, it?.name) })
+    }
+
+    fun mapMovieDbToMovie(movieDBEntity: MovieDBEntity): Movie {
+        return Movie(
+            id = movieDBEntity.id,
+            name = movieDBEntity.movieName,
+            description = movieDBEntity.description,
+            year = movieDBEntity.year,
+            poster = movieDBEntity.poster,
+            previewPoster = movieDBEntity.previewPoster,
+            rating = movieDBEntity.rating,
+            ageRating = movieDBEntity.ageRating,
+            isSeries = movieDBEntity.isSeries,
+            genres = listOf(),
+            moviePersons = listOf(),
+            movieTrailers = listOf()
+        )
+    }
+
+    fun mapMovieToMovieDb(movie: Movie, posterPath: String): MovieDBEntity {
+        return MovieDBEntity(
+            id = movie.id,
+            movieName = movie.name,
+            description = movie.description,
+            year = movie.year,
+            poster = posterPath,
+            previewPoster = posterPath,
+            rating = movie.rating,
+            ageRating = movie.ageRating,
+            isSeries = movie.isSeries
+        )
     }
 
 //    fun mapFavouriteMovieDbModelToMovie(movieDbModel: FavouriteMovieDbModel): Movie {

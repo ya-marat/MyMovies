@@ -11,7 +11,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.mymovies.R
 import com.example.mymovies.databinding.FragmentMovieHomeScreenBinding
 import com.example.mymovies.domain.Movie
-import com.example.mymovies.presentation.App
+import com.example.mymovies.App
 import com.example.mymovies.presentation.viewmodels.MovieListViewModel
 import com.example.mymovies.presentation.ViewModelFactory
 import com.example.mymovies.presentation.activities.MovieDetailActivity

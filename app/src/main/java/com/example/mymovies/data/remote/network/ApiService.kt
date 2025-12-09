@@ -1,14 +1,12 @@
-package com.example.mymovies.data.network
+package com.example.mymovies.data.remote.network
 
 import com.example.mymovies.Consts
-import com.example.mymovies.data.network.model.MovieDto
-import com.example.mymovies.data.network.model.MovieResponseDto
-import com.example.mymovies.data.network.model.MoviesResponseDto
+import com.example.mymovies.data.remote.network.dto.MovieDto
+import com.example.mymovies.data.remote.network.dto.MoviesResponseDto
 import retrofit2.http.GET
 import retrofit2.http.Headers
 import retrofit2.http.Path
 import retrofit2.http.Query
-import retrofit2.http.QueryName
 
 
 interface ApiService {

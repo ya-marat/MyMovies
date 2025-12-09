@@ -1,37 +1,53 @@
 package com.example.mymovies.domain
 
+import android.app.Application
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
-import android.graphics.drawable.BitmapDrawable
-import android.media.Image
 import android.util.Log
-import android.widget.ImageView
+import com.squareup.picasso.Picasso
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import java.io.File
 import java.io.FileOutputStream
 import javax.inject.Inject
 
 class ImageManager @Inject constructor(
-    private val context: Context
+    private val application: Application
 ) {
 
-    fun trySaveImage(imageView: ImageView, id:Int): String {
-        val drawable = imageView.drawable
-        if (drawable is BitmapDrawable) {
-            val imageBitmap  = drawable.bitmap
-            val file = File(context.filesDir, "movies_img_$id.png")
-            file.parentFile?.mkdir()
+    suspend fun downloadAndSaveMoviePoster(movie: Movie): String {
 
-            FileOutputStream(file).use { stream -> imageBitmap.compress(Bitmap.CompressFormat.PNG, 85, stream) }
+        return withContext(Dispatchers.IO) {
+            try {
 
-            Log.d("ImageManager", "Saved: ${file.absolutePath}")
-            return file.absolutePath
+                val bitmap = Picasso.get().load(movie.poster).get()
+
+                val file = File(application.filesDir, "movies_img_${movie.id}.png")
+                file.parentFile?.mkdir()
+
+                FileOutputStream(file).use { stream ->
+                    bitmap.compress(
+                        Bitmap.CompressFormat.PNG,
+                        90,
+                        stream
+                    )
+                }
+
+                Log.d("ImageManager", "Saved: ${file.absolutePath}")
+                file.absolutePath
+            } catch (e: Exception) {
+                Log.e(TAG, "Failed download or save image.\n${e.toString()}")
+                throw e
+            }
         }
-
-        return ""
     }
 
     fun loadImage(path: String): Bitmap? {
         return BitmapFactory.decodeFile(path)
+    }
+
+    companion object {
+        private const val TAG = "ImageManager"
     }
 }
