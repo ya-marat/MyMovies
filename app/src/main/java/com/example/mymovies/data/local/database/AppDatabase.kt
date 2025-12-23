@@ -6,18 +6,18 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.example.mymovies.data.local.database.dao.DatabaseDao
 import com.example.mymovies.data.local.database.entites.MovieDBEntity
-import com.example.mymovies.data.local.database.entites.MovieActorDBEntity
+import com.example.mymovies.data.local.database.entites.MoviePersonDBEntity
 import com.example.mymovies.data.local.database.entites.MovieActorJoin
 import com.example.mymovies.data.local.database.entites.MovieGenreDBEntity
 
 @Database(
     entities = [
         MovieDBEntity::class,
-        MovieActorDBEntity::class,
+        MoviePersonDBEntity::class,
         MovieGenreDBEntity::class,
         MovieActorJoin::class
     ],
-    version = 1,
+    version = 2,
     exportSchema = false
 )
 abstract class AppDatabase : RoomDatabase() {

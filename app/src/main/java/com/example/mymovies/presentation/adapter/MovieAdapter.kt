@@ -33,7 +33,7 @@ class MovieAdapter(
 
             //Picasso.get().load(movie.poster).into(imgMoviePoster)
             root.setOnClickListener {
-                onMovieItemClick?.invoke(movie)
+                onMovieItemClick(movie)
             }
 
             Log.d("MovieAdapter", "CurrentList ${currentList?.size}")

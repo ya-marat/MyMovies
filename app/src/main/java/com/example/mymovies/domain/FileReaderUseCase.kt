@@ -14,7 +14,7 @@ class FileReaderUseCase @Inject constructor(
         val filePath = "movies_local_file.json"
         val jsonString = application.assets.open(filePath).bufferedReader().use { it.readText() }
         val movies = Gson().fromJson(jsonString, MoviesResponseDto::class.java)
-        movies?.let { return it.movies.map { mapper.mapDtoToEntity(it) } }
+        movies?.let { return it.movies.map { mapper.mapDtoToDomain(it) } }
         return listOf()
     }
 }

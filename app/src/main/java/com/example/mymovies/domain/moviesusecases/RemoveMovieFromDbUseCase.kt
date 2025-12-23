@@ -5,10 +5,10 @@ import com.example.mymovies.domain.MovieRepository
 import com.example.mymovies.domain.common.Result
 import javax.inject.Inject
 
-class GetMoviesByGenreUseCase @Inject constructor(
+class RemoveMovieFromDbUseCase @Inject constructor(
     private val movieRepository: MovieRepository
 ) {
-    suspend fun getMoviesByGenre(page: Int, genre: String): Result<List<Movie>> {
-        return movieRepository.loadMoviesByGenre(page, genre)
+    suspend operator fun invoke(movie: Movie): Result<Unit> {
+        return movieRepository.removeMovieFromDb(movie)
     }
 }

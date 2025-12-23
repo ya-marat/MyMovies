@@ -5,10 +5,11 @@ import androidx.room.PrimaryKey
 
 
 @Entity(
-    tableName = "movie_actor",
+    tableName = "movie_person",
 )
-data class MovieActorDBEntity (
+data class MoviePersonDBEntity (
     @PrimaryKey
-    val id: Int?,
-    val name: String?
+    val id: Int,
+    val name: String?,
+    val profession: String?
 )

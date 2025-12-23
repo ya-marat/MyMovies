@@ -1,134 +1,220 @@
 package com.example.mymovies.data
 
-import android.util.Log
-import com.example.mymovies.data.local.database.dao.DatabaseDao
+import androidx.lifecycle.LiveData
+import com.example.mymovies.data.local.database.dto.MovieCastDto
+import com.example.mymovies.data.local.database.entites.MovieActorJoin
+import com.example.mymovies.data.local.database.entites.MovieGenreDBEntity
+import com.example.mymovies.data.local.database.entites.MoviePersonDBEntity
 import com.example.mymovies.data.local.datasource.LocalDataSource
 import com.example.mymovies.data.mapper.MovieMapper
+import com.example.mymovies.data.remote.datasource.ApiResult
 import com.example.mymovies.data.remote.datasource.RemoteDataSource
-import com.example.mymovies.data.remote.network.ApiService
-import com.example.mymovies.data.remote.network.dto.MovieDto
-import com.example.mymovies.data.remote.network.dto.MoviesResponseDto
-import com.example.mymovies.domain.FileReaderUseCase
 import com.example.mymovies.domain.ImageManager
 import com.example.mymovies.domain.Movie
 import com.example.mymovies.domain.MovieRepository
-import retrofit2.HttpException
-import java.net.UnknownHostException
+import com.example.mymovies.domain.common.DomainError
+import com.example.mymovies.domain.common.Result
 import javax.inject.Inject
-import kotlin.Exception
 
 class MovieRepositoryImpl @Inject constructor(
     private val mapper: MovieMapper,
-    private val apiService: ApiService,
-    private val fileReaderUseCase: FileReaderUseCase,
-    private val databaseDao: DatabaseDao,
     private val imageManager: ImageManager,
     private val localDataSource: LocalDataSource,
     private val remoteDataSource: RemoteDataSource
 ) : MovieRepository {
 
+    override suspend fun loadMovies(page: Int): Result<List<Movie>> {
+        return safeApiCall(
+            apiCall = { remoteDataSource.getMovies(page) },
+            transform = { dto -> dto.map { mapper.mapDtoToDomain(it) } }
+        )
+    }
+
+    override suspend fun loadMovieById(movieId: Int): Result<Movie> {
+
+        val dbMovieResult = safeDbCall { localDataSource.getMovieFromDb(movieId) }
+
+        return when (dbMovieResult) {
+            is Result.Failure -> {
+                dbMovieResult
+            }
+
+            is Result.Success -> {
+
+                val movieDBEntity = dbMovieResult.data
+
+                if (movieDBEntity == null) {
+                    val apiResult = safeApiCall(
+                        apiCall = { remoteDataSource.getMovieById(movieId) },
+                        transform = { dto -> mapper.mapDtoToDomain(dto) }
+                    )
+
+                    return apiResult
+                } else {
+                    var moviePersonsDto: List<MovieCastDto> = listOf()
+                    var movieGenresDb: List<MovieGenreDBEntity> = listOf()
+
+                    val moviePersonsDbResult =
+                        safeDbCall { localDataSource.getMovieActorsCast(movieId) }
+
+                    if (moviePersonsDbResult is Result.Success) {
+                        moviePersonsDbResult.data.let { moviePersonsDto = it }
+                    }
+
+                    val movieGenresDbResult = safeDbCall { localDataSource.getMovieGenres(movieId) }
+
+                    if (movieGenresDbResult is Result.Success) {
+                        movieGenresDbResult.data.let { movieGenresDb = movieGenresDbResult.data }
+                    }
+
+                    val movie = mapper.mapMovieDbToMovie(
+                        movieDBEntity,
+                        moviePersonsDto,
+                        movieGenresDb
+                    )
+
+                    Result.Success(movie)
+                }
+            }
+        }
+    }
+
+    override suspend fun loadNewMovies(page: Int): Result<List<Movie>> {
+        return safeApiCall(
+            apiCall = { remoteDataSource.getNewMovies(page) },
+            transform = { dto -> dto.map { mapper.mapDtoToDomain(it) } }
+        )
+    }
+
+    override suspend fun loadPopularMovies(page: Int): Result<List<Movie>> {
+        return safeApiCall(
+            apiCall = { remoteDataSource.getPopularMovies(page) },
+            transform = { dto -> dto.map { mapper.mapDtoToDomain(it) } }
+        )
+    }
+
+    override suspend fun loadMoviesByGenre(
+        page: Int,
+        genre: String
+    ): Result<List<Movie>> {
+        return safeApiCall(
+            apiCall = { remoteDataSource.getMoviesByGenre(page, genre) },
+            transform = { dto -> dto.map { mapper.mapDtoToDomain(it) } }
+        )
+    }
+
+    //TODO put it in Transaction in next version
+    override suspend fun insertMovieToDb(movie: Movie): Result<Unit> {
+
+        val movieDbEntity = mapper.mapMovieToMovieDb(
+            movie = movie,
+            posterPath = movie.urlPoster?.let {
+                imageManager.downloadAndSaveMoviePoster(movie.urlPoster, movie.id)
+            } ?: ""
+        )
+
+        var movieGenres = listOf<MovieGenreDBEntity>()
+        var moviePersons = listOf<MoviePersonDBEntity>()
+        var joinList = listOf<MovieActorJoin>()
+
+        movie.moviePersons?.let {
+            moviePersons = mapper.mapMoviePersonsDomainToMoviePersonsDb(movie.moviePersons)
+
+            joinList = moviePersons.map {
+                MovieActorJoin(
+                    movieId = movie.id,
+                    actorId = it.id,
+                    role = "",
+                    order = 0
+                )
+            }
+        }
+
+        movie.genres?.let {
+            movieGenres = mapper.mapMovieGenresToMovieGenresDb(movie.id, movie.genres)
+        }
+
+        return safeDbCall {
+            localDataSource.saveMovie(movieDbEntity)
+
+            if (moviePersons.isNotEmpty())
+                localDataSource.saveMoviePersons(moviePersons)
+
+            if (joinList.isNotEmpty())
+                localDataSource.saveMovieActorJoins(joinList)
+
+            if (movieGenres.isNotEmpty())
+                localDataSource.saveMovieGenres(movieGenres)
+        }
+    }
+
+    override suspend fun getMovieFromDb(movieId: Int): Result<Movie> {
+        TODO()
+    }
+
+    override fun observeIsFavourite(movieId: Int): LiveData<Boolean> {
+        return localDataSource.observeIsFavourite(movieId)
+    }
+
+    override suspend fun removeMovieFromDb(movie: Movie): Result<Unit> {
+
+        val movieId = movie.id
+        val result = safeDbCall { localDataSource.removeMovie(movieId) }
+
+        if (result is Result.Success && movie.localPathPoster != null) {
+            imageManager.removeImagePoster(movie.localPathPoster)
+        }
+
+        return result
+    }
+
+    private suspend fun <T, R> safeApiCall(
+        apiCall: suspend () -> ApiResult<T>,
+        transform: (T) -> R
+    ): Result<R> {
+        return when (val callResult = apiCall()) {
+            is ApiResult.Success -> Result.Success(transform(callResult.data))
+            is ApiResult.NetworkError -> Result.Failure(DomainError.NoInternet)
+            is ApiResult.HttpError -> {
+                val domainError = when (callResult.code) {
+                    404 -> DomainError.NotFound
+                    else -> DomainError.Server(callResult.code, callResult.message)
+                }
+                Result.Failure(domainError)
+            }
+
+            is ApiResult.UnknownError -> Result.Failure(DomainError.Unknown(callResult.e))
+        }
+    }
+
+    private suspend fun <T> safeDbCall(
+        dbMethodCall: suspend () -> T
+    ): Result<T> {
+        return try {
+            Result.Success(dbMethodCall())
+        } catch (e: Exception) {
+            Result.Failure(DomainError.Unknown(e))
+        }
+    }
+
+    private suspend fun <T, R> safeDbGetDataCall(
+        dbCall: suspend () -> T,
+        transform: (T) -> R
+    ): Result<R> {
+        return try {
+            val dbCallResult = dbCall()
+            if (dbCallResult != null) {
+                Result.Success(transform(dbCallResult))
+            } else {
+                Result.Failure(DomainError.NotFound)
+            }
+        } catch (e: Exception) {
+            Result.Failure(DomainError.Unknown(e))
+        }
+    }
+
+
     companion object {
         private const val TAG = "MovieRepositoryImpl"
-    }
-
-    override suspend fun loadMovies(page: Int): List<Movie> {
-
-        var response: MoviesResponseDto? = null
-
-        try {
-            response = apiService.loadMovies(page)
-        } catch (e: HttpException) {
-            Log.d(TAG, "${e.code()}\n${e.message()}")
-            return loadMoviesFromFile()
-        } catch (e: UnknownHostException) {
-            Log.d(TAG, "${e}")
-            return loadMoviesFromFile()
-        } catch (e: Exception) {
-            Log.d(TAG, "${e}")
-            return loadMoviesFromFile()
-        }
-
-        Log.d(TAG, "Loaded: ${response?.movies?.size}")
-
-        response?.let {
-            return it.movies.map { mapper.mapDtoToEntity(it) }
-        }
-
-        return listOf()
-    }
-
-    override suspend fun loadMovieById(movieId: Int): Movie? {
-
-        var response: MovieDto? = null
-        remoteDataSource.getMovieById(movieId)
-
-        try {
-            response = apiService.loadMovieById(movieId)
-        } catch (e: Exception) {
-            Log.d(TAG, "${e}")
-        }
-
-        response?.let {
-            return mapper.mapDtoToEntity(it)
-        }
-
-        return null
-    }
-
-    override suspend fun loadNewMovies(page: Int): List<Movie> {
-        val result = runRequest {
-            apiService.loadNewMovies(page)
-        } ?: return listOf()
-
-        return result.movies.map { mapper.mapDtoToEntity(it) }
-    }
-
-    override suspend fun loadPopularMovies(page: Int): List<Movie> {
-        val res = runRequest { apiService.loadPopularMovies(page) } ?: return listOf()
-        return res.movies.map { mapper.mapDtoToEntity(it) }
-    }
-
-    override suspend fun loadMoviesByGenre(page: Int, genre: String): List<Movie> {
-        val response = runRequest { apiService.loadMoviesByGenre(page, genre) } ?: return listOf()
-        return response.movies.map { mapper.mapDtoToEntity(it) }
-    }
-
-    fun loadMoviesFromFile(): List<Movie> {
-        return fileReaderUseCase.loadMoviesFromFile()
-    }
-
-    override suspend fun getMovieFromDb(movieId: Int): Movie {
-
-        return TODO("Provide the return value")
-    }
-
-    override suspend fun insertMovieToDb(movie: Movie) {
-
-//        val posterPath = imageManager.downloadAndSaveMoviePoster(movie)
-//        val dbModel = mapper.mapMovieToMovieDb(movie, posterPath)
-//        databaseDao.insertMovieToFavourite(dbModel)
-
-        val db = mapper.mapMovieToMovieDb(movie, "")
-
-        localDataSource.saveMovie(db)
-    }
-
-    private suspend fun <T> runRequest(request: suspend () -> T): T? {
-        val response: T?
-
-        try {
-            response = request.invoke()
-        } catch (e: HttpException) {
-            Log.d(TAG, "${e.code()}\n${e.message()}")
-            return null
-        } catch (e: UnknownHostException) {
-            Log.d(TAG, "${e}")
-            return null
-        } catch (e: Exception) {
-            Log.d(TAG, "${e}")
-            return null
-        }
-
-        return response
     }
 }

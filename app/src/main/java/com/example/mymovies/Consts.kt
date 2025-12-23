@@ -28,6 +28,8 @@ class Consts {
     class MovieParameters {
         companion object {
             const val LOADING_SIZE = 10
+            const val PAGE = 3
+            const val GENRE = "мелодрама"
         }
     }
 }

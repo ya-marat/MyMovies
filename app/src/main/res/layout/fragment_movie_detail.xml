@@ -31,10 +31,11 @@
                 android:layout_height="300dp"
                 android:adjustViewBounds="true"
                 android:scaleType="centerCrop"
+                android:background="@drawable/ic_favourites_btn"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                tools:background="@tools:sample/avatars"
+                tools:background="@drawable/ic_favourites_btn"
                 tools:minHeight="300dp"
                 android:contentDescription="@null" />
 

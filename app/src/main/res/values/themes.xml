@@ -11,5 +11,12 @@
 
     </style>
 
+    <style name="CustomAlertDialogTheme" parent="Theme.Material3.DayNight.Dialog.Alert">
+        <item name="android:background">@color/alert_dialog</item>
+        <item name="android:textColorPrimary">@color/white</item>
+        <item name="colorPrimary">@color/main_color_2</item>
+        <item name="dialogCornerRadius">10dp</item>
+    </style>
+
     <style name="Theme.MyMovies" parent="Base.Theme.MyMovies" />
 </resources>

@@ -15,7 +15,7 @@ import androidx.room.ForeignKey
             onDelete = ForeignKey.CASCADE
         ),
         ForeignKey(
-            entity = MovieActorDBEntity::class,
+            entity = MoviePersonDBEntity::class,
             parentColumns = ["id"],
             childColumns = ["actorId"],
             onDelete = ForeignKey.CASCADE

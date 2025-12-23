@@ -16,14 +16,14 @@ class ImageManager @Inject constructor(
     private val application: Application
 ) {
 
-    suspend fun downloadAndSaveMoviePoster(movie: Movie): String {
+    suspend fun downloadAndSaveMoviePoster(url: String, id: Int): String {
 
         return withContext(Dispatchers.IO) {
             try {
 
-                val bitmap = Picasso.get().load(movie.poster).get()
+                val bitmap = Picasso.get().load(url).get()
 
-                val file = File(application.filesDir, "movies_img_${movie.id}.png")
+                val file = File(application.filesDir, "movies_img_${id}.png")
                 file.parentFile?.mkdir()
 
                 FileOutputStream(file).use { stream ->
@@ -43,8 +43,11 @@ class ImageManager @Inject constructor(
         }
     }
 
-    fun loadImage(path: String): Bitmap? {
-        return BitmapFactory.decodeFile(path)
+    suspend fun removeImagePoster(path: String) {
+        val file = File(path)
+        if (file.exists()) {
+            file.delete()
+        }
     }
 
     companion object {

@@ -5,18 +5,14 @@ import com.example.mymovies.Consts
 import com.example.mymovies.data.MovieRepositoryImpl
 import com.example.mymovies.domain.Movie
 import com.example.mymovies.domain.MovieRepository
+import com.example.mymovies.domain.common.Result
 import javax.inject.Inject
 
 class GetMoviesUseCase @Inject constructor (
     private val movieRepository: MovieRepository,
 ) {
-    suspend fun getMovies(page: Int): List<Movie> {
+    suspend fun getMovies(page: Int): Result<List<Movie>> {
         Log.d("GetMoviesUseCase", "getMovies")
-
-        if (Consts.General.USE_LOCAL_FILE_DATA){
-            return (movieRepository as MovieRepositoryImpl).loadMoviesFromFile() // TEST
-        }
-
         val result = movieRepository.loadNewMovies(page)
         return result
     }

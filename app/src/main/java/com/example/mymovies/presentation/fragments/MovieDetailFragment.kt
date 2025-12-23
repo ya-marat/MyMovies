@@ -2,6 +2,8 @@ package com.example.mymovies.presentation.fragments
 
 import android.content.Context
 import android.content.Intent
+import android.graphics.ColorFilter
+import android.graphics.ColorMatrixColorFilter
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
@@ -10,6 +12,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import com.example.mymovies.R
 import com.example.mymovies.databinding.FragmentMovieDetailBinding
@@ -21,8 +24,11 @@ import com.example.mymovies.domain.MovieTrailer
 import com.example.mymovies.App
 import com.example.mymovies.presentation.viewmodels.MovieDetailViewModel
 import com.example.mymovies.presentation.ViewModelFactory
+import com.example.mymovies.presentation.common.DetailMovieUIState
+import com.example.mymovies.presentation.common.FavouriteMovieOperationUIState
 import com.squareup.picasso.Callback
 import com.squareup.picasso.Picasso
+import java.io.File
 import java.lang.Exception
 import javax.inject.Inject
 
@@ -48,13 +54,13 @@ class MovieDetailFragment : Fragment() {
 
     override fun onAttach(context: Context) {
         component.inject(this)
-        Log.d(TAG, "onAttach")
+        //Log.d(TAG, "onAttach")
         super.onAttach(context)
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        Log.d(TAG, "onDestroy")
+        //Log.d(TAG, "onDestroy")
     }
 
     override fun onCreateView(
@@ -78,23 +84,50 @@ class MovieDetailFragment : Fragment() {
         if (movie == null)
             return
 
-        viewModel.movie.observe(viewLifecycleOwner) { loadedMovie ->
-            Log.d(
-                TAG,
-                "MovieId ${loadedMovie?.id} ${loadedMovie?.name} ${loadedMovie?.moviePersons?.joinToString { "${it.name} = ${it.professionType}" }}"
-            )
-            bindMovieToView(loadedMovie)
+        viewModel.state.observe(viewLifecycleOwner) { uiState ->
+
+            when (uiState) {
+                DetailMovieUIState.Loading -> {
+                    switchLoadingViewState(true)
+                }
+
+                is DetailMovieUIState.Error -> {
+
+                }
+
+                is DetailMovieUIState.Success -> {
+                    switchLoadingViewState(false)
+                    bindMovieToView(uiState.movie)
+                }
+            }
         }
 
-        movie.id?.let {
-            binding.pbLoadingMovie.visibility = View.VISIBLE
-            binding.clRoot.visibility = View.INVISIBLE
-            viewModel.loadMovieById(it)
+        viewModel.isFavourite.observe(viewLifecycleOwner) {
+            val color = if (it) R.color.main_color_2 else R.color.white
+            binding.ibFavourites.setColorFilter(requireActivity().getColor(color))
         }
+
+        viewModel.favouriteMovieOperationUIState.observe(viewLifecycleOwner) { favouriteOperationState ->
+            val message = when (favouriteOperationState) {
+                FavouriteMovieOperationUIState.AddFavouriteError -> getString(R.string.error_add_favourite_toast)
+                FavouriteMovieOperationUIState.AddFavouriteSuccess -> getString(R.string.add_to_favourites_toast)
+                FavouriteMovieOperationUIState.RemoveFavouriteError -> getString(R.string.error_remove_favourite_toast)
+                FavouriteMovieOperationUIState.RemoveFavouriteSuccess -> getString(R.string.remove_from_favorites_toast)
+            }
+
+            Toast.makeText(requireActivity(), message, Toast.LENGTH_SHORT).show()
+        }
+
+        viewModel.loadMovieById(movie.id)
 
         binding.ibFavourites.setOnClickListener {
-            viewModel.addMovieToFavourites(movie)
+            viewModel.onFavouriteClick()
         }
+    }
+
+    private fun switchLoadingViewState(isLoading: Boolean) {
+        binding.pbLoadingMovie.visibility = if (isLoading) View.VISIBLE else View.INVISIBLE
+        binding.clRoot.visibility = if (!isLoading) View.VISIBLE else View.INVISIBLE
     }
 
     private fun bindMovieToView(movie: Movie?) {
@@ -106,17 +139,17 @@ class MovieDetailFragment : Fragment() {
 
             binding.pbLoadingMovie.visibility = View.GONE
             binding.clRoot.visibility = View.VISIBLE
-            movie.poster?.let { it ->
-                Picasso.get().load(it).into(imgDetailMoviePoster, object : Callback{
-                    override fun onSuccess() {
 
-                    }
+            Log.d(TAG, "IsFavourite ${movie.isFavourite}")
 
-                    override fun onError(e: Exception?) {
-
-                    }
-                })
+            if (movie.isFavourite) {
+                movie.localPathPoster?.let { path ->
+                    Picasso.get().load(File(path)).into(imgDetailMoviePoster)
+                }
+            } else {
+                movie.urlPoster?.let { url -> Picasso.get().load(url).into(imgDetailMoviePoster) }
             }
+
             tvMovieName.text = movie.name
             val detailMovieText = "${movie.year} | ${movie.rating}"
             tvDetailMovie.text = detailMovieText
@@ -133,7 +166,6 @@ class MovieDetailFragment : Fragment() {
             tvGenreValue.text = genres?.joinToString(", ")
 
             prepareTrailer(movie.movieTrailers)
-
         }
     }
 

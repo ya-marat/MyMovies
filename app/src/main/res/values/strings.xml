@@ -17,4 +17,13 @@
     <string name="list_name_new_movies">Новинки</string>
     <string name="list_name_popular">Популярное</string>
     <string name="list_name_day_genre">Жанр дня: %s</string>
+    <string name="no_internet_error">Нет интернета</string>
+    <string name="not_found_error">Не найдено</string>
+    <string name="server_error">Ошибка сервера</string>
+    <string name="unknow_error">Неизвестная ошибка</string>
+    <string name="data_not_loaded">Не удалось загрузить данные</string>
+    <string name="add_to_favourites_toast">Добавлено в избранное</string>
+    <string name="remove_from_favorites_toast">Удалено из избранного</string>
+    <string name="error_add_favourite_toast">Ошибка при добавлении в избранное</string>
+    <string name="error_remove_favourite_toast">Ошибка при удалении из избранного</string>
 </resources>

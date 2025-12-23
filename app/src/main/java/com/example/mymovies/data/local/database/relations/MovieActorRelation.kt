@@ -4,7 +4,7 @@ import androidx.room.Embedded
 import androidx.room.Junction
 import androidx.room.Relation
 import com.example.mymovies.data.local.database.entites.MovieDBEntity
-import com.example.mymovies.data.local.database.entites.MovieActorDBEntity
+import com.example.mymovies.data.local.database.entites.MoviePersonDBEntity
 import com.example.mymovies.data.local.database.entites.MovieActorJoin
 
 data class MovieActorRelation(
@@ -21,5 +21,5 @@ data class MovieActorRelation(
             entityColumn = "actorId"
         )
     )
-    val actors: List<MovieActorDBEntity>
+    val actors: List<MoviePersonDBEntity>
 )

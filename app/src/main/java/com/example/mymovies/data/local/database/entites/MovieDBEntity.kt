@@ -7,11 +7,12 @@ import androidx.room.PrimaryKey
     tableName = "favourite_movies"
 )
 data class MovieDBEntity(
-    @PrimaryKey val id: Int?,
+    @PrimaryKey val id: Int,
     val movieName: String?,
     val description: String?,
     val year: Int?,
-    val poster: String?,
+    val posterUrl: String?,
+    val posterLocalPath: String?,
     val previewPoster: String?,
     val rating: Double?,
     val ageRating: Int?,

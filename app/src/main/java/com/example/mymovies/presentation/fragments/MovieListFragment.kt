@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.ViewModelProvider
 import com.example.mymovies.R
 import com.example.mymovies.databinding.FragmentMovieHomeScreenBinding
@@ -16,6 +17,7 @@ import com.example.mymovies.presentation.viewmodels.MovieListViewModel
 import com.example.mymovies.presentation.ViewModelFactory
 import com.example.mymovies.presentation.activities.MovieDetailActivity
 import com.example.mymovies.presentation.adapter.MovieAdapter
+import com.example.mymovies.presentation.common.HomeUIState
 import com.example.mymovies.presentation.item.HorizontalItemDecoration
 import com.squareup.picasso.Picasso
 import javax.inject.Inject
@@ -80,14 +82,12 @@ class MovieListFragment : Fragment() {
         binding.movieList2.addItemDecoration(itemDecoration)
         binding.movieList3.addItemDecoration(itemDecoration)
 
-
-
         viewModel.movies.observe(viewLifecycleOwner) {
             firstAdapter.submitList(it)
         }
 
-        viewModel.firstMovieElement.observe(viewLifecycleOwner) {
-            Picasso.get().load(it.poster).into(binding.firstMovieElement)
+        viewModel.firstMovieElement.observe(viewLifecycleOwner) { movie ->
+            //movie.urlPoster?.let { url -> Picasso.get().load(url).into(binding.firstMovieElement) }
         }
 
         viewModel.popularMovies.observe(viewLifecycleOwner) {
@@ -99,13 +99,50 @@ class MovieListFragment : Fragment() {
         }
 
         viewModel.isLoading.observe(viewLifecycleOwner) {
-            binding.pbLoadingMovie.visibility = if(it) View.VISIBLE else View.GONE
-            binding.nsvRoot.visibility = if(!it) View.VISIBLE else View.GONE
+            binding.pbLoadingMovie.visibility = if (it) View.VISIBLE else View.GONE
+            binding.nsvRoot.visibility = if (!it) View.VISIBLE else View.GONE
         }
 
         binding.firstMovieElement.setOnClickListener {
-            viewModel.firstMovieElement.value?.let {
+            viewModel.firstMovie?.let {
                 onMovieClick(it)
+            }
+        }
+
+        viewModel.state.observe(viewLifecycleOwner) { homeUIState ->
+
+            Log.d(TAG, "State: ${homeUIState}")
+
+            when (homeUIState) {
+                is HomeUIState.Error -> {
+                    binding.nsvRoot.visibility = View.GONE
+                    binding.llErrorArea.visibility = View.VISIBLE
+                    binding.pbLoadingMovie.visibility = View.GONE
+                    binding.tvErrorText.text = getString(R.string.data_not_loaded)
+                    showDialog(homeUIState.message)
+                }
+
+                HomeUIState.Loading -> {
+                    binding.nsvRoot.visibility = View.GONE
+                    binding.llErrorArea.visibility = View.GONE
+                    binding.pbLoadingMovie.visibility = View.VISIBLE
+                }
+
+                is HomeUIState.Success -> {
+                    binding.pbLoadingMovie.visibility = View.GONE
+                    binding.llErrorArea.visibility = View.GONE
+                    binding.nsvRoot.visibility = View.VISIBLE
+
+                    homeUIState.firstMovie?.let { firstMovie ->
+                        firstMovie.urlPoster?.let {
+                            Picasso.get().load(it).into(binding.firstMovieElement)
+                        }
+                    }
+
+                    firstAdapter.submitList(homeUIState.newMovies)
+                    secondListAdapter.submitList(homeUIState.popularMovies)
+                    thirdListAdapter.submitList(homeUIState.genreMovies)
+                }
             }
         }
     }
@@ -113,6 +150,23 @@ class MovieListFragment : Fragment() {
     private fun onMovieClick(movie: Movie) {
         val intent = MovieDetailActivity.newIntent(requireActivity(), movie)
         startActivity(intent)
+    }
+
+    private fun showDialog(text: String) {
+        AlertDialog.Builder(requireActivity(), R.style.CustomAlertDialogTheme)
+            .setTitle("Ошибка")
+            .setMessage(text)
+            .setPositiveButton("Да") { dialog, id ->
+                {
+
+                }
+            }
+            .setNegativeButton("Нет") { dialog, id ->
+                {
+
+                }
+            }
+            .show()
     }
 
     private fun onEndPageReached() {
