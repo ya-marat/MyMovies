@@ -9,9 +9,7 @@ import com.example.mymovies.databinding.ItemMovieBinding
 import com.example.mymovies.domain.Movie
 import com.squareup.picasso.Picasso
 
-class MovieAdapter(
-    private val context: Context
-) : ListAdapter<Movie, MovieViewHolder>(MovieDiffCallback()) {
+class MovieAdapter() : ListAdapter<Movie, MovieViewHolder>(MovieDiffCallback()) {
 
     lateinit var onMovieItemClick: (m: Movie) -> Unit
     var onEndPageReached: (() -> Unit)? = null

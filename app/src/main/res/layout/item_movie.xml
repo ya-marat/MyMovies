@@ -17,9 +17,8 @@
             android:layout_height="match_parent"
             android:scaleType="centerCrop"
             android:adjustViewBounds="true"
-            android:background="@drawable/ic_favourites_btn"
+            android:src="@drawable/default_poster"
             app:layout_constraintTop_toTopOf="parent"
-            tools:src="@drawable/ic_favourites_btn"
             android:contentDescription="@null"/>
 
         <TextView

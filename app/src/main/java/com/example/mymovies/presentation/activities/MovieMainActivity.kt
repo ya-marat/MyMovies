@@ -8,6 +8,7 @@ import com.example.mymovies.R
 import com.example.mymovies.databinding.ActivityMovieMainBinding
 import com.example.mymovies.presentation.MainActivityState
 import com.example.mymovies.presentation.NavigateFragment
+import com.example.mymovies.presentation.favourites.MovieFavouriteFragment
 import com.example.mymovies.presentation.fragments.MovieListFragment
 
 class MovieMainActivity : BaseAppActivity(), NavigateFragment {
@@ -54,6 +55,7 @@ class MovieMainActivity : BaseAppActivity(), NavigateFragment {
 
         with(fragmentsMap) {
             put(MainActivityState.HOME, MovieListFragment())
+            put(MainActivityState.FAVOURITES, MovieFavouriteFragment())
         }
     }
 
@@ -74,7 +76,8 @@ class MovieMainActivity : BaseAppActivity(), NavigateFragment {
     }
 
     override fun navigateToFragmentWithParameter(fragment: Fragment) {
-        supportFragmentManager.beginTransaction().add(R.id.main_fragment_container, fragment)
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.main_fragment_container, fragment)
             .addToBackStack(currentState.toString()).commit()
         val size = supportFragmentManager.fragments.size
         Log.d(TAG, "Size ${size}")

@@ -57,9 +57,9 @@ class MovieListFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         viewModel = ViewModelProvider(this, viewModelFactory)[MovieListViewModel::class.java]
-        val firstAdapter = MovieAdapter(requireActivity())
-        val secondListAdapter = MovieAdapter(requireActivity())
-        val thirdListAdapter = MovieAdapter(requireActivity())
+        val firstAdapter = MovieAdapter()
+        val secondListAdapter = MovieAdapter()
+        val thirdListAdapter = MovieAdapter()
 
         firstAdapter.onMovieItemClick = ::onMovieClick
         firstAdapter.onEndPageReached = ::onEndPageReached

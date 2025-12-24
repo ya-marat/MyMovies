@@ -53,8 +53,8 @@
                 android:adjustViewBounds="true"
                 android:contentDescription="@null"
                 android:scaleType="centerCrop"
+                android:src="@drawable/default_poster"
                 app:layout_constraintTop_toTopOf="parent"
-                tools:background="@color/white"
                 tools:minHeight="450dp" />
 
             <LinearLayout

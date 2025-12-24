@@ -63,6 +63,25 @@ class MovieMapper @Inject constructor() {
         )
     }
 
+    fun mapMovieDbToMovie(movieDBEntity: MovieDBEntity): Movie {
+        return Movie(
+            id = movieDBEntity.id,
+            name = movieDBEntity.movieName,
+            description = movieDBEntity.description,
+            year = movieDBEntity.year,
+            urlPoster = movieDBEntity.posterUrl,
+            localPathPoster = movieDBEntity.posterLocalPath,
+            previewPoster = movieDBEntity.previewPoster,
+            rating = movieDBEntity.rating,
+            ageRating = movieDBEntity.ageRating,
+            isSeries = movieDBEntity.isSeries,
+            genres = null,
+            moviePersons = null,
+            movieTrailers = null,
+            isFavourite = true
+        )
+    }
+
     fun mapMovieToMovieDb(movie: Movie, posterPath: String): MovieDBEntity {
         return MovieDBEntity(
             id = movie.id,

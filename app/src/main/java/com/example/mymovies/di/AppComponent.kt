@@ -3,6 +3,7 @@ package com.example.mymovies.di
 import android.app.Application
 import com.example.mymovies.presentation.activities.MainActivity
 import com.example.mymovies.presentation.fragments.MovieDetailFragment
+import com.example.mymovies.presentation.favourites.MovieFavouriteFragment
 import com.example.mymovies.presentation.fragments.MovieListFragment
 import dagger.BindsInstance
 import dagger.Component
@@ -21,6 +22,7 @@ interface AppComponent {
     fun inject(activity: MainActivity)
     fun inject(movieListFragment: MovieListFragment)
     fun inject(movieDetailFragment: MovieDetailFragment)
+    fun inject(movieFavouriteFragment: MovieFavouriteFragment)
 
     @Component.Factory
     interface AppComponentFactory {

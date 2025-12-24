@@ -31,7 +31,7 @@
                 android:layout_height="300dp"
                 android:adjustViewBounds="true"
                 android:scaleType="centerCrop"
-                android:background="@drawable/ic_favourites_btn"
+                android:src="@drawable/default_poster"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toTopOf="parent"

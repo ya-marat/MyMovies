@@ -15,4 +15,5 @@ interface MovieRepository {
     suspend fun getMovieFromDb(movieId: Int): Result<Movie>
     fun observeIsFavourite(movieId: Int): LiveData<Boolean>
     suspend fun removeMovieFromDb(movie: Movie): Result<Unit>
+    suspend fun loadFavouriteMovies(): Result<List<Movie>>
 }

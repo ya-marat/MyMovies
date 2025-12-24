@@ -168,6 +168,13 @@ class MovieRepositoryImpl @Inject constructor(
         return result
     }
 
+    override suspend fun loadFavouriteMovies(): Result<List<Movie>> {
+        return safeDbGetDataCall(
+            dbCall = { localDataSource.getMoviesFromDb() },
+            transform = { list -> list.map { dbMovie -> mapper.mapMovieDbToMovie(dbMovie) } }
+        )
+    }
+
     private suspend fun <T, R> safeApiCall(
         apiCall: suspend () -> ApiResult<T>,
         transform: (T) -> R

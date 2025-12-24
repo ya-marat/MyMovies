@@ -2,8 +2,6 @@ package com.example.mymovies.presentation.fragments
 
 import android.content.Context
 import android.content.Intent
-import android.graphics.ColorFilter
-import android.graphics.ColorMatrixColorFilter
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
@@ -26,10 +24,8 @@ import com.example.mymovies.presentation.viewmodels.MovieDetailViewModel
 import com.example.mymovies.presentation.ViewModelFactory
 import com.example.mymovies.presentation.common.DetailMovieUIState
 import com.example.mymovies.presentation.common.FavouriteMovieOperationUIState
-import com.squareup.picasso.Callback
 import com.squareup.picasso.Picasso
 import java.io.File
-import java.lang.Exception
 import javax.inject.Inject
 
 class MovieDetailFragment : Fragment() {
@@ -169,14 +165,11 @@ class MovieDetailFragment : Fragment() {
         }
     }
 
-    private fun convertPersonsToLine(moviePersons: List<MoviePerson>?): String? {
-        return moviePersons?.take(10)?.map {
+    private fun convertPersonsToLine(moviePersons: List<MoviePerson>?): String {
 
-            if (!it.name.isNullOrBlank())
-                it.name
-            else it.enName
-
-        }?.joinToString(", ")
+        val firstNeededPersons = moviePersons?.take(10)
+        return firstNeededPersons?.joinToString(", ") { if (!it.name.isNullOrBlank()) it.name else "${it.enName}" }
+            ?: ""
     }
 
     private fun prepareTrailer(movieTrailers: List<MovieTrailer>?) {
