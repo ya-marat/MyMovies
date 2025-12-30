@@ -11,6 +11,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.mymovies.App
 import com.example.mymovies.databinding.FragmentFavouritesMovieBinding
 import com.example.mymovies.presentation.ViewModelFactory
+import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
 
 class MovieFavouriteFragment : Fragment() {
@@ -48,17 +49,17 @@ class MovieFavouriteFragment : Fragment() {
 
         viewModel = ViewModelProvider(this, viewModelFactory)[FavouriteMoviesViewModel::class.java]
 
-        val favouriteMoviesAdapter = MovieFavouritesAdapter()
+        val favouriteMoviesAdapter = MovieFavouritesAdapter(requireActivity())
         binding.rwFavouriteList.adapter = favouriteMoviesAdapter
 
         viewModel.state.observe(viewLifecycleOwner) { favouritesUiState ->
 
             when (favouritesUiState) {
-                FavouritesUiState.Failure -> {
+                is FavouritesUiState.Failure -> {
                     displayLoadingView(false)
                 }
 
-                FavouritesUiState.Loading -> {
+                is FavouritesUiState.Loading -> {
                     displayLoadingView(true)
                 }
 
@@ -70,10 +71,15 @@ class MovieFavouriteFragment : Fragment() {
         }
 
         favouriteMoviesAdapter.onElementClick = { favouriteMovie ->
-            Log.d(TAG, "Click on ${favouriteMovie.title}")
+            Log.d(TAG, "Click on ${favouriteMovie.title} ${favouriteMovie.id}")
         }
 
         viewModel.loadFavourites()
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
     private fun displayLoadingView(isLoading: Boolean) {

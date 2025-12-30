@@ -1,7 +1,6 @@
 package com.example.mymovies.presentation.viewmodels
 
 import android.app.Application
-import android.graphics.Bitmap
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
@@ -9,18 +8,15 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.mymovies.R
 import com.example.mymovies.domain.Movie
-import com.example.mymovies.domain.MovieRepository
 import com.example.mymovies.domain.common.DomainError
 import com.example.mymovies.domain.common.Result
-import com.example.mymovies.domain.moviesusecases.AddMovieToDbUseCase
-import com.example.mymovies.domain.moviesusecases.GetMovieByIdUseCase
-import com.example.mymovies.domain.moviesusecases.ObserveMovieUseCase
-import com.example.mymovies.domain.moviesusecases.RemoveMovieFromDbUseCase
+import com.example.mymovies.domain.usecases.AddMovieToDbUseCase
+import com.example.mymovies.domain.usecases.GetMovieByIdUseCase
+import com.example.mymovies.domain.usecases.ObserveMovieUseCase
+import com.example.mymovies.domain.usecases.RemoveMovieFromDbUseCase
 import com.example.mymovies.presentation.common.DetailMovieUIState
 import com.example.mymovies.presentation.common.FavouriteMovieOperationUIState
-import com.squareup.picasso.Transformation
 import kotlinx.coroutines.launch
-import java.lang.RuntimeException
 import javax.inject.Inject
 
 class MovieDetailViewModel @Inject constructor(

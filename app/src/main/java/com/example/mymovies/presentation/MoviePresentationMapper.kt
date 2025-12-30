@@ -9,7 +9,8 @@ class MoviePresentationMapper @Inject constructor() {
     fun mapMovieToFavouriteMovieUi(movie: Movie):  FavouriteMovieUi {
         return FavouriteMovieUi(
             id = movie.id,
-            title = movie.name
+            title = movie.name,
+            posterPath = movie.localPathPoster
         )
     }
 }

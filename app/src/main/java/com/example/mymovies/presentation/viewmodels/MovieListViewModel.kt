@@ -1,21 +1,19 @@
 package com.example.mymovies.presentation.viewmodels
 
 import android.app.Application
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.mymovies.Consts
 import com.example.mymovies.R
-import com.example.mymovies.domain.moviesusecases.GetMoviesUseCase
+import com.example.mymovies.domain.usecases.GetMoviesUseCase
 import com.example.mymovies.domain.Movie
 import com.example.mymovies.domain.common.DomainError
 import com.example.mymovies.domain.common.Result
-import com.example.mymovies.domain.moviesusecases.GetMoviesByGenreUseCase
-import com.example.mymovies.domain.moviesusecases.GetPopularMoviesUseCase
+import com.example.mymovies.domain.usecases.GetMoviesByGenreUseCase
+import com.example.mymovies.domain.usecases.GetPopularMoviesUseCase
 import com.example.mymovies.presentation.common.HomeUIState
-import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 

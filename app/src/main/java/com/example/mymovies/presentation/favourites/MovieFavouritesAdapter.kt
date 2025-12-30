@@ -1,15 +1,19 @@
 package com.example.mymovies.presentation.favourites
 
 import android.content.Context
+import android.util.Log
+import android.view.ContextThemeWrapper
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.appcompat.widget.PopupMenu
 import androidx.recyclerview.widget.ListAdapter
+import com.example.mymovies.R
 import com.example.mymovies.databinding.ItemFavouriteMovieBinding
-import com.example.mymovies.domain.Movie
-import com.example.mymovies.presentation.adapter.MovieDiffCallback
+import com.squareup.picasso.Picasso
+import java.io.File
 
 class MovieFavouritesAdapter(
-
+    val context: Context
 ) : ListAdapter<FavouriteMovieUi, FavouriteMovieViewHolder>(FavouriteMovieDiffCallback()) {
 
     var onElementClick: ((favouriteMovieUi: FavouriteMovieUi) -> Unit)? = null
@@ -31,13 +35,38 @@ class MovieFavouritesAdapter(
         holder: FavouriteMovieViewHolder,
         position: Int
     ) {
-        val movie = getItem(position)
+        val favouriteMovie = getItem(position)
         with(holder.binding) {
-            tvFavouriteName.text = movie.title
+            tvFavouriteName.text = favouriteMovie.title
 
             root.setOnClickListener {
-                onElementClick?.invoke(movie)
+                onElementClick?.invoke(favouriteMovie)
             }
+        }
+
+        favouriteMovie.posterPath?.let { posterPath ->
+            Picasso.get().load(File(posterPath)).into(holder.binding.ivFavouriteMoviePoster)
+        }
+
+        holder.binding.ibFavMovieItemMenu.setOnClickListener {
+            val contextThemeWrapper = ContextThemeWrapper(context, R.style.CustomPopupMenu)
+            val popupMenu = PopupMenu(contextThemeWrapper, holder.binding.ibFavMovieItemMenu)
+            popupMenu.inflate(R.menu.favourite_item_menu)
+
+            popupMenu.setOnMenuItemClickListener { menuItem ->
+                when (menuItem.itemId) {
+                    R.id.delete_favourite -> {
+                        Log.d("MovieFavouritesAdapter", "On remove")
+                        return@setOnMenuItemClickListener true
+                    }
+
+                    else -> {
+                        return@setOnMenuItemClickListener false
+                    }
+                }
+            }
+
+            popupMenu.show()
         }
     }
 }

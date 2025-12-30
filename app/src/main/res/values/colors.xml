@@ -8,4 +8,5 @@
     <color name="nav_bar_default">#BBBBBB</color>
     <color name="main_color_2">#32A873</color>
     <color name="alert_dialog">#2E2E2E</color>
+    <color name="sub_text_color">#969696</color>
 </resources>

@@ -6,7 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.mymovies.domain.Movie
 import com.example.mymovies.domain.common.Result
-import com.example.mymovies.domain.moviesusecases.GetFavouriteMoviesUseCase
+import com.example.mymovies.domain.usecases.GetFavouriteMoviesUseCase
 import com.example.mymovies.presentation.MoviePresentationMapper
 import kotlinx.coroutines.launch
 import javax.inject.Inject
