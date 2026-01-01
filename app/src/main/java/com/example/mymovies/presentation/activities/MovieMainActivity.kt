@@ -34,6 +34,7 @@ class MovieMainActivity : BaseAppActivity(), NavigateFragment {
     }
 
     private fun initBottomMenu() {
+
         binding.movieMainBottomNavigation.setOnItemSelectedListener { it ->
             when (it.itemId) {
                 R.id.home_item -> {
@@ -79,7 +80,5 @@ class MovieMainActivity : BaseAppActivity(), NavigateFragment {
         supportFragmentManager.beginTransaction()
             .replace(R.id.main_fragment_container, fragment)
             .addToBackStack(currentState.toString()).commit()
-        val size = supportFragmentManager.fragments.size
-        Log.d(TAG, "Size ${size}")
     }
 }

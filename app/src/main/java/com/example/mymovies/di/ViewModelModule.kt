@@ -3,7 +3,7 @@ package com.example.mymovies.di
 import androidx.lifecycle.ViewModel
 import com.example.mymovies.presentation.favourites.FavouriteMoviesViewModel
 import com.example.mymovies.presentation.viewmodels.MainViewModel
-import com.example.mymovies.presentation.viewmodels.MovieDetailViewModel
+import com.example.mymovies.presentation.detailmovie.MovieDetailViewModel
 import com.example.mymovies.presentation.viewmodels.MovieListViewModel
 import dagger.Binds
 import dagger.Module

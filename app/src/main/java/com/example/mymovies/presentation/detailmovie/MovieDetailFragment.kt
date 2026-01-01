@@ -1,26 +1,23 @@
-package com.example.mymovies.presentation.fragments
+package com.example.mymovies.presentation.detailmovie
 
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
-import android.os.Build
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import com.example.mymovies.App
 import com.example.mymovies.R
 import com.example.mymovies.databinding.FragmentMovieDetailBinding
 import com.example.mymovies.domain.ImageManager
-import com.example.mymovies.domain.Movie
 import com.example.mymovies.domain.MoviePerson
 import com.example.mymovies.domain.MovieProfessionType
 import com.example.mymovies.domain.MovieTrailer
-import com.example.mymovies.App
-import com.example.mymovies.presentation.viewmodels.MovieDetailViewModel
 import com.example.mymovies.presentation.ViewModelFactory
 import com.example.mymovies.presentation.common.DetailMovieUIState
 import com.example.mymovies.presentation.common.FavouriteMovieOperationUIState
@@ -69,16 +66,10 @@ class MovieDetailFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val movie = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            requireArguments().getParcelable(EXTRA_MOVIE_DATA, Movie::class.java)
-        } else {
-            requireArguments().getParcelable<Movie>(EXTRA_MOVIE_DATA)
-        }
+
+        val movieId = requireArguments().getInt(EXTRA_MOVIE_DETAIL_ID)
 
         viewModel = ViewModelProvider(this, viewModelFactory)[MovieDetailViewModel::class.java]
-
-        if (movie == null)
-            return
 
         viewModel.state.observe(viewLifecycleOwner) { uiState ->
 
@@ -114,7 +105,7 @@ class MovieDetailFragment : Fragment() {
             Toast.makeText(requireActivity(), message, Toast.LENGTH_SHORT).show()
         }
 
-        viewModel.loadMovieById(movie.id)
+        viewModel.loadMovieById(movieId)
 
         binding.ibFavourites.setOnClickListener {
             viewModel.onFavouriteClick()
@@ -126,8 +117,8 @@ class MovieDetailFragment : Fragment() {
         binding.clRoot.visibility = if (!isLoading) View.VISIBLE else View.INVISIBLE
     }
 
-    private fun bindMovieToView(movie: Movie?) {
-        if (movie == null) {
+    private fun bindMovieToView(movieDetail: MovieDetailUI?) {
+        if (movieDetail == null) {
             return
         }
 
@@ -136,43 +127,28 @@ class MovieDetailFragment : Fragment() {
             binding.pbLoadingMovie.visibility = View.GONE
             binding.clRoot.visibility = View.VISIBLE
 
-            Log.d(TAG, "IsFavourite ${movie.isFavourite}")
+            Log.d(TAG, "IsFavourite ${movieDetail.isFavourite}")
 
-            if (movie.isFavourite) {
-                movie.localPathPoster?.let { path ->
+            if (movieDetail.isFavourite) {
+                movieDetail.posterLocalPath?.let { path ->
                     Picasso.get().load(File(path)).into(imgDetailMoviePoster)
                 }
             } else {
-                movie.urlPoster?.let { url -> Picasso.get().load(url).into(imgDetailMoviePoster) }
+                movieDetail.posterUrl?.let { url -> Picasso.get().load(url).into(imgDetailMoviePoster) }
             }
 
-            tvMovieName.text = movie.name
-            val detailMovieText = "${movie.year} | ${movie.rating}"
-            tvDetailMovie.text = detailMovieText
-            tvMovieDescription.text =
-                movie.description
-                    ?: getString(R.string.description_movie_detail_is_empty)
-            val actors =
-                movie.moviePersons?.filter { it.professionType == MovieProfessionType.ACTOR }
-            tvStarringValue.text = convertPersonsToLine(actors)
-            val creators =
-                movie.moviePersons?.filter { it.professionType != MovieProfessionType.ACTOR }
-            tvCreatorsValue.text = convertPersonsToLine(creators)
-            val genres = movie.genres?.map { it?.name }
-            tvGenreValue.text = genres?.joinToString(", ")
+            tvMovieName.text = movieDetail.name
+            tvDetailMovie.text = "${movieDetail.year} | ${movieDetail.rating}"
+            tvMovieDescription.text = movieDetail.description
+            tvStarringValue.text = movieDetail.actors
+            tvCreatorsValue.text = movieDetail.creators
+            tvGenreValue.text = movieDetail.genres
 
-            prepareTrailer(movie.movieTrailers)
+            prepareTrailer(movieDetail.trailers)
         }
     }
 
-    private fun convertPersonsToLine(moviePersons: List<MoviePerson>?): String {
-
-        val firstNeededPersons = moviePersons?.take(10)
-        return firstNeededPersons?.joinToString(", ") { if (!it.name.isNullOrBlank()) it.name else "${it.enName}" }
-            ?: ""
-    }
-
-    private fun prepareTrailer(movieTrailers: List<MovieTrailer>?) {
+    private fun prepareTrailer(movieTrailers: List<MovieDetailTrailerUi>?) {
         if (movieTrailers.isNullOrEmpty()) {
             binding.llTrailerSectionGroup.visibility = View.GONE
             return
@@ -180,11 +156,11 @@ class MovieDetailFragment : Fragment() {
 
         val trailer = movieTrailers.first()
         binding.llTrailerSectionGroup.visibility = View.VISIBLE
-        binding.tvTrailerName.text = trailer.name
+        binding.tvTrailerName.text = trailer.trailerName
         binding.trailerView.setOnClickListener {
             val intent = Intent().apply {
                 action = Intent.ACTION_VIEW
-                data = Uri.parse(trailer.url)
+                data = Uri.parse(trailer.trailerUrl)
             }
             startActivity(intent)
         }
@@ -192,12 +168,12 @@ class MovieDetailFragment : Fragment() {
     }
 
     companion object {
-        private const val EXTRA_MOVIE_DATA = "MOVIE_DATA"
+        private const val EXTRA_MOVIE_DETAIL_ID = "extra_movie_detail_id"
 
-        fun newInstance(movie: Movie?): Fragment {
+        fun newInstance(movieId: Int): Fragment {
             return MovieDetailFragment().apply {
                 arguments = Bundle().apply {
-                    putParcelable(EXTRA_MOVIE_DATA, movie)
+                    putInt(EXTRA_MOVIE_DETAIL_ID, movieId)
                 }
             }
         }

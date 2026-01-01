@@ -13,9 +13,10 @@ import com.example.mymovies.R
 import com.example.mymovies.databinding.FragmentMovieHomeScreenBinding
 import com.example.mymovies.domain.Movie
 import com.example.mymovies.App
+import com.example.mymovies.empty
 import com.example.mymovies.presentation.viewmodels.MovieListViewModel
 import com.example.mymovies.presentation.ViewModelFactory
-import com.example.mymovies.presentation.activities.MovieDetailActivity
+import com.example.mymovies.presentation.detailmovie.MovieDetailActivity
 import com.example.mymovies.presentation.adapter.MovieAdapter
 import com.example.mymovies.presentation.common.HomeUIState
 import com.example.mymovies.presentation.item.HorizontalItemDecoration
@@ -148,7 +149,12 @@ class MovieListFragment : Fragment() {
     }
 
     private fun onMovieClick(movie: Movie) {
-        val intent = MovieDetailActivity.newIntent(requireActivity(), movie)
+        val intent =
+            MovieDetailActivity.newIntent(
+                requireActivity(),
+                movie.name ?: String.empty(),
+                movie.id
+            )
         startActivity(intent)
     }
 

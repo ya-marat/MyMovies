@@ -1,4 +1,4 @@
-package com.example.mymovies.presentation.activities
+package com.example.mymovies.presentation.detailmovie
 
 import android.content.Context
 import android.content.Intent
@@ -7,7 +7,9 @@ import android.os.Bundle
 import androidx.viewbinding.ViewBinding
 import com.example.mymovies.databinding.ActivityMovieDetailBinding
 import com.example.mymovies.domain.Movie
-import com.example.mymovies.presentation.fragments.MovieDetailFragment
+import com.example.mymovies.empty
+import com.example.mymovies.presentation.activities.BaseAppActivity
+import kotlin.jvm.java
 
 class MovieDetailActivity : BaseAppActivity() {
 
@@ -21,18 +23,14 @@ class MovieDetailActivity : BaseAppActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val movie = intent.extras?.let {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                it.getParcelable(EXTRA_MOVIE, Movie::class.java)
-            } else {
-                it.getParcelable(EXTRA_MOVIE) as Movie?
-            }
-        }
+        val movieName = intent.getStringExtra(EXTRA_MOVIE_NAME)
+        val movieId = intent.getIntExtra(EXTRA_MOVIE_ID, Movie.UNDEFINED_ID)
 
-        val toolbarTitle = if (movie?.name != null) movie.name else "Uknow"
+
+        val toolbarTitle = movieName ?: String.empty()
         setupToolbar(toolbarTitle, true)
 
-        val detailFragment = MovieDetailFragment.newInstance(movie)
+        val detailFragment = MovieDetailFragment.newInstance(movieId)
         supportFragmentManager.beginTransaction()
             .add(binding.movieDetailFragmentContainer.id, detailFragment).commit()
 
@@ -40,11 +38,13 @@ class MovieDetailActivity : BaseAppActivity() {
 
     companion object {
 
-        private const val EXTRA_MOVIE = "movie"
+        private const val EXTRA_MOVIE_NAME = "movie_name"
+        private const val EXTRA_MOVIE_ID = "movie_id"
 
-        fun newIntent(context: Context, movie: Movie): Intent {
+        fun newIntent(context: Context, movieName: String, movieId: Int): Intent {
             val newIntent = Intent(context, MovieDetailActivity::class.java).apply {
-                putExtra(EXTRA_MOVIE, movie)
+                putExtra(EXTRA_MOVIE_NAME, movieName)
+                putExtra(EXTRA_MOVIE_ID, movieId)
             }
 
             return newIntent

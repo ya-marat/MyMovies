@@ -2,7 +2,7 @@ package com.example.mymovies.di
 
 import android.app.Application
 import com.example.mymovies.presentation.activities.MainActivity
-import com.example.mymovies.presentation.fragments.MovieDetailFragment
+import com.example.mymovies.presentation.detailmovie.MovieDetailFragment
 import com.example.mymovies.presentation.favourites.MovieFavouriteFragment
 import com.example.mymovies.presentation.fragments.MovieListFragment
 import dagger.BindsInstance

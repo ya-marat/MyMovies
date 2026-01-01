@@ -1,4 +1,4 @@
-package com.example.mymovies.presentation.viewmodels
+package com.example.mymovies.presentation.detailmovie
 
 import android.app.Application
 import androidx.lifecycle.LiveData
@@ -14,6 +14,7 @@ import com.example.mymovies.domain.usecases.AddMovieToDbUseCase
 import com.example.mymovies.domain.usecases.GetMovieByIdUseCase
 import com.example.mymovies.domain.usecases.ObserveMovieUseCase
 import com.example.mymovies.domain.usecases.RemoveMovieFromDbUseCase
+import com.example.mymovies.presentation.MoviePresentationMapper
 import com.example.mymovies.presentation.common.DetailMovieUIState
 import com.example.mymovies.presentation.common.FavouriteMovieOperationUIState
 import kotlinx.coroutines.launch
@@ -24,7 +25,8 @@ class MovieDetailViewModel @Inject constructor(
     private val removeMovieFromDbUseCase: RemoveMovieFromDbUseCase,
     private val getMovieByIdUseCase: GetMovieByIdUseCase,
     private val observeMovieUseCase: ObserveMovieUseCase,
-    private val application: Application
+    private val application: Application,
+    private val moviePresentationMapper: MoviePresentationMapper
 ) : ViewModel() {
 
     private val _isFavouriteMovieLd = MediatorLiveData<Boolean>()
@@ -65,7 +67,9 @@ class MovieDetailViewModel @Inject constructor(
                         currentMovie = currentMovie.copy(isFavourite = isFavourite)
                     }
 
-                    _state.value = DetailMovieUIState.Success(loadedMovieResult.data)
+                    val movieDetailUI = moviePresentationMapper.mapMovieToMovieDetailUI(loadedMovieResult.data)
+
+                    _state.value = DetailMovieUIState.Success(movieDetailUI)
                 }
             }
         }
