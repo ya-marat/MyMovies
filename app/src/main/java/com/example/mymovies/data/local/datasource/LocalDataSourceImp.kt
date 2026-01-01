@@ -52,6 +52,10 @@ class LocalDataSourceImp @Inject constructor(
         return databaseDao.observeIsFavourite(movieId)
     }
 
+    override fun observeFavourite(): LiveData<List<MovieDBEntity>> {
+        return databaseDao.observeFavourites()
+    }
+
     override suspend fun getMoviesFromDb(): List<MovieDBEntity> {
         return databaseDao.getAllFavourites()
     }

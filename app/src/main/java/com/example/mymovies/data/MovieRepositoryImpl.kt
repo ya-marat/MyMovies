@@ -1,6 +1,9 @@
 package com.example.mymovies.data
 
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MediatorLiveData
+import androidx.lifecycle.map
+import androidx.lifecycle.switchMap
 import com.example.mymovies.data.local.database.dto.MovieCastDto
 import com.example.mymovies.data.local.database.entites.MovieActorJoin
 import com.example.mymovies.data.local.database.entites.MovieGenreDBEntity
@@ -156,6 +159,30 @@ class MovieRepositoryImpl @Inject constructor(
         return localDataSource.observeIsFavourite(movieId)
     }
 
+    override fun observeFavourites(): LiveData<Result<List<Movie>>> {
+//        val result = MediatorLiveData<Result<List<Movie>>>()
+//
+//        result.addSource(localDataSource.observeFavourite()) { entities ->
+//            try {
+//                val favouriteMovies = entities.map { mapper.mapMovieDbToMovie(it) }
+//                result.value = Result.Success(favouriteMovies)
+//            } catch (e: Exception) {
+//                result.value = Result.Failure(DomainError.Unknown(e))
+//            }
+//        }
+
+        return localDataSource.observeFavourite().map { entities ->
+            try {
+                val mappedData = entities.map { it ->
+                    mapper.mapMovieDbToMovie(it)
+                }
+                Result.Success(mappedData)
+            } catch (e: Exception) {
+                Result.Failure(DomainError.Unknown(e))
+            }
+        }
+    }
+
     override suspend fun removeMovieFromDb(movie: Movie): Result<Unit> {
 
         val movieId = movie.id
@@ -217,6 +244,19 @@ class MovieRepositoryImpl @Inject constructor(
             }
         } catch (e: Exception) {
             Result.Failure(DomainError.Unknown(e))
+        }
+    }
+
+    private fun <T, R> safeDbObserveCall(
+        dbCall: () -> LiveData<T>,
+        transform: (T) -> R
+    ): LiveData<Result<R>> {
+        return dbCall().map { dbResult ->
+            try {
+                Result.Success(transform(dbResult))
+            } catch (e: Exception) {
+                Result.Failure(DomainError.Unknown(e))
+            }
         }
     }
 

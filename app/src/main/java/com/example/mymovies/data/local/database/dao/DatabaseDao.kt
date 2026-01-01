@@ -52,4 +52,7 @@ interface DatabaseDao {
 
     @Query("SELECT EXISTS(SELECT 1 FROM favourite_movies WHERE id =  :movieId)")
     fun observeIsFavourite(movieId: Int): LiveData<Boolean>
+
+    @Query("SELECT * FROM favourite_movies")
+    fun observeFavourites(): LiveData<List<MovieDBEntity>>
 }

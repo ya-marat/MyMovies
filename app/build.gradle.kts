@@ -64,6 +64,7 @@ dependencies {
     implementation(libs.androidx.navigation.fragment.ktx)
     implementation(libs.androidx.navigation.ui.ktx)
     kapt ("com.google.dagger:dagger-compiler:2.51.1")
+    implementation ("androidx.lifecycle:lifecycle-livedata-ktx:2.10.0")
 
     val room_version = "2.6.1"
 

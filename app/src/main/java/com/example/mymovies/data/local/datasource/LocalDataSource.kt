@@ -27,5 +27,6 @@ interface LocalDataSource {
 
     suspend fun getMovieGenres(movieId: Int): List<MovieGenreDBEntity>
     fun observeIsFavourite(movieId: Int): LiveData<Boolean>
+    fun observeFavourite(): LiveData<List<MovieDBEntity>>
     suspend fun getMoviesFromDb(): List<MovieDBEntity>
 }

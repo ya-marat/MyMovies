@@ -1,7 +1,6 @@
 package com.example.mymovies.presentation.favourites
 
 import android.content.Context
-import android.util.Log
 import android.view.ContextThemeWrapper
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -17,6 +16,7 @@ class MovieFavouritesAdapter(
 ) : ListAdapter<FavouriteMovieUi, FavouriteMovieViewHolder>(FavouriteMovieDiffCallback()) {
 
     var onElementClick: ((favouriteMovieUi: FavouriteMovieUi) -> Unit)? = null
+    var onRemoveMovieClick: ((Int) -> Unit)? = null
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
@@ -54,16 +54,9 @@ class MovieFavouritesAdapter(
             popupMenu.inflate(R.menu.favourite_item_menu)
 
             popupMenu.setOnMenuItemClickListener { menuItem ->
-                when (menuItem.itemId) {
-                    R.id.delete_favourite -> {
-                        Log.d("MovieFavouritesAdapter", "On remove")
-                        return@setOnMenuItemClickListener true
-                    }
+                onRemoveMovieClick?.invoke(favouriteMovie.id)
+                return@setOnMenuItemClickListener false
 
-                    else -> {
-                        return@setOnMenuItemClickListener false
-                    }
-                }
             }
 
             popupMenu.show()
