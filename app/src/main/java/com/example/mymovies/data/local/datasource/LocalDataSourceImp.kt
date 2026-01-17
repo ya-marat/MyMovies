@@ -7,6 +7,7 @@ import com.example.mymovies.data.local.database.entites.MovieActorJoin
 import com.example.mymovies.data.local.database.entites.MoviePersonDBEntity
 import com.example.mymovies.data.local.database.entites.MovieDBEntity
 import com.example.mymovies.data.local.database.entites.MovieGenreDBEntity
+import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 class LocalDataSourceImp @Inject constructor(
@@ -48,11 +49,11 @@ class LocalDataSourceImp @Inject constructor(
         return databaseDao.getMovieGenres(movieId)
     }
 
-    override fun observeIsFavourite(movieId: Int): LiveData<Boolean> {
+    override fun observeIsFavourite(movieId: Int): Flow<Boolean> {
         return databaseDao.observeIsFavourite(movieId)
     }
 
-    override fun observeFavourite(): LiveData<List<MovieDBEntity>> {
+    override fun observeFavourite(): Flow<List<MovieDBEntity>> {
         return databaseDao.observeFavourites()
     }
 

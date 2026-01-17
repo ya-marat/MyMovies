@@ -8,7 +8,7 @@
     android:background="@color/app_black"
     android:clickable="true"
     android:focusable="true"
-    tools:context=".presentation.fragments.MovieListFragment">
+    tools:context=".presentation.movielist.MovieListFragment">
 
     <ProgressBar
         android:id="@+id/pb_loading_movie"

@@ -1,10 +1,8 @@
-package com.example.mymovies.presentation.common
-
-import com.example.mymovies.domain.Movie
-import com.example.mymovies.presentation.detailmovie.MovieDetailUI
+package com.example.mymovies.presentation.detailmovie
 
 sealed class DetailMovieUIState {
 
+    object Initial: DetailMovieUIState()
     object Loading : DetailMovieUIState()
 
     data class Success(

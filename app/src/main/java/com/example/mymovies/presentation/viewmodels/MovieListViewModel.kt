@@ -1,8 +1,6 @@
 package com.example.mymovies.presentation.viewmodels
 
 import android.app.Application
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.mymovies.Consts
@@ -13,7 +11,9 @@ import com.example.mymovies.domain.common.DomainError
 import com.example.mymovies.domain.common.Result
 import com.example.mymovies.domain.usecases.GetMoviesByGenreUseCase
 import com.example.mymovies.domain.usecases.GetPopularMoviesUseCase
-import com.example.mymovies.presentation.common.HomeUIState
+import com.example.mymovies.presentation.movielist.HomeUIState
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -28,41 +28,18 @@ class MovieListViewModel @Inject constructor(
         private const val TAG = "MovieListViewModel"
     }
 
-    private var _movies = MutableLiveData<List<Movie>>()
-    private var _popularMovies = MutableLiveData<List<Movie>>()
-    private var _moviesByGenre = MutableLiveData<List<Movie>>()
-    private var _isLoading = MutableLiveData<Boolean>()
-    private var _firstMovieElement = MutableLiveData<Movie>()
-    private var _state = MutableLiveData<HomeUIState>()
+    private var _state = MutableStateFlow<HomeUIState>(HomeUIState.Initial)
+    var state = _state.asStateFlow()
 
     init {
         loadMainPageMovies()
     }
-
-    val movies: LiveData<List<Movie>>
-        get() = _movies
-
-    val popularMovies: LiveData<List<Movie>>
-        get() = _popularMovies
-
-    val firstMovieElement: LiveData<Movie>
-        get() = _firstMovieElement
-
-    val moviesByGenre: LiveData<List<Movie>>
-        get() = _moviesByGenre
-
-    val isLoading: LiveData<Boolean>
-        get() = _isLoading
-
-    val state: LiveData<HomeUIState>
-        get() = _state
 
     val genre = Consts.MovieParameters.GENRE
     var firstMovie: Movie? = null
 
     private fun loadMainPageMovies() {
         viewModelScope.launch {
-            _isLoading.value = true
 
             _state.value = HomeUIState.Loading
 

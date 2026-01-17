@@ -6,6 +6,7 @@ import com.example.mymovies.data.local.database.entites.MovieActorJoin
 import com.example.mymovies.data.local.database.entites.MoviePersonDBEntity
 import com.example.mymovies.data.local.database.entites.MovieDBEntity
 import com.example.mymovies.data.local.database.entites.MovieGenreDBEntity
+import kotlinx.coroutines.flow.Flow
 
 interface LocalDataSource {
 
@@ -26,7 +27,7 @@ interface LocalDataSource {
     suspend fun getMovieActorsCast(movieId: Int): List<MovieCastDto>
 
     suspend fun getMovieGenres(movieId: Int): List<MovieGenreDBEntity>
-    fun observeIsFavourite(movieId: Int): LiveData<Boolean>
-    fun observeFavourite(): LiveData<List<MovieDBEntity>>
+    fun observeIsFavourite(movieId: Int): Flow<Boolean>
+    fun observeFavourite(): Flow<List<MovieDBEntity>>
     suspend fun getMoviesFromDb(): List<MovieDBEntity>
 }

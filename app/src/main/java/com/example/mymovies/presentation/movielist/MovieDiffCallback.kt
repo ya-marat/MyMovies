@@ -1,4 +1,4 @@
-package com.example.mymovies.presentation.adapter
+package com.example.mymovies.presentation.movielist
 
 import androidx.recyclerview.widget.DiffUtil
 import com.example.mymovies.domain.Movie

@@ -1,26 +1,26 @@
-package com.example.mymovies.presentation.fragments
+package com.example.mymovies.presentation.movielist
 
 import android.content.Context
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
+import com.example.mymovies.App
 import com.example.mymovies.R
 import com.example.mymovies.databinding.FragmentMovieHomeScreenBinding
 import com.example.mymovies.domain.Movie
-import com.example.mymovies.App
 import com.example.mymovies.empty
-import com.example.mymovies.presentation.viewmodels.MovieListViewModel
 import com.example.mymovies.presentation.ViewModelFactory
 import com.example.mymovies.presentation.detailmovie.MovieDetailActivity
-import com.example.mymovies.presentation.adapter.MovieAdapter
-import com.example.mymovies.presentation.common.HomeUIState
 import com.example.mymovies.presentation.item.HorizontalItemDecoration
+import com.example.mymovies.presentation.viewmodels.MovieListViewModel
 import com.squareup.picasso.Picasso
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class MovieListFragment : Fragment() {
@@ -83,66 +83,49 @@ class MovieListFragment : Fragment() {
         binding.movieList2.addItemDecoration(itemDecoration)
         binding.movieList3.addItemDecoration(itemDecoration)
 
-        viewModel.movies.observe(viewLifecycleOwner) {
-            firstAdapter.submitList(it)
-        }
-
-        viewModel.firstMovieElement.observe(viewLifecycleOwner) { movie ->
-            //movie.urlPoster?.let { url -> Picasso.get().load(url).into(binding.firstMovieElement) }
-        }
-
-        viewModel.popularMovies.observe(viewLifecycleOwner) {
-            secondListAdapter.submitList(it)
-        }
-
-        viewModel.moviesByGenre.observe(viewLifecycleOwner) {
-            thirdListAdapter.submitList(it)
-        }
-
-        viewModel.isLoading.observe(viewLifecycleOwner) {
-            binding.pbLoadingMovie.visibility = if (it) View.VISIBLE else View.GONE
-            binding.nsvRoot.visibility = if (!it) View.VISIBLE else View.GONE
-        }
-
         binding.firstMovieElement.setOnClickListener {
             viewModel.firstMovie?.let {
                 onMovieClick(it)
             }
         }
 
-        viewModel.state.observe(viewLifecycleOwner) { homeUIState ->
+        lifecycleScope.launch {
+            viewModel.state.collect { homeUIState ->
 
-            Log.d(TAG, "State: ${homeUIState}")
+                Log.d(TAG, "State: $homeUIState")
 
-            when (homeUIState) {
-                is HomeUIState.Error -> {
-                    binding.nsvRoot.visibility = View.GONE
-                    binding.llErrorArea.visibility = View.VISIBLE
-                    binding.pbLoadingMovie.visibility = View.GONE
-                    binding.tvErrorText.text = getString(R.string.data_not_loaded)
-                    showDialog(homeUIState.message)
-                }
-
-                HomeUIState.Loading -> {
-                    binding.nsvRoot.visibility = View.GONE
-                    binding.llErrorArea.visibility = View.GONE
-                    binding.pbLoadingMovie.visibility = View.VISIBLE
-                }
-
-                is HomeUIState.Success -> {
-                    binding.pbLoadingMovie.visibility = View.GONE
-                    binding.llErrorArea.visibility = View.GONE
-                    binding.nsvRoot.visibility = View.VISIBLE
-
-                    homeUIState.firstMovie?.let { firstMovie ->
-                        firstMovie.urlPoster?.let {
-                            Picasso.get().load(it).into(binding.firstMovieElement)
-                        }
+                when (homeUIState) {
+                    is HomeUIState.Error -> {
+                        binding.nsvRoot.visibility = View.GONE
+                        binding.llErrorArea.visibility = View.VISIBLE
+                        binding.pbLoadingMovie.visibility = View.GONE
+                        binding.tvErrorText.text = getString(R.string.data_not_loaded)
+                        showDialog(homeUIState.message)
                     }
 
-                    firstAdapter.submitList(homeUIState.newMovies)
-                    secondListAdapter.submitList(homeUIState.popularMovies)
-                    thirdListAdapter.submitList(homeUIState.genreMovies)
+                    HomeUIState.Loading -> {
+                        binding.nsvRoot.visibility = View.GONE
+                        binding.llErrorArea.visibility = View.GONE
+                        binding.pbLoadingMovie.visibility = View.VISIBLE
+                    }
+
+                    is HomeUIState.Success -> {
+                        binding.pbLoadingMovie.visibility = View.GONE
+                        binding.llErrorArea.visibility = View.GONE
+                        binding.nsvRoot.visibility = View.VISIBLE
+
+                        homeUIState.firstMovie?.let { firstMovie ->
+                            firstMovie.urlPoster?.let {
+                                Picasso.get().load(it).into(binding.firstMovieElement)
+                            }
+                        }
+
+                        firstAdapter.submitList(homeUIState.newMovies)
+                        secondListAdapter.submitList(homeUIState.popularMovies)
+                        thirdListAdapter.submitList(homeUIState.genreMovies)
+                    }
+
+                    is HomeUIState.Initial -> {}
                 }
             }
         }
@@ -150,9 +133,9 @@ class MovieListFragment : Fragment() {
 
     private fun onMovieClick(movie: Movie) {
         val intent =
-            MovieDetailActivity.newIntent(
+            MovieDetailActivity.Companion.newIntent(
                 requireActivity(),
-                movie.name ?: String.empty(),
+                movie.name ?: String.Companion.empty(),
                 movie.id
             )
         startActivity(intent)

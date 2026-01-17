@@ -1,4 +1,4 @@
-package com.example.mymovies.presentation.common
+package com.example.mymovies.presentation.detailmovie
 
 sealed class FavouriteMovieOperationUIState {
 

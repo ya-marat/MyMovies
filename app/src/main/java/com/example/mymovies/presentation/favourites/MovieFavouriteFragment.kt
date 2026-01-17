@@ -6,12 +6,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import com.example.mymovies.App
 import com.example.mymovies.R
 import com.example.mymovies.databinding.FragmentFavouritesMovieBinding
 import com.example.mymovies.presentation.ViewModelFactory
 import com.example.mymovies.presentation.detailmovie.MovieDetailActivity
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class MovieFavouriteFragment : Fragment() {
@@ -52,26 +56,33 @@ class MovieFavouriteFragment : Fragment() {
         val favouriteMoviesAdapter = MovieFavouritesAdapter(requireActivity())
         binding.rwFavouriteList.adapter = favouriteMoviesAdapter
 
-        viewModel.favourites.observe(viewLifecycleOwner) { favouritesUiState ->
+        lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.favouriteFlowTest.collect { state ->
+                    when (state) {
+                        is FavouritesUiState.Failure -> {
+                            displayLoadingView(false)
+                        }
 
-            when (favouritesUiState) {
-                is FavouritesUiState.Failure -> {
-                    displayLoadingView(false)
-                }
+                        is FavouritesUiState.Loading -> {
+                            displayLoadingView(true)
+                        }
 
-                is FavouritesUiState.Loading -> {
-                    displayLoadingView(true)
-                }
-
-                is FavouritesUiState.Success -> {
-                    displayLoadingView(false)
-                    favouriteMoviesAdapter.submitList(favouritesUiState.movieList)
+                        is FavouritesUiState.Success -> {
+                            displayLoadingView(false)
+                            favouriteMoviesAdapter.submitList(state.movieList)
+                        }
+                    }
                 }
             }
         }
 
         favouriteMoviesAdapter.onElementClick = { favouriteMovie ->
-            val intent = MovieDetailActivity.newIntent(requireActivity(), favouriteMovie.title, favouriteMovie.id)
+            val intent = MovieDetailActivity.newIntent(
+                requireActivity(),
+                favouriteMovie.title,
+                favouriteMovie.id
+            )
             startActivity(intent)
         }
 

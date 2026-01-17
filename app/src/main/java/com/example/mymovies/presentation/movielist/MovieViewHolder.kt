@@ -1,4 +1,4 @@
-package com.example.mymovies.presentation.adapter
+package com.example.mymovies.presentation.movielist
 
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mymovies.databinding.ItemMovieBinding

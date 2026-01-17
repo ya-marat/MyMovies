@@ -10,6 +10,7 @@ import com.example.mymovies.data.local.database.entites.MovieDBEntity
 import com.example.mymovies.data.local.database.entites.MoviePersonDBEntity
 import com.example.mymovies.data.local.database.entites.MovieActorJoin
 import com.example.mymovies.data.local.database.entites.MovieGenreDBEntity
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface DatabaseDao {
@@ -51,8 +52,8 @@ interface DatabaseDao {
     suspend fun getMovieGenres(movieId: Int): List<MovieGenreDBEntity>
 
     @Query("SELECT EXISTS(SELECT 1 FROM favourite_movies WHERE id =  :movieId)")
-    fun observeIsFavourite(movieId: Int): LiveData<Boolean>
+    fun observeIsFavourite(movieId: Int): Flow<Boolean>
 
     @Query("SELECT * FROM favourite_movies")
-    fun observeFavourites(): LiveData<List<MovieDBEntity>>
+    fun observeFavourites(): Flow<List<MovieDBEntity>>
 }

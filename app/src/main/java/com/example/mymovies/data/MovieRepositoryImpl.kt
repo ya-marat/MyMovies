@@ -17,6 +17,9 @@ import com.example.mymovies.domain.Movie
 import com.example.mymovies.domain.MovieRepository
 import com.example.mymovies.domain.common.DomainError
 import com.example.mymovies.domain.common.Result
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
 class MovieRepositoryImpl @Inject constructor(
@@ -155,32 +158,17 @@ class MovieRepositoryImpl @Inject constructor(
         TODO()
     }
 
-    override fun observeIsFavourite(movieId: Int): LiveData<Boolean> {
+    override fun observeIsFavourite(movieId: Int): Flow<Boolean> {
         return localDataSource.observeIsFavourite(movieId)
     }
 
-    override fun observeFavourites(): LiveData<Result<List<Movie>>> {
-//        val result = MediatorLiveData<Result<List<Movie>>>()
-//
-//        result.addSource(localDataSource.observeFavourite()) { entities ->
-//            try {
-//                val favouriteMovies = entities.map { mapper.mapMovieDbToMovie(it) }
-//                result.value = Result.Success(favouriteMovies)
-//            } catch (e: Exception) {
-//                result.value = Result.Failure(DomainError.Unknown(e))
-//            }
-//        }
-
-        return localDataSource.observeFavourite().map { entities ->
-            try {
-                val mappedData = entities.map { it ->
-                    mapper.mapMovieDbToMovie(it)
-                }
-                Result.Success(mappedData)
-            } catch (e: Exception) {
+    override fun observeFavourites(): Flow<Result<List<Movie>>> {
+        return localDataSource.observeFavourite()
+            .map { entities ->
+                Result.Success(entities.map { mapper.mapMovieDbToMovie(it) })
+            }.catch { e ->
                 Result.Failure(DomainError.Unknown(e))
             }
-        }
     }
 
     override suspend fun removeMovieFromDb(movie: Movie): Result<Unit> {
@@ -244,19 +232,6 @@ class MovieRepositoryImpl @Inject constructor(
             }
         } catch (e: Exception) {
             Result.Failure(DomainError.Unknown(e))
-        }
-    }
-
-    private fun <T, R> safeDbObserveCall(
-        dbCall: () -> LiveData<T>,
-        transform: (T) -> R
-    ): LiveData<Result<R>> {
-        return dbCall().map { dbResult ->
-            try {
-                Result.Success(transform(dbResult))
-            } catch (e: Exception) {
-                Result.Failure(DomainError.Unknown(e))
-            }
         }
     }
 

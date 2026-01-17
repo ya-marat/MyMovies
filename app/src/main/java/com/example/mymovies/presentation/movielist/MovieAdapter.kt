@@ -1,12 +1,13 @@
-package com.example.mymovies.presentation.adapter
+package com.example.mymovies.presentation.movielist
 
-import android.content.Context
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import com.example.mymovies.databinding.ItemMovieBinding
 import com.example.mymovies.domain.Movie
+import com.example.mymovies.presentation.movielist.MovieDiffCallback
+import com.example.mymovies.presentation.movielist.MovieViewHolder
 import com.squareup.picasso.Picasso
 
 class MovieAdapter() : ListAdapter<Movie, MovieViewHolder>(MovieDiffCallback()) {
@@ -29,7 +30,6 @@ class MovieAdapter() : ListAdapter<Movie, MovieViewHolder>(MovieDiffCallback()) 
             tvMovieRating.text = movie.rating.toString()
             movie.previewPoster?.let { Picasso.get().load(it).into(imgMoviePoster) }
 
-            //Picasso.get().load(movie.poster).into(imgMoviePoster)
             root.setOnClickListener {
                 onMovieItemClick(movie)
             }

@@ -9,7 +9,7 @@ import com.example.mymovies.databinding.ActivityMovieMainBinding
 import com.example.mymovies.presentation.MainActivityState
 import com.example.mymovies.presentation.NavigateFragment
 import com.example.mymovies.presentation.favourites.MovieFavouriteFragment
-import com.example.mymovies.presentation.fragments.MovieListFragment
+import com.example.mymovies.presentation.movielist.MovieListFragment
 
 class MovieMainActivity : BaseAppActivity(), NavigateFragment {
 

@@ -1,9 +1,10 @@
-package com.example.mymovies.presentation.common
+package com.example.mymovies.presentation.movielist
 
 import com.example.mymovies.domain.Movie
 
 sealed class HomeUIState {
 
+    object Initial: HomeUIState()
     object Loading: HomeUIState()
 
     data class Success(
@@ -14,4 +15,8 @@ sealed class HomeUIState {
     ): HomeUIState()
 
     data class Error(val message: String): HomeUIState()
+}
+
+sealed class HomeUIError{
+
 }
