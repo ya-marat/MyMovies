@@ -27,4 +27,5 @@
     <string name="error_add_favourite_toast">Ошибка при добавлении в избранное</string>
     <string name="error_remove_favourite_toast">Ошибка при удалении из избранного</string>
     <string name="favourite_remove">Удалить</string>
+    <string name="title_activity_main">MainActivity</string>
 </resources>

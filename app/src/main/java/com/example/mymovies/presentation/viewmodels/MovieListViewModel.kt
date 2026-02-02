@@ -45,6 +45,7 @@ class MovieListViewModel @Inject constructor(
 
             val currentPage = Consts.MovieParameters.PAGE //Todo Manager responsible
 
+            val k: Any
             val newLoadedMoviesResult = getMoviesUseCase.getMovies(currentPage)
             val popularMoviesResult = getPopularMoviesUseCase.loadPopularMovies(currentPage)
             val genreMoviesResult = getMoviesByGenreUseCase.getMoviesByGenre(currentPage, genre)
@@ -84,5 +85,9 @@ class MovieListViewModel @Inject constructor(
             is DomainError.Unknown -> application.getString(R.string.unknow_error)
             else -> {""}
         }
+    }
+
+    private fun test(): Nothing{
+        throw RuntimeException("")
     }
 }
