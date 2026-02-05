@@ -13,14 +13,11 @@ import com.example.mymovies.domain.usecases.GetMovieByIdUseCase
 import com.example.mymovies.domain.usecases.ObserveMovieUseCase
 import com.example.mymovies.domain.usecases.RemoveMovieFromDbUseCase
 import com.example.mymovies.presentation.MoviePresentationMapper
-import com.example.mymovies.presentation.detailmovie.DetailMovieUIState
-import com.example.mymovies.presentation.detailmovie.FavouriteMovieOperationUIState
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
@@ -118,6 +115,10 @@ class MovieDetailViewModel @Inject constructor(
 
             _favouriteMovieOperationUIStateFlow.emit(favouriteOperationState)
         }
+    }
+
+    fun onTrailerClick() {
+
     }
 
     private fun mapError(error: DomainError): String {

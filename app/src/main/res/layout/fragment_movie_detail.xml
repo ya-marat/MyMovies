@@ -7,7 +7,7 @@
     android:background="@color/app_black"
     android:clickable="true"
     android:focusable="true"
-    tools:context=".presentation.detailmovie.MovieDetailFragment">
+    tools:context=".presentation.detailmovie.MovieDetailFragmentLeg">
 
     <ProgressBar
         android:id="@+id/pb_loading_movie"
@@ -71,7 +71,7 @@
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintEnd_toStartOf="@+id/ib_favourites"
                     android:maxWidth="300dp"
-                    tools:text="MovieName looooooo oo ooooooooo ooo" />
+                    tools:text="MovieName looooooo oo oooooffff ffff fff ffff fffffffffffffffffff ffffff ffffffffffffffffffffffffffffffffffffffffffoooo ooo" />
 
                 <TextView
                     android:id="@+id/tv_detail_movie"

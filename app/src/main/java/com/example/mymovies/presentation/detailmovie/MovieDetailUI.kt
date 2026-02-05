@@ -3,6 +3,7 @@ package com.example.mymovies.presentation.detailmovie
 data class MovieDetailUI(
     val id: Int,
     val name: String,
+    val movieDetail: String,
     val description: String?,
     val year: String,
     val rating: String,

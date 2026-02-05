@@ -10,7 +10,7 @@
     <string name="next">Next</string>
     <string name="previous">Previous</string>
     <string name="description_movie_detail_is_empty">(Описание отсутствует)</string>
-    <string name="starring_label">В ролях :\u0020</string>
+    <string name="starring_label">В ролях:\u0020</string>
     <string name="creators_label">Создатели :\u0020</string>
     <string name="genre_label">Жанр :\u0020</string>
     <string name="trailer_lbl">Трейлер</string>

@@ -20,6 +20,12 @@
         <activity
             android:name=".presentation.detailmovie.MovieDetailActivity"
             android:exported="false"
+            android:label="@string/title_activity_main"
+            android:theme="@style/Theme.MyMovies">
+        </activity>
+        <activity
+            android:name=".presentation.detailmovie.MovieDetailActivityLeg"
+            android:exported="false"
             android:theme="@style/Theme.MyMovies" />
         <activity
             android:name=".presentation.activities.MovieMainActivity"

@@ -78,6 +78,7 @@ dependencies {
     debugImplementation(libs.androidx.compose.ui.test.manifest)
     kapt ("com.google.dagger:dagger-compiler:2.51.1")
     implementation ("androidx.lifecycle:lifecycle-livedata-ktx:2.10.0")
+    implementation(libs.androidx.constraintlayout.compose)
 
     val room_version = "2.6.1"
 

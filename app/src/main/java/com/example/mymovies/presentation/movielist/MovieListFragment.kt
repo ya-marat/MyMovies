@@ -17,6 +17,7 @@ import com.example.mymovies.domain.Movie
 import com.example.mymovies.empty
 import com.example.mymovies.presentation.ViewModelFactory
 import com.example.mymovies.presentation.detailmovie.MovieDetailActivity
+import com.example.mymovies.presentation.detailmovie.MovieDetailActivityLeg
 import com.example.mymovies.presentation.item.HorizontalItemDecoration
 import com.example.mymovies.presentation.viewmodels.MovieListViewModel
 import com.squareup.picasso.Picasso
@@ -133,7 +134,7 @@ class MovieListFragment : Fragment() {
 
     private fun onMovieClick(movie: Movie) {
         val intent =
-            MovieDetailActivity.Companion.newIntent(
+            MovieDetailActivity.newIntent(
                 requireActivity(),
                 movie.name ?: String.Companion.empty(),
                 movie.id

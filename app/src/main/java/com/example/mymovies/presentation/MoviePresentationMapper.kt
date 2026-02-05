@@ -26,6 +26,7 @@ class MoviePresentationMapper @Inject constructor(
         return MovieDetailUI(
             id = movie.id,
             name = movie.name ?: String.empty(),
+            movieDetail = "${movie.year} | ${movie.rating}",
             description = movie.description ?: application.getString(R.string.description_movie_detail_is_empty),
             year = movie.year?.toString() ?: String.empty(),
             rating = movie.rating?.toString() ?: String.empty(),

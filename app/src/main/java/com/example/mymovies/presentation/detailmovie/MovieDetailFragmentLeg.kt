@@ -19,14 +19,12 @@ import com.example.mymovies.R
 import com.example.mymovies.databinding.FragmentMovieDetailBinding
 import com.example.mymovies.domain.ImageManager
 import com.example.mymovies.presentation.ViewModelFactory
-import com.example.mymovies.presentation.detailmovie.DetailMovieUIState
-import com.example.mymovies.presentation.detailmovie.FavouriteMovieOperationUIState
 import com.squareup.picasso.Picasso
 import kotlinx.coroutines.launch
 import java.io.File
 import javax.inject.Inject
 
-class MovieDetailFragment : Fragment() {
+class MovieDetailFragmentLeg : Fragment() {
 
     private val TAG = "MovieDetailFragment"
 
@@ -184,7 +182,7 @@ class MovieDetailFragment : Fragment() {
         private const val EXTRA_MOVIE_DETAIL_ID = "extra_movie_detail_id"
 
         fun newInstance(movieId: Int): Fragment {
-            return MovieDetailFragment().apply {
+            return MovieDetailFragmentLeg().apply {
                 arguments = Bundle().apply {
                     putInt(EXTRA_MOVIE_DETAIL_ID, movieId)
                 }

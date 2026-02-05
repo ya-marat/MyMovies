@@ -2,44 +2,51 @@ package com.example.mymovies.presentation.detailmovie
 
 import android.content.Context
 import android.content.Intent
-import android.os.Build
 import android.os.Bundle
-import androidx.viewbinding.ViewBinding
-import com.example.mymovies.databinding.ActivityMovieDetailBinding
+import android.view.View
+import androidx.activity.ComponentActivity
+import androidx.activity.compose.setContent
+import androidx.activity.enableEdgeToEdge
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.repeatOnLifecycle
+import com.example.mymovies.App
 import com.example.mymovies.domain.Movie
-import com.example.mymovies.empty
-import com.example.mymovies.presentation.activities.BaseAppActivity
-import kotlin.jvm.java
+import com.example.mymovies.presentation.ViewModelFactory
+import com.example.mymovies.presentation.detailmovie.ui.theme.MyMoviesTheme
+import javax.inject.Inject
 
-class MovieDetailActivity : BaseAppActivity() {
+class MovieDetailActivity : ComponentActivity() {
 
-    val binding by lazy {
-        ActivityMovieDetailBinding.inflate(layoutInflater)
+    val component by lazy {
+        (application as App).component
     }
 
-    override val baseBinding: ViewBinding
-        get() = binding
+    @Inject
+    lateinit var viewModelFactory: ViewModelFactory
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        component.inject(this)
         super.onCreate(savedInstanceState)
+        enableEdgeToEdge()
 
-        val movieName = intent.getStringExtra(EXTRA_MOVIE_NAME)
         val movieId = intent.getIntExtra(EXTRA_MOVIE_ID, Movie.UNDEFINED_ID)
 
+        val viewModel = ViewModelProvider(this, viewModelFactory)[MovieDetailViewModel::class.java]
 
-        val toolbarTitle = movieName ?: String.empty()
-        setupToolbar(toolbarTitle, true)
+        viewModel.loadMovieById(movieId)
 
-        val detailFragment = MovieDetailFragment.newInstance(movieId)
-        supportFragmentManager.beginTransaction()
-            .add(binding.movieDetailFragmentContainer.id, detailFragment).commit()
-
+        setContent {
+            MyMoviesTheme {
+                DetailMovieScreen(viewModel = viewModel)
+            }
+        }
     }
 
     companion object {
 
         private const val EXTRA_MOVIE_NAME = "movie_name"
-        private const val EXTRA_MOVIE_ID = "movie_id"
+        private const val EXTRA_MOVIE_ID =  "movie_id"
 
         fun newIntent(context: Context, movieName: String, movieId: Int): Intent {
             val newIntent = Intent(context, MovieDetailActivity::class.java).apply {
