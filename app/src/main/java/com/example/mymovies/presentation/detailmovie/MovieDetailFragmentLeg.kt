@@ -18,6 +18,7 @@ import com.example.mymovies.App
 import com.example.mymovies.R
 import com.example.mymovies.databinding.FragmentMovieDetailBinding
 import com.example.mymovies.domain.ImageManager
+import com.example.mymovies.empty
 import com.example.mymovies.presentation.ViewModelFactory
 import com.squareup.picasso.Picasso
 import kotlinx.coroutines.launch
@@ -93,10 +94,10 @@ class MovieDetailFragmentLeg : Fragment() {
         }
 
         lifecycleScope.launch {
-            viewModel.isFavouriteMovie.collect { isFavourite ->
-                val color = if (isFavourite) R.color.main_color_2 else R.color.white
-                binding.ibFavourites.setColorFilter(requireActivity().getColor(color))
-            }
+//            viewModel.isFavouriteMovie.collect { isFavourite ->
+//                val color = if (isFavourite) R.color.main_color_2 else R.color.white
+//                binding.ibFavourites.setColorFilter(requireActivity().getColor(color))
+//            }
         }
 
         lifecycleScope.launch {
@@ -106,6 +107,7 @@ class MovieDetailFragmentLeg : Fragment() {
                     FavouriteMovieOperationUIState.AddFavouriteSuccess -> getString(R.string.add_to_favourites_toast)
                     FavouriteMovieOperationUIState.RemoveFavouriteError -> getString(R.string.error_remove_favourite_toast)
                     FavouriteMovieOperationUIState.RemoveFavouriteSuccess -> getString(R.string.remove_from_favorites_toast)
+                    FavouriteMovieOperationUIState.Initial -> { String.empty()  }
                 }
 
                 Toast.makeText(requireActivity(), message, Toast.LENGTH_SHORT).show()

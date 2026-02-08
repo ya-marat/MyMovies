@@ -7,11 +7,15 @@ import android.view.View
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.compose.ui.graphics.Color
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.repeatOnLifecycle
 import com.example.mymovies.App
 import com.example.mymovies.domain.Movie
+import com.example.mymovies.empty
+import com.example.mymovies.presentation.AppScaffold
+import com.example.mymovies.presentation.SetStatusBarStyle
 import com.example.mymovies.presentation.ViewModelFactory
 import com.example.mymovies.presentation.detailmovie.ui.theme.MyMoviesTheme
 import javax.inject.Inject
@@ -31,6 +35,7 @@ class MovieDetailActivity : ComponentActivity() {
         enableEdgeToEdge()
 
         val movieId = intent.getIntExtra(EXTRA_MOVIE_ID, Movie.UNDEFINED_ID)
+        val movieName = intent.getStringExtra(EXTRA_MOVIE_NAME)
 
         val viewModel = ViewModelProvider(this, viewModelFactory)[MovieDetailViewModel::class.java]
 
@@ -38,7 +43,18 @@ class MovieDetailActivity : ComponentActivity() {
 
         setContent {
             MyMoviesTheme {
-                DetailMovieScreen(viewModel = viewModel)
+
+                SetStatusBarStyle(
+                    Color.Black,
+                    false
+                )
+
+                AppScaffold(
+                    title = movieName ?: String.empty(),
+                    onBackClick = { finish() }
+                ) {
+                    DetailMovieScreen(viewModel = viewModel)
+                }
             }
         }
     }
@@ -46,7 +62,7 @@ class MovieDetailActivity : ComponentActivity() {
     companion object {
 
         private const val EXTRA_MOVIE_NAME = "movie_name"
-        private const val EXTRA_MOVIE_ID =  "movie_id"
+        private const val EXTRA_MOVIE_ID = "movie_id"
 
         fun newIntent(context: Context, movieName: String, movieId: Int): Intent {
             val newIntent = Intent(context, MovieDetailActivity::class.java).apply {

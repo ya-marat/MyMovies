@@ -53,16 +53,16 @@ dependencies {
     implementation ("androidx.recyclerview:recyclerview:1.4.0")
     implementation ("androidx.cardview:cardview:1.0.0")
 
-    implementation ("com.squareup.retrofit2:retrofit:2.11.0")
-    implementation ("com.squareup.retrofit2:converter-gson:2.11.0")
-    implementation ("com.squareup.okhttp3:okhttp:3.6.0")
-    implementation ("com.squareup.okhttp3:logging-interceptor:3.6.0")
+    implementation ("com.squareup.retrofit2:retrofit:3.0.0")
+    implementation ("com.squareup.retrofit2:converter-gson:3.0.0")
+    implementation ("com.squareup.okhttp3:okhttp:5.3.2")
+    implementation ("com.squareup.okhttp3:logging-interceptor:5.3.2")
 
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.2")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3")
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0")
 
-    implementation ("com.google.dagger:dagger:2.51.1")
+    implementation ("com.google.dagger:dagger:2.59")
     implementation(libs.androidx.navigation.fragment.ktx)
     implementation(libs.androidx.navigation.ui.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
@@ -76,11 +76,11 @@ dependencies {
     androidTestImplementation(libs.androidx.compose.ui.test.junit4)
     debugImplementation(libs.androidx.compose.ui.tooling)
     debugImplementation(libs.androidx.compose.ui.test.manifest)
-    kapt ("com.google.dagger:dagger-compiler:2.51.1")
+    kapt ("com.google.dagger:dagger-compiler:2.59")
     implementation ("androidx.lifecycle:lifecycle-livedata-ktx:2.10.0")
     implementation(libs.androidx.constraintlayout.compose)
 
-    val room_version = "2.6.1"
+    val room_version = "2.8.4"
 
     implementation("androidx.room:room-runtime:$room_version")
     kapt("androidx.room:room-compiler:$room_version")
@@ -88,6 +88,9 @@ dependencies {
 
     implementation ("com.squareup.picasso:picasso:2.71828")
     implementation ("com.squareup.picasso:picasso:2.8")
+
+    implementation("io.coil-kt.coil3:coil-compose:3.3.0")
+    implementation("io.coil-kt.coil3:coil-network-okhttp:3.3.0")
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

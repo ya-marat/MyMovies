@@ -35,8 +35,8 @@ class MovieDetailViewModel @Inject constructor(
     private val _state = MutableStateFlow<DetailMovieUIState>(DetailMovieUIState.Initial)
     val state: StateFlow<DetailMovieUIState> = _state.asStateFlow()
 
-    private val _isFavouriteMovieFlow = MutableStateFlow<Boolean>(false)
-    val isFavouriteMovie: StateFlow<Boolean> = _isFavouriteMovieFlow.asStateFlow()
+//    private val _isFavouriteMovieFlow = MutableStateFlow<Boolean>(false)
+//    val isFavouriteMovie: StateFlow<Boolean> = _isFavouriteMovieFlow.asStateFlow()
 
     private val _favouriteMovieOperationUIStateFlow =
         MutableSharedFlow<FavouriteMovieOperationUIState>()
@@ -65,7 +65,8 @@ class MovieDetailViewModel @Inject constructor(
                     observeMovieUseCase(movieId)
                         .onEach { isFavourite ->
                             currentMovie = currentMovie.copy(isFavourite = isFavourite)
-                            _isFavouriteMovieFlow.emit(isFavourite)
+//                            _isFavouriteMovieFlow.emit(isFavourite)
+                            _state.value = DetailMovieUIState.Success(moviePresentationMapper.mapMovieToMovieDetailUI(currentMovie))
 
                         }
                         .launchIn(viewModelScope)
