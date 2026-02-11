@@ -50,10 +50,7 @@ fun DetailMovieScreen(
     )
 
     val message = when (favouriteAddOperationState.value) {
-        FavouriteMovieOperationUIState.Initial -> {
-            String.empty()
-        }
-
+        FavouriteMovieOperationUIState.Initial -> String.empty()
         FavouriteMovieOperationUIState.AddFavouriteError -> stringResource(R.string.error_add_favourite_toast)
         FavouriteMovieOperationUIState.AddFavouriteSuccess -> stringResource(R.string.add_to_favourites_toast)
         FavouriteMovieOperationUIState.RemoveFavouriteError -> stringResource(R.string.error_remove_favourite_toast)

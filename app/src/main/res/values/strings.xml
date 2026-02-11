@@ -28,4 +28,5 @@
     <string name="error_remove_favourite_toast">Ошибка при удалении из избранного</string>
     <string name="favourite_remove">Удалить</string>
     <string name="title_activity_main">MainActivity</string>
+    <string name="title_activity_movie_list">MovieListActivity</string>
 </resources>

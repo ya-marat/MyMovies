@@ -1,7 +1,6 @@
 package com.example.mymovies.presentation.activities
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import androidx.viewbinding.ViewBinding
 import com.example.mymovies.R
@@ -9,9 +8,9 @@ import com.example.mymovies.databinding.ActivityMovieMainBinding
 import com.example.mymovies.presentation.MainActivityState
 import com.example.mymovies.presentation.NavigateFragment
 import com.example.mymovies.presentation.favourites.MovieFavouriteFragment
-import com.example.mymovies.presentation.movielist.MovieListFragment
+import com.example.mymovies.presentation.movielist.MovieListFragmentLeg
 
-class MovieMainActivity : BaseAppActivity(), NavigateFragment {
+class MovieMainActivityLeg : BaseAppActivity(), NavigateFragment {
 
     private val TAG = "MovieMainActivity"
 
@@ -55,7 +54,7 @@ class MovieMainActivity : BaseAppActivity(), NavigateFragment {
     private fun initFragmentsMap() {
 
         with(fragmentsMap) {
-            put(MainActivityState.HOME, MovieListFragment())
+            put(MainActivityState.HOME, MovieListFragmentLeg())
             put(MainActivityState.FAVOURITES, MovieFavouriteFragment())
         }
     }

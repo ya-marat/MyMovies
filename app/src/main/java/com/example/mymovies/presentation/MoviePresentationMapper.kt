@@ -4,10 +4,12 @@ import android.app.Application
 import com.example.mymovies.R
 import com.example.mymovies.domain.Movie
 import com.example.mymovies.domain.MovieProfessionType
+import com.example.mymovies.domain.common.DomainError
 import com.example.mymovies.empty
 import com.example.mymovies.presentation.detailmovie.MovieDetailTrailerUi
 import com.example.mymovies.presentation.detailmovie.MovieDetailUI
 import com.example.mymovies.presentation.favourites.FavouriteMovieUi
+import com.example.mymovies.presentation.movielist.MovieItemUi
 import javax.inject.Inject
 
 class MoviePresentationMapper @Inject constructor(
@@ -58,5 +60,23 @@ class MoviePresentationMapper @Inject constructor(
                 )
             } ?: listOf()
         )
+    }
+
+    fun mapDomainToMovieItemUi(domainModel: Movie): MovieItemUi {
+        return MovieItemUi(
+            id = domainModel.id,
+            posterUrl = domainModel.urlPoster,
+            localPosterPath = domainModel.localPathPoster
+        )
+    }
+
+    fun mapDomainErrorToMovieUiError(domainError: DomainError): MovieUiError {
+        return when (domainError) {
+            DomainError.LocalSaveError -> MovieUiError.LocalSaveError
+            DomainError.NoInternet -> MovieUiError.NoInternet
+            DomainError.NotFound -> MovieUiError.NotFound
+            is DomainError.Server -> MovieUiError.Server(domainError.code)
+            is DomainError.Unknown -> MovieUiError.Unknown
+        }
     }
 }

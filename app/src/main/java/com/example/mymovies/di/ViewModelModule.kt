@@ -4,7 +4,7 @@ import androidx.lifecycle.ViewModel
 import com.example.mymovies.presentation.favourites.FavouriteMoviesViewModel
 import com.example.mymovies.presentation.viewmodels.MainViewModel
 import com.example.mymovies.presentation.detailmovie.MovieDetailViewModel
-import com.example.mymovies.presentation.viewmodels.MovieListViewModel
+import com.example.mymovies.presentation.movielist.MovieListViewModel
 import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap

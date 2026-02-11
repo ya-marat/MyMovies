@@ -17,14 +17,12 @@ import com.example.mymovies.domain.Movie
 import com.example.mymovies.empty
 import com.example.mymovies.presentation.ViewModelFactory
 import com.example.mymovies.presentation.detailmovie.MovieDetailActivity
-import com.example.mymovies.presentation.detailmovie.MovieDetailActivityLeg
 import com.example.mymovies.presentation.item.HorizontalItemDecoration
-import com.example.mymovies.presentation.viewmodels.MovieListViewModel
 import com.squareup.picasso.Picasso
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-class MovieListFragment : Fragment() {
+class MovieListFragmentLeg : Fragment() {
 
     private val TAG = "MovieListFragment"
 
@@ -86,7 +84,7 @@ class MovieListFragment : Fragment() {
 
         binding.firstMovieElement.setOnClickListener {
             viewModel.firstMovie?.let {
-                onMovieClick(it)
+//                onMovieClick(it)
             }
         }
 
@@ -96,37 +94,37 @@ class MovieListFragment : Fragment() {
                 Log.d(TAG, "State: $homeUIState")
 
                 when (homeUIState) {
-                    is HomeUIState.Error -> {
+                    is MovieListUiState.Error -> {
                         binding.nsvRoot.visibility = View.GONE
                         binding.llErrorArea.visibility = View.VISIBLE
                         binding.pbLoadingMovie.visibility = View.GONE
                         binding.tvErrorText.text = getString(R.string.data_not_loaded)
-                        showDialog(homeUIState.message)
+//                        showDialog(homeUIState.message)
                     }
 
-                    HomeUIState.Loading -> {
+                    MovieListUiState.Loading -> {
                         binding.nsvRoot.visibility = View.GONE
                         binding.llErrorArea.visibility = View.GONE
                         binding.pbLoadingMovie.visibility = View.VISIBLE
                     }
 
-                    is HomeUIState.Success -> {
+                    is MovieListUiState.Success -> {
                         binding.pbLoadingMovie.visibility = View.GONE
                         binding.llErrorArea.visibility = View.GONE
                         binding.nsvRoot.visibility = View.VISIBLE
 
-                        homeUIState.firstMovie?.let { firstMovie ->
-                            firstMovie.urlPoster?.let {
-                                Picasso.get().load(it).into(binding.firstMovieElement)
-                            }
-                        }
+//                        homeUIState.firstMovie?.let { firstMovie ->
+//                            firstMovie.urlPoster?.let {
+//                                Picasso.get().load(it).into(binding.firstMovieElement)
+//                            }
+//                        }
 
-                        firstAdapter.submitList(homeUIState.newMovies)
-                        secondListAdapter.submitList(homeUIState.popularMovies)
-                        thirdListAdapter.submitList(homeUIState.genreMovies)
+//                        firstAdapter.submitList(homeUIState.newMovies)
+//                        secondListAdapter.submitList(homeUIState.popularMovies)
+//                        thirdListAdapter.submitList(homeUIState.genreMovies)
                     }
 
-                    is HomeUIState.Initial -> {}
+                    is MovieListUiState.Initial -> {}
                 }
             }
         }

@@ -14,7 +14,6 @@ import com.example.mymovies.App
 import com.example.mymovies.databinding.FragmentFavouritesMovieBinding
 import com.example.mymovies.presentation.ViewModelFactory
 import com.example.mymovies.presentation.detailmovie.MovieDetailActivity
-import com.example.mymovies.presentation.detailmovie.MovieDetailActivityLeg
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
