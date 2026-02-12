@@ -38,7 +38,8 @@ import com.example.mymovies.empty
 @Composable
 fun MovieListScreen(
     viewModel: MovieListViewModel,
-    onItemClick: (Int) -> Unit
+    onItemClick: (Int) -> Unit,
+    modifier: Modifier = Modifier
 ) {
     val state = viewModel.state.collectAsState()
 
@@ -53,6 +54,7 @@ fun MovieListScreen(
                 popularMovies = stateValue.popularMovies,
                 genreMovies = stateValue.genreMovies,
                 onItemClick = { onItemClick(it.id) },
+                modifier = modifier
             )
         }
     }
@@ -114,10 +116,11 @@ private fun MovieListScreenContent(
     newMovies: List<MovieItemUi>,
     popularMovies: List<MovieItemUi>,
     genreMovies: List<MovieItemUi>,
-    onItemClick: (MovieItemUi) -> Unit
+    onItemClick: (MovieItemUi) -> Unit,
+    modifier: Modifier = Modifier
 ) {
     LazyColumn(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxSize()
             .background(colorResource(R.color.app_black))
     ) {

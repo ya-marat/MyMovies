@@ -79,6 +79,7 @@ dependencies {
     kapt ("com.google.dagger:dagger-compiler:2.59")
     implementation ("androidx.lifecycle:lifecycle-livedata-ktx:2.10.0")
     implementation(libs.androidx.constraintlayout.compose)
+    implementation(libs.navigation.compose)
 
     val room_version = "2.8.4"
 

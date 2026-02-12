@@ -1,22 +1,20 @@
 package com.example.mymovies.presentation.viewmodels
 
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
 import com.example.mymovies.domain.usecases.GetMoviesUseCase
-import com.example.mymovies.domain.Movie
-import kotlinx.coroutines.launch
+import com.example.mymovies.navigation.NavigationItem
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import javax.inject.Inject
 
 class MainViewModel @Inject constructor(
     private val getMoviesUseCase: GetMoviesUseCase
 ): ViewModel() {
 
-    val movieList = MutableLiveData<List<Movie>>()
+    private val _selectedNavItem = MutableStateFlow<NavigationItem>(NavigationItem.MovieList)
+    val selectedNavItem = _selectedNavItem.asStateFlow()
 
-    fun loadMovies(){
-        viewModelScope.launch {
-
-        }
+    fun selectNavItem(item: NavigationItem) {
+        _selectedNavItem.value = item
     }
 }

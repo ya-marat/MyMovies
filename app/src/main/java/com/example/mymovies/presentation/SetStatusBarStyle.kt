@@ -10,8 +10,8 @@ import androidx.core.view.WindowCompat
 
 @Composable
 fun SetStatusBarStyle(
-    statusBarColor: Color,
-    darkIcons: Boolean
+    statusBarColor: Color = Color.Black,
+    darkIcons: Boolean = false
 ) {
     val view = LocalView.current
 

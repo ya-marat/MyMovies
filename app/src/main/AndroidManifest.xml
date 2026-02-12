@@ -18,7 +18,7 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
-            android:name=".presentation.movielist.MovieListActivity"
+            android:name=".presentation.movielist.MovieMainActivity"
             android:exported="false"
             android:label="@string/title_activity_movie_list"
             android:theme="@style/Theme.MyMovies" />
