@@ -79,7 +79,6 @@ class MovieFavouriteFragment : Fragment() {
         favouriteMoviesAdapter.onElementClick = { favouriteMovie ->
             val intent = MovieDetailActivity.newIntent(
                 requireActivity(),
-                favouriteMovie.title,
                 favouriteMovie.id
             )
             startActivity(intent)

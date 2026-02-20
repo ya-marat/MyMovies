@@ -35,7 +35,6 @@ class MovieDetailActivity : ComponentActivity() {
         enableEdgeToEdge()
 
         val movieId = intent.getIntExtra(EXTRA_MOVIE_ID, Movie.UNDEFINED_ID)
-        val movieName = intent.getStringExtra(EXTRA_MOVIE_NAME)
 
         val viewModel = ViewModelProvider(this, viewModelFactory)[MovieDetailViewModel::class.java]
 
@@ -49,24 +48,19 @@ class MovieDetailActivity : ComponentActivity() {
                     false
                 )
 
-                AppScaffold(
-                    title = movieName ?: String.empty(),
+                DetailMovieScreen(
+                    viewModel = viewModel,
                     onBackClick = { finish() }
-                ) {
-                    DetailMovieScreen(viewModel = viewModel)
-                }
+                )
             }
         }
     }
 
     companion object {
-
-        private const val EXTRA_MOVIE_NAME = "movie_name"
         private const val EXTRA_MOVIE_ID = "movie_id"
 
-        fun newIntent(context: Context, movieName: String, movieId: Int): Intent {
+        fun newIntent(context: Context, movieId: Int): Intent {
             val newIntent = Intent(context, MovieDetailActivity::class.java).apply {
-                putExtra(EXTRA_MOVIE_NAME, movieName)
                 putExtra(EXTRA_MOVIE_ID, movieId)
             }
 

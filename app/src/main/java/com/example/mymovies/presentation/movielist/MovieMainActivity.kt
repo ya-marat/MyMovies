@@ -12,10 +12,14 @@ import androidx.compose.material3.Text
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.mymovies.App
 import com.example.mymovies.presentation.MovieMainScreen
 import com.example.mymovies.presentation.SetStatusBarStyle
 import com.example.mymovies.presentation.ViewModelFactory
+import com.example.mymovies.presentation.detailmovie.MovieDetailActivity
+import com.example.mymovies.presentation.favourites.FavouriteMoviesViewModel
+import com.example.mymovies.presentation.favourites.MovieFavouriteScreen
 import com.example.mymovies.presentation.movielist.ui.theme.MyMoviesTheme
 import javax.inject.Inject
 
@@ -33,8 +37,10 @@ class MovieMainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         //enableEdgeToEdge()
 
-        val movieListViewModel = ViewModelProvider(this, viewModelFactory)[MovieListViewModel::class.java]
-        val favouritesViewModel = ViewModelProvider(this, viewModelFactory)[MovieListViewModel::class.java]
+        val movieListViewModel =
+            ViewModelProvider(this, viewModelFactory)[MovieListViewModel::class.java]
+        val favouritesViewModel =
+            ViewModelProvider(this, viewModelFactory)[FavouriteMoviesViewModel::class.java]
 
         setContent {
             MyMoviesTheme {
@@ -45,16 +51,17 @@ class MovieMainActivity : ComponentActivity() {
                     movieListScreenContent = {
                         MovieListScreen(
                             viewModel = movieListViewModel,
-                            onItemClick = {  },
+                            onItemClick = { id ->
+                                startActivity(MovieDetailActivity.newIntent(this@MovieMainActivity, id))
+                            },
                             modifier = Modifier.padding(it)
                         )
                     },
 
                     favouriteScreenContent = {
-                        Text(
-                            modifier = Modifier.padding(it),
-                            text = "Favourites Screen",
-                            color = Color.White
+                        MovieFavouriteScreen(
+                            viewModel = favouritesViewModel,
+                            modifier = Modifier.padding(it)
                         )
                     }
                 )

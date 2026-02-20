@@ -11,20 +11,24 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.IconButtonDefaults
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.ProgressIndicatorDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
@@ -38,11 +42,14 @@ import androidx.constraintlayout.compose.Dimension
 import coil3.compose.AsyncImage
 import com.example.mymovies.R
 import com.example.mymovies.empty
+import com.example.mymovies.presentation.AppScaffold
+import com.example.mymovies.presentation.common.ProgressBarIndicator
 import java.io.File
 
 @Composable
 fun DetailMovieScreen(
-    viewModel: MovieDetailViewModel
+    viewModel: MovieDetailViewModel,
+    onBackClick: () -> Unit
 ) {
     val state = viewModel.state.collectAsState()
     val favouriteAddOperationState = viewModel.favouriteMovieOperationUIStateFlow.collectAsState(
@@ -61,16 +68,27 @@ fun DetailMovieScreen(
         Toast.makeText(LocalContext.current, message.toString(), Toast.LENGTH_SHORT).show()
     }
 
-    when (val stateValue = state.value) {
-        is DetailMovieUIState.Error -> {}
-        DetailMovieUIState.Initial -> {}
-        DetailMovieUIState.Loading -> {}
-        is DetailMovieUIState.Success -> {
-            DetailMovieScreenContent(
-                detailUI = stateValue.movie,
-                onFavouriteClick = { viewModel.onFavouriteClick() },
-                onTrailerClick = {}
-            )
+    val stateValue = state.value
+
+    AppScaffold(
+        title = if (stateValue is DetailMovieUIState.Success) stateValue.movie.name else String.empty(),
+        onBackClick = { onBackClick() },
+    ) {
+        when (stateValue) {
+            is DetailMovieUIState.Error -> {
+
+            }
+            DetailMovieUIState.Initial, DetailMovieUIState.Loading -> {
+                ProgressBarIndicator()
+            }
+
+            is DetailMovieUIState.Success -> {
+                DetailMovieScreenContent(
+                    detailUI = stateValue.movie,
+                    onFavouriteClick = { viewModel.onFavouriteClick() },
+                    onTrailerClick = {}
+                )
+            }
         }
     }
 }
@@ -78,35 +96,61 @@ fun DetailMovieScreen(
 @Composable
 @Preview
 fun DetailMovieScreenPreview() {
-    DetailMovieScreenContent(
-        detailUI = MovieDetailUI(
-            id = 100,
-            name = "Movie name",
-            movieDetail = "2022 | 18+ | K-Drama",
-            description = "A young woman, bullied to the point of deciding to drop out of school, plans the best way to get revenge. After becoming a primary school teacher, she takes in the son of the man who tormented her the most to enact her vengeance.",
-            year = "2001",
-            rating = "8.1",
-            ageRating = "13",
-            posterUrl = "poster_url",
-            posterLocalPath = "local_poster_url",
-            isFavourite = false,
-            actors = "actor 1, actor 2, actor 3",
-            creators = "creator 1, creator 2,",
-            genres = "genre 1, genre 2, genre 3",
-            trailers = listOf(
-                MovieDetailTrailerUi(
-                    trailerName = "TRAILER MOVIE 1",
-                    trailerUrl = "URL"
+
+    CommonPreviewScreen {
+        DetailMovieScreenContent(
+            detailUI = MovieDetailUI(
+                id = 100,
+                name = "Movie name",
+                movieDetail = "2022 | 18+ | K-Drama",
+                description = "A young woman, bullied to the point of deciding to drop out of school, " +
+                        "plans the best way to get revenge. After becoming a primary school teacher, " +
+                        "she takes in the son of the man who tormented her the most to enact her vengeance.",
+                year = "2001",
+                rating = "8.1",
+                ageRating = "13",
+                posterUrl = "poster_url",
+                posterLocalPath = "local_poster_url",
+                isFavourite = false,
+                actors = "actor 1, actor 2, actor 3",
+                creators = "creator 1, creator 2,",
+                genres = "genre 1, genre 2, genre 3",
+                trailers = listOf(
+                    MovieDetailTrailerUi(
+                        trailerName = "TRAILER MOVIE 1",
+                        trailerUrl = "URL"
+                    )
                 )
-            )
-        ),
-        onFavouriteClick = {},
-        onTrailerClick = {}
-    )
+            ),
+            onFavouriteClick = {},
+            onTrailerClick = {}
+        )
+    }
 }
 
 @Composable
-fun DetailMovieScreenContent(
+@Preview
+fun LoadingScreenPreview() {
+
+    CommonPreviewScreen {
+        ProgressBarIndicator()
+    }
+}
+
+@Composable
+private fun CommonPreviewScreen(
+    content: @Composable () -> Unit
+) {
+    AppScaffold(
+        title = "Movie name",
+        onBackClick = {  },
+    ) {
+        content()
+    }
+}
+
+@Composable
+private fun DetailMovieScreenContent(
     detailUI: MovieDetailUI,
     onFavouriteClick: () -> Unit,
     onTrailerClick: () -> Unit
@@ -303,7 +347,7 @@ fun DetailMovieScreenContent(
 }
 
 @Composable
-fun LabelAndText(
+private fun LabelAndText(
     label: String,
     text: String,
     modifier: Modifier = Modifier

@@ -134,7 +134,6 @@ class MovieListFragmentLeg : Fragment() {
         val intent =
             MovieDetailActivity.newIntent(
                 requireActivity(),
-                movie.name ?: String.Companion.empty(),
                 movie.id
             )
         startActivity(intent)
