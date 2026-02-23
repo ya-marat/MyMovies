@@ -24,7 +24,8 @@ fun ProgressBarIndicator() {
             modifier = Modifier
                 .size(64.dp),
             color = colorResource(R.color.main_color_2),
-            strokeCap = ProgressIndicatorDefaults.CircularDeterminateStrokeCap
+            strokeCap = ProgressIndicatorDefaults.CircularIndeterminateStrokeCap,
+            strokeWidth = 7.dp
         )
     }
 }

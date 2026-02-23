@@ -34,6 +34,7 @@ import androidx.compose.ui.unit.sp
 import coil3.compose.AsyncImage
 import com.example.mymovies.R
 import com.example.mymovies.empty
+import com.example.mymovies.presentation.common.ProgressBarIndicator
 
 @Composable
 fun MovieListScreen(
@@ -46,7 +47,9 @@ fun MovieListScreen(
     when (val stateValue = state.value) {
         is MovieListUiState.Error -> {}
         MovieListUiState.Initial -> {}
-        MovieListUiState.Loading -> {}
+        MovieListUiState.Loading -> {
+            ProgressBarIndicator()
+        }
         is MovieListUiState.Success -> {
             MovieListScreenContent(
                 firstMovie = stateValue.firstMovie,

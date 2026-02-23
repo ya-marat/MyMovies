@@ -3,16 +3,11 @@ package com.example.mymovies.presentation.movielist
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Text
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.mymovies.App
 import com.example.mymovies.presentation.MovieMainScreen
 import com.example.mymovies.presentation.SetStatusBarStyle
@@ -52,7 +47,12 @@ class MovieMainActivity : ComponentActivity() {
                         MovieListScreen(
                             viewModel = movieListViewModel,
                             onItemClick = { id ->
-                                startActivity(MovieDetailActivity.newIntent(this@MovieMainActivity, id))
+                                startActivity(
+                                    MovieDetailActivity.newIntent(
+                                        this@MovieMainActivity,
+                                        id
+                                    )
+                                )
                             },
                             modifier = Modifier.padding(it)
                         )
@@ -61,6 +61,14 @@ class MovieMainActivity : ComponentActivity() {
                     favouriteScreenContent = {
                         MovieFavouriteScreen(
                             viewModel = favouritesViewModel,
+                            onItemClick = { movieId ->
+                                startActivity(
+                                    MovieDetailActivity.newIntent(
+                                        this@MovieMainActivity,
+                                        movieId
+                                    )
+                                )
+                            },
                             modifier = Modifier.padding(it)
                         )
                     }

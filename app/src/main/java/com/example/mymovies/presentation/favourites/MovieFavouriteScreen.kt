@@ -3,6 +3,7 @@ package com.example.mymovies.presentation.favourites
 import android.widget.ImageButton
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -32,11 +33,13 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil3.compose.AsyncImage
 import com.example.mymovies.R
+import com.example.mymovies.presentation.common.ProgressBarIndicator
 import java.io.File
 
 @Composable
 fun MovieFavouriteScreen(
     viewModel: FavouriteMoviesViewModel,
+    onItemClick: (movieId: Int) -> Unit,
     modifier: Modifier = Modifier
 ) {
     val state = viewModel.favouriteFlowTest.collectAsState()
@@ -47,11 +50,14 @@ fun MovieFavouriteScreen(
         }
 
         FavouritesUiState.Loading -> {
-
+            ProgressBarIndicator()
         }
 
         is FavouritesUiState.Success -> {
-            MovieFavouriteScreenContent(stateValue.movieList, modifier)
+            MovieFavouriteScreenContent(
+                movieList =  stateValue.movieList,
+                onItemClick = { onItemClick(it) },
+                modifier = modifier)
         }
     }
 
@@ -73,12 +79,16 @@ fun MovieFavouriteScreenPreview() {
         )
     }
 
-    MovieFavouriteScreenContent(previewList)
+    MovieFavouriteScreenContent(
+        movieList = previewList,
+        onItemClick = {}
+    )
 }
 
 @Composable
 fun MovieFavouriteScreenContent(
     movieList: List<FavouriteMovieUi>,
+    onItemClick: (movieId: Int) -> Unit,
     modifier: Modifier = Modifier
 ) {
     LazyColumn(
@@ -86,14 +96,18 @@ fun MovieFavouriteScreenContent(
             .fillMaxSize()
     ) {
         items(movieList) { favouriteMovieUi ->
-            FavouriteMovieItem(favouriteMovieUi)
+            FavouriteMovieItem(
+                favouriteMovieUi,
+                onItemClick= { onItemClick(it) }
+            )
         }
     }
 }
 
 @Composable
 private fun FavouriteMovieItem(
-    favouriteMovieUi: FavouriteMovieUi
+    favouriteMovieUi: FavouriteMovieUi,
+    onItemClick: (movieId: Int) -> Unit
 ) {
     Box(
         modifier = Modifier
@@ -106,7 +120,8 @@ private fun FavouriteMovieItem(
                 .fillMaxWidth()
                 .height(105.dp)
                 .padding(horizontal = 10.dp)
-                .padding(start = 10.dp),
+                .padding(start = 10.dp)
+                .clickable{ onItemClick(favouriteMovieUi.id) },
             verticalAlignment = Alignment.CenterVertically
         ) {
             AsyncImage(
