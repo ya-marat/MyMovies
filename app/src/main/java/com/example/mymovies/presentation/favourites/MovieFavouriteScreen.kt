@@ -1,14 +1,11 @@
 package com.example.mymovies.presentation.favourites
 
-import android.widget.ImageButton
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -18,16 +15,26 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.DropdownMenu
+import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.MenuDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -55,9 +62,11 @@ fun MovieFavouriteScreen(
 
         is FavouritesUiState.Success -> {
             MovieFavouriteScreenContent(
-                movieList =  stateValue.movieList,
-                onItemClick = { onItemClick(it) },
-                modifier = modifier)
+                movieList = stateValue.movieList,
+                onItemClick = { movieId -> onItemClick(movieId) },
+                onRemoveClick = { movieId -> viewModel.removeFavourite(movieId) },
+                modifier = modifier
+            )
         }
     }
 
@@ -73,7 +82,7 @@ fun MovieFavouriteScreenPreview() {
         previewList.add(
             FavouriteMovieUi(
                 id = i,
-                title = "Movie name $i",
+                title = "Movie name а $i",
                 posterPath = ""
             )
         )
@@ -81,7 +90,8 @@ fun MovieFavouriteScreenPreview() {
 
     MovieFavouriteScreenContent(
         movieList = previewList,
-        onItemClick = {}
+        onItemClick = {},
+        onRemoveClick = {}
     )
 }
 
@@ -89,16 +99,21 @@ fun MovieFavouriteScreenPreview() {
 fun MovieFavouriteScreenContent(
     movieList: List<FavouriteMovieUi>,
     onItemClick: (movieId: Int) -> Unit,
+    onRemoveClick: (movieId: Int) -> Unit,
     modifier: Modifier = Modifier
 ) {
     LazyColumn(
         modifier = modifier
             .fillMaxSize()
     ) {
-        items(movieList) { favouriteMovieUi ->
+        items(
+            items = movieList,
+            key = { it.id }
+        ) { favouriteMovieUi ->
             FavouriteMovieItem(
                 favouriteMovieUi,
-                onItemClick= { onItemClick(it) }
+                onItemClick = { onItemClick(it) },
+                onRemoveClick = { onRemoveClick(it) }
             )
         }
     }
@@ -107,8 +122,11 @@ fun MovieFavouriteScreenContent(
 @Composable
 private fun FavouriteMovieItem(
     favouriteMovieUi: FavouriteMovieUi,
-    onItemClick: (movieId: Int) -> Unit
+    onItemClick: (movieId: Int) -> Unit,
+    onRemoveClick: (movieId: Int) -> Unit
 ) {
+    var expanded by remember { mutableStateOf(false) }
+
     Box(
         modifier = Modifier
             .fillMaxWidth()
@@ -121,7 +139,7 @@ private fun FavouriteMovieItem(
                 .height(105.dp)
                 .padding(horizontal = 10.dp)
                 .padding(start = 10.dp)
-                .clickable{ onItemClick(favouriteMovieUi.id) },
+                .clickable { onItemClick(favouriteMovieUi.id) },
             verticalAlignment = Alignment.CenterVertically
         ) {
             AsyncImage(
@@ -168,14 +186,48 @@ private fun FavouriteMovieItem(
                     modifier = Modifier
                         .padding(top = 10.dp)
                         .size(30.dp),
-                    onClick = {},
+                    onClick = { expanded = !expanded },
                 ) {
                     Image(
                         painter = painterResource(R.drawable.ic_kebab),
                         contentDescription = null
                     )
+                    DropdownMenu(
+                        expanded = expanded,
+                        onDismissRequest = { expanded = false },
+                        modifier = Modifier
+                            .background(colorResource(R.color.app_black)),
+                        containerColor = colorResource(R.color.main_color_2),
+                        shape = RoundedCornerShape(16.dp)
+                    ) {
+                        DropDownMenuItem(
+                            itemName = stringResource(R.string.favourite_remove),
+                            onItemClick = { onRemoveClick(favouriteMovieUi.id) }
+                        )
+                    }
                 }
+
             }
         }
     }
+}
+
+@Composable
+private fun DropDownMenuItem(
+    itemName: String,
+    onItemClick: () -> Unit
+) {
+    DropdownMenuItem(
+        text = {
+            Text(
+                itemName,
+                modifier = Modifier.fillMaxSize(),
+                textAlign = TextAlign.Center
+            )
+        },
+        onClick = { onItemClick() },
+        colors = MenuDefaults.itemColors().copy(
+            textColor = colorResource(R.color.main_color_2)
+        ),
+    )
 }
