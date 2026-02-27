@@ -34,7 +34,7 @@ class MovieListViewModel @Inject constructor(
     val genre = Consts.MovieParameters.GENRE
     var firstMovie: MovieItemUi? = null
 
-    private fun loadMainPageMovies() {
+     fun loadMainPageMovies() {
         viewModelScope.launch {
 
             _state.value = MovieListUiState.Loading
@@ -85,5 +85,9 @@ class MovieListViewModel @Inject constructor(
                 genreMovies = genreMovies
             )
         }
+    }
+
+    fun resetState() {
+        _state.value = MovieListUiState.Initial
     }
 }

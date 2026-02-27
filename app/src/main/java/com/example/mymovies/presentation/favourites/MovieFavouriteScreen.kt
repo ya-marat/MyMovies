@@ -69,7 +69,6 @@ fun MovieFavouriteScreen(
             )
         }
     }
-
 }
 
 @Preview
@@ -82,7 +81,7 @@ fun MovieFavouriteScreenPreview() {
         previewList.add(
             FavouriteMovieUi(
                 id = i,
-                title = "Movie name а $i",
+                title = "Movie name аdf $i",
                 posterPath = ""
             )
         )

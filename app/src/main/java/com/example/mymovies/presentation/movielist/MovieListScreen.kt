@@ -15,11 +15,13 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Divider
 import androidx.compose.material3.Text
-import androidx.compose.material3.VerticalDivider
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
@@ -34,6 +36,8 @@ import androidx.compose.ui.unit.sp
 import coil3.compose.AsyncImage
 import com.example.mymovies.R
 import com.example.mymovies.empty
+import com.example.mymovies.presentation.common.AppAlertDialog
+import com.example.mymovies.presentation.common.ErrorContent
 import com.example.mymovies.presentation.common.ProgressBarIndicator
 
 @Composable
@@ -44,12 +48,31 @@ fun MovieListScreen(
 ) {
     val state = viewModel.state.collectAsState()
 
+
     when (val stateValue = state.value) {
-        is MovieListUiState.Error -> {}
+        is MovieListUiState.Error -> {
+            var showDialog by remember(stateValue) { mutableStateOf(true) }
+
+            ErrorContent(
+                errorText = stringResource(R.string.error_load),
+                buttonText = stringResource(R.string.refresh),
+                onRefreshClick = { viewModel.loadMainPageMovies() }
+            )
+
+            if (showDialog) {
+                AppAlertDialog(
+                    onDismiss = { showDialog = false },
+                    title = stringResource(R.string.error_label),
+                    text = stringResource(R.string.error_load_dialog),
+                )
+            }
+        }
+
         MovieListUiState.Initial -> {}
         MovieListUiState.Loading -> {
             ProgressBarIndicator()
         }
+
         is MovieListUiState.Success -> {
             MovieListScreenContent(
                 firstMovie = stateValue.firstMovie,
@@ -109,7 +132,7 @@ private fun MovieListScreenContentPreview() {
         newMovies,
         popularMovies,
         genreMovies,
-        onItemClick = {  }
+        onItemClick = { }
     )
 }
 

@@ -47,7 +47,7 @@ fun AppScaffold(
                 shadowElevation = 12.dp,
             ) {
                 CenterAlignedTopAppBar(
-                    colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
+                    colors = TopAppBarDefaults.topAppBarColors(
                         containerColor = colorResource(R.color.app_black),
                         titleContentColor = colorResource(R.color.detail_text_color)
                     ),

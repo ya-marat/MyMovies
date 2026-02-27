@@ -40,6 +40,10 @@ android {
         viewBinding = true
         compose = true
     }
+
+    composeOptions {
+        kotlinCompilerExtensionVersion = "1.5.15"
+    }
 }
 
 dependencies {
@@ -49,6 +53,9 @@ dependencies {
     implementation(libs.material)
     implementation(libs.androidx.activity)
     implementation(libs.androidx.constraintlayout)
+
+    implementation(libs.androidx.compose.material.icons.core)
+    implementation(libs.androidx.compose.material.icons.extended)
 
     implementation ("androidx.recyclerview:recyclerview:1.4.0")
     implementation ("androidx.cardview:cardview:1.0.0")
@@ -61,6 +68,7 @@ dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.2")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3")
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0")
+    implementation("androidx.compose.ui:ui-tooling-preview")
 
     implementation ("com.google.dagger:dagger:2.59")
     implementation(libs.androidx.navigation.fragment.ktx)

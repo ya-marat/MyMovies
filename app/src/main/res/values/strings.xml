@@ -29,4 +29,11 @@
     <string name="favourite_remove">Удалить</string>
     <string name="title_activity_main">MainActivity</string>
     <string name="title_activity_movie_list">MovieListActivity</string>
+    <string name="ok_button">Понятно</string>
+    <string name="refresh">Обновить</string>
+
+<!--    Error section-->
+    <string name="error_label">Ошибка</string>
+    <string name="error_load_dialog">При загрузке произошла ошибка</string>
+    <string name="error_load">Ошибка загрузки</string>
 </resources>
