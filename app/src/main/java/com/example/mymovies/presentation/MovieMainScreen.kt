@@ -1,6 +1,7 @@
 package com.example.mymovies.presentation
 
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Home
@@ -14,6 +15,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.dropShadow
 import androidx.compose.ui.draw.shadow
@@ -32,6 +34,9 @@ import androidx.navigation.compose.rememberNavController
 import com.example.mymovies.R
 import com.example.mymovies.navigation.AppNavGraph
 import com.example.mymovies.navigation.NavigationItem
+import com.example.mymovies.navigation.NavigationState
+import com.example.mymovies.navigation.Screen
+import com.example.mymovies.navigation.rememberNavigationState
 import com.example.mymovies.presentation.favourites.FavouriteMoviesViewModel
 import com.example.mymovies.presentation.movielist.MovieListScreen
 import com.example.mymovies.presentation.movielist.MovieListViewModel
@@ -51,7 +56,8 @@ fun MovieMainScreen(
     movieListScreenContent: @Composable (PaddingValues) -> Unit,
     favouriteScreenContent: @Composable (PaddingValues) -> Unit
 ) {
-    val navHostController = rememberNavController()
+
+    val navigationState = rememberNavigationState()
 
     val listItems = listOf(
         NavigationItem.MovieList,
@@ -62,32 +68,35 @@ fun MovieMainScreen(
         containerColor = colorResource(R.color.app_black),
         bottomBar = {
             NavigationBar(
-                modifier = Modifier.dropShadow(
-                    shape = RectangleShape,
-                    shadow = androidx.compose.ui.graphics.shadow.Shadow(
-                        radius = 6.dp,
-                        spread = 0.dp,
-                        offset = DpOffset(x = 0.dp, 2.dp),
-                        brush = Brush.verticalGradient(
-                            listOf(
-                                colorResource(R.color.white).copy(alpha = 0.2f),
-                                Color.Transparent
-                            )
-                        ),
-                    )
-                ),
+                modifier = Modifier
+                    .dropShadow(
+                        shape = RectangleShape,
+                        shadow = androidx.compose.ui.graphics.shadow.Shadow(
+                            radius = 6.dp,
+                            spread = 0.dp,
+                            offset = DpOffset(x = 0.dp, 2.dp),
+                            brush = Brush.verticalGradient(
+                                listOf(
+                                    colorResource(R.color.white).copy(alpha = 0.2f),
+                                    Color.Transparent
+                                )
+                            ),
+                        )
+                    ),
                 containerColor = colorResource(R.color.app_black),
                 contentColor = colorResource(R.color.white),
                 tonalElevation = 12.dp
             ) {
 
-                val navBackStackEntry by navHostController.currentBackStackEntryAsState()
+                val navBackStackEntry by navigationState.navHostController.currentBackStackEntryAsState()
                 val currentRoute = navBackStackEntry?.destination?.route
 
                 listItems.forEachIndexed { index, item ->
                     NavigationBarItem(
                         selected = currentRoute == item.screen.route,
-                        onClick = { navHostController.navigate(item.screen.route) },
+                        onClick = {
+                            navigationState.navigateTo(item.screen.route)
+                        },
                         icon = {
                             Icon(
                                 modifier = Modifier
@@ -115,7 +124,7 @@ fun MovieMainScreen(
     ) { paddingValues ->
 
         AppNavGraph(
-            navHostController = navHostController,
+            navHostController = navigationState.navHostController,
             movieListScreenContent = {
                 movieListScreenContent(paddingValues)
             },

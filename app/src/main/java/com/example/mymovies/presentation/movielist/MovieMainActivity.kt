@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.padding
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.ViewModelProvider
@@ -30,7 +31,7 @@ class MovieMainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         component.inject(this)
         super.onCreate(savedInstanceState)
-        //enableEdgeToEdge()
+        enableEdgeToEdge()
 
         val movieListViewModel =
             ViewModelProvider(this, viewModelFactory)[MovieListViewModel::class.java]
@@ -74,14 +75,6 @@ class MovieMainActivity : ComponentActivity() {
                     }
                 )
             }
-        }
-    }
-
-    companion object {
-
-        fun newIntent(context: Context): Intent {
-            val newIntent = Intent(context, MovieMainActivity::class.java)
-            return newIntent
         }
     }
 }

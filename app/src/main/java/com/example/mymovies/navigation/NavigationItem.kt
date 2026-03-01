@@ -12,12 +12,12 @@ sealed class NavigationItem (
     object MovieList: NavigationItem (
         screen = Screen.MovieList,
         titleResId = R.string.home_bottom_item,
-        icon = R.drawable.home_icon
+        icon = R.drawable.ic_tab_home
     )
 
     object Favourite: NavigationItem (
         screen = Screen.Favourite,
         titleResId = R.string.favourites_bottom_item,
-        icon = R.drawable.favourites_icon
+        icon = R.drawable.ic_tab_favourites
     )
 }
