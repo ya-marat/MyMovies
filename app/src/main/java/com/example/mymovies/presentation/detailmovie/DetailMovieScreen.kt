@@ -39,18 +39,31 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.viewmodel.compose.LocalViewModelStoreOwner
+import androidx.lifecycle.viewmodel.compose.viewModel
 import coil3.compose.AsyncImage
 import com.example.mymovies.R
+import com.example.mymovies.di.LocalMovieDetailViewModelFactory
+import com.example.mymovies.di.LocalViewModelFactory
+import com.example.mymovies.di.assistedViewModel
+import com.example.mymovies.di.daggerViewModel
 import com.example.mymovies.empty
 import com.example.mymovies.presentation.AppScaffold
+import com.example.mymovies.presentation.ViewModelFactory
 import com.example.mymovies.presentation.common.ProgressBarIndicator
 import java.io.File
 
 @Composable
 fun DetailMovieScreen(
-    viewModel: MovieDetailViewModel,
+    movieId: Int,
     onBackClick: () -> Unit
 ) {
+    val viewModelFactory = LocalMovieDetailViewModelFactory.current
+    val viewModel: MovieDetailViewModel = viewModel(factory = MovieDetailViewModelFactory(
+        viewModelFactory,
+        movieId
+    ))
     val state = viewModel.state.collectAsState()
     val favouriteAddOperationState = viewModel.favouriteMovieOperationUIStateFlow.collectAsState(
         FavouriteMovieOperationUIState.Initial

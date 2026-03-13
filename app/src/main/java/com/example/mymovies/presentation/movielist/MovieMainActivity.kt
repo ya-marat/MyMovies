@@ -1,21 +1,19 @@
 package com.example.mymovies.presentation.movielist
 
-import android.content.Context
-import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.compose.foundation.layout.padding
-import androidx.compose.ui.Modifier
-import androidx.lifecycle.ViewModelProvider
+import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.staticCompositionLocalOf
 import com.example.mymovies.App
+import com.example.mymovies.di.LocalMovieDetailViewModelFactory
+import com.example.mymovies.di.LocalViewModelFactory
 import com.example.mymovies.presentation.MovieMainScreen
 import com.example.mymovies.presentation.SetStatusBarStyle
 import com.example.mymovies.presentation.ViewModelFactory
-import com.example.mymovies.presentation.detailmovie.MovieDetailActivity
-import com.example.mymovies.presentation.favourites.FavouriteMoviesViewModel
-import com.example.mymovies.presentation.favourites.MovieFavouriteScreen
+import com.example.mymovies.presentation.detailmovie.MovieDetailViewModel
+import com.example.mymovies.presentation.detailmovie.MovieDetailViewModelFactory
 import com.example.mymovies.presentation.movielist.ui.theme.MyMoviesTheme
 import javax.inject.Inject
 
@@ -28,52 +26,24 @@ class MovieMainActivity : ComponentActivity() {
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
 
+    @Inject
+    lateinit var movieDetailViewModelFactory: MovieDetailViewModel.Factory
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         component.inject(this)
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
 
-        val movieListViewModel =
-            ViewModelProvider(this, viewModelFactory)[MovieListViewModel::class.java]
-        val favouritesViewModel =
-            ViewModelProvider(this, viewModelFactory)[FavouriteMoviesViewModel::class.java]
-
         setContent {
-            MyMoviesTheme {
-
-                SetStatusBarStyle()
-
-                MovieMainScreen(
-                    movieListScreenContent = {
-                        MovieListScreen(
-                            viewModel = movieListViewModel,
-                            onItemClick = { id ->
-                                startActivity(
-                                    MovieDetailActivity.newIntent(
-                                        this@MovieMainActivity,
-                                        id
-                                    )
-                                )
-                            },
-                            modifier = Modifier.padding(it)
-                        )
-                    },
-
-                    favouriteScreenContent = {
-                        MovieFavouriteScreen(
-                            viewModel = favouritesViewModel,
-                            onItemClick = { movieId ->
-                                startActivity(
-                                    MovieDetailActivity.newIntent(
-                                        this@MovieMainActivity,
-                                        movieId
-                                    )
-                                )
-                            },
-                            modifier = Modifier.padding(it)
-                        )
-                    }
-                )
+            CompositionLocalProvider(
+                LocalViewModelFactory provides viewModelFactory,
+                LocalMovieDetailViewModelFactory provides movieDetailViewModelFactory
+            ) {
+                MyMoviesTheme {
+                    SetStatusBarStyle()
+                    MovieMainScreen(viewModelFactory)
+                }
             }
         }
     }

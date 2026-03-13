@@ -33,22 +33,25 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.LocalViewModelStoreOwner
+import androidx.lifecycle.viewmodel.compose.viewModel
 import coil3.compose.AsyncImage
 import com.example.mymovies.R
+import com.example.mymovies.di.LocalViewModelFactory
 import com.example.mymovies.empty
+import com.example.mymovies.presentation.ViewModelFactory
 import com.example.mymovies.presentation.common.AppAlertDialog
 import com.example.mymovies.presentation.common.ErrorContent
 import com.example.mymovies.presentation.common.ProgressBarIndicator
 
 @Composable
 fun MovieListScreen(
-    viewModel: MovieListViewModel,
     onItemClick: (Int) -> Unit,
     modifier: Modifier = Modifier
 ) {
+    val factory = LocalViewModelFactory.current
+    val viewModel: MovieListViewModel = viewModel(factory = factory)
     val state = viewModel.state.collectAsState()
-
-
     when (val stateValue = state.value) {
         is MovieListUiState.Error -> {
             var showDialog by remember(stateValue) { mutableStateOf(true) }

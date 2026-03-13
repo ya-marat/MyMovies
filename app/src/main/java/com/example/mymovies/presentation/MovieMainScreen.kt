@@ -1,11 +1,7 @@
 package com.example.mymovies.presentation
 
-import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.Home
-import androidx.compose.material3.CheckboxDefaults.colors
 import androidx.compose.material3.Icon
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
@@ -13,13 +9,9 @@ import androidx.compose.material3.NavigationBarItemDefaults
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.dropShadow
-import androidx.compose.ui.draw.shadow
-import androidx.compose.ui.graphics.BlendMode
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
@@ -29,38 +21,34 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.DpOffset
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.compose.currentBackStackEntryAsState
-import androidx.navigation.compose.rememberNavController
 import com.example.mymovies.R
 import com.example.mymovies.navigation.AppNavGraph
 import com.example.mymovies.navigation.NavigationItem
-import com.example.mymovies.navigation.NavigationState
 import com.example.mymovies.navigation.Screen
 import com.example.mymovies.navigation.rememberNavigationState
-import com.example.mymovies.presentation.favourites.FavouriteMoviesViewModel
+import com.example.mymovies.presentation.detailmovie.DetailMovieScreen
+import com.example.mymovies.presentation.favourites.MovieFavouriteScreen
 import com.example.mymovies.presentation.movielist.MovieListScreen
-import com.example.mymovies.presentation.movielist.MovieListViewModel
-import com.example.mymovies.presentation.viewmodels.MainViewModel
 
 @Composable
 @Preview
 fun MovieMainScreenPreview() {
-    MovieMainScreen(
-        movieListScreenContent = {},
-        favouriteScreenContent = {}
-    )
+//    MovieMainScreen(
+//
+//    )
 }
 
 @Composable
 fun MovieMainScreen(
-    movieListScreenContent: @Composable (PaddingValues) -> Unit,
-    favouriteScreenContent: @Composable (PaddingValues) -> Unit
+    viewModelFactory: ViewModelFactory
 ) {
 
     val navigationState = rememberNavigationState()
 
     val listItems = listOf(
-        NavigationItem.MovieList,
+        NavigationItem.Home,
         NavigationItem.Favourite
     )
 
@@ -89,13 +77,19 @@ fun MovieMainScreen(
             ) {
 
                 val navBackStackEntry by navigationState.navHostController.currentBackStackEntryAsState()
-                val currentRoute = navBackStackEntry?.destination?.route
 
                 listItems.forEachIndexed { index, item ->
+
+                    val selected = navBackStackEntry?.destination?.hierarchy?.any {
+                        it.route == item.screen.route
+                    } ?: false
+
                     NavigationBarItem(
-                        selected = currentRoute == item.screen.route,
+                        selected = selected,
                         onClick = {
-                            navigationState.navigateTo(item.screen.route)
+                            if (!selected) {
+                                navigationState.navigateTo(item.screen.route)
+                            }
                         },
                         icon = {
                             Icon(
@@ -123,13 +117,32 @@ fun MovieMainScreen(
         }
     ) { paddingValues ->
 
+
         AppNavGraph(
             navHostController = navigationState.navHostController,
             movieListScreenContent = {
-                movieListScreenContent(paddingValues)
+                MovieListScreen(
+                    onItemClick = { movieId ->
+                        navigationState.navigateToDetail(movieId)
+                    },
+                    modifier = Modifier.padding(paddingValues)
+                )
             },
             favouriteScreenContent = {
-                favouriteScreenContent(paddingValues)
+                MovieFavouriteScreen(
+                    onItemClick = { movieId ->
+                        navigationState.navigateToDetail(movieId)
+                    },
+                    modifier = Modifier.padding(paddingValues),
+                )
+            },
+            detailMovieScreenContent = { movieId ->
+                DetailMovieScreen(
+                    movieId = movieId,
+                    onBackClick = {
+                        navigationState.navHostController.popBackStack()
+                    }
+                )
             }
         )
     }

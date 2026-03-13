@@ -11,7 +11,7 @@ class MainViewModel @Inject constructor(
     private val getMoviesUseCase: GetMoviesUseCase
 ): ViewModel() {
 
-    private val _selectedNavItem = MutableStateFlow<NavigationItem>(NavigationItem.MovieList)
+    private val _selectedNavItem = MutableStateFlow<NavigationItem>(NavigationItem.Home)
     val selectedNavItem = _selectedNavItem.asStateFlow()
 
     fun selectNavItem(item: NavigationItem) {

@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.activity.ComponentActivity
+import androidx.activity.compose.BackHandler
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.ui.graphics.Color
@@ -38,21 +39,10 @@ class MovieDetailActivity : ComponentActivity() {
 
         val viewModel = ViewModelProvider(this, viewModelFactory)[MovieDetailViewModel::class.java]
 
-        viewModel.loadMovieById(movieId)
+        //viewModel.loadMovieById(movieId)
 
         setContent {
-            MyMoviesTheme {
 
-                SetStatusBarStyle(
-                    Color.Black,
-                    false
-                )
-
-                DetailMovieScreen(
-                    viewModel = viewModel,
-                    onBackClick = { finish() }
-                )
-            }
         }
     }
 

@@ -2,6 +2,7 @@ package com.example.mymovies.presentation.detailmovie
 
 import android.app.Application
 import android.util.Log
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.mymovies.R
@@ -13,6 +14,9 @@ import com.example.mymovies.domain.usecases.GetMovieByIdUseCase
 import com.example.mymovies.domain.usecases.ObserveMovieUseCase
 import com.example.mymovies.domain.usecases.RemoveMovieFromDbUseCase
 import com.example.mymovies.presentation.MoviePresentationMapper
+import dagger.assisted.Assisted
+import dagger.assisted.AssistedFactory
+import dagger.assisted.AssistedInject
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -23,13 +27,14 @@ import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-class MovieDetailViewModel @Inject constructor(
+class MovieDetailViewModel @AssistedInject constructor(
     private val addMovieToDbUseCase: AddMovieToDbUseCase,
     private val removeMovieFromDbUseCase: RemoveMovieFromDbUseCase,
     private val getMovieByIdUseCase: GetMovieByIdUseCase,
     private val observeMovieUseCase: ObserveMovieUseCase,
     private val application: Application,
-    private val moviePresentationMapper: MoviePresentationMapper
+    private val moviePresentationMapper: MoviePresentationMapper,
+    @Assisted movieId: Int
 ) : ViewModel() {
 
     private val _state = MutableStateFlow<DetailMovieUIState>(DetailMovieUIState.Initial)
@@ -42,6 +47,9 @@ class MovieDetailViewModel @Inject constructor(
         MutableSharedFlow<FavouriteMovieOperationUIState>()
     val favouriteMovieOperationUIStateFlow = _favouriteMovieOperationUIStateFlow.asSharedFlow()
 
+    init {
+        loadMovieById(movieId)
+    }
 
     private lateinit var currentMovie: Movie
 
@@ -66,7 +74,9 @@ class MovieDetailViewModel @Inject constructor(
                         .onEach { isFavourite ->
                             currentMovie = currentMovie.copy(isFavourite = isFavourite)
 //                            _isFavouriteMovieFlow.emit(isFavourite)
-                            _state.value = DetailMovieUIState.Success(moviePresentationMapper.mapMovieToMovieDetailUI(currentMovie))
+                            _state.value = DetailMovieUIState.Success(
+                                moviePresentationMapper.mapMovieToMovieDetailUI(currentMovie)
+                            )
 
                         }
                         .launchIn(viewModelScope)
@@ -132,5 +142,10 @@ class MovieDetailViewModel @Inject constructor(
                 ""
             }
         }
+    }
+
+    @AssistedFactory
+    interface Factory {
+        fun create(movieId: Int): MovieDetailViewModel
     }
 }

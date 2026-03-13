@@ -1,6 +1,4 @@
 package com.example.mymovies.navigation
-import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.res.painterResource
 import com.example.mymovies.R
 
 sealed class NavigationItem (
@@ -9,8 +7,8 @@ sealed class NavigationItem (
     val icon: Int
 ) {
 
-    object MovieList: NavigationItem (
-        screen = Screen.MovieList,
+    object Home: NavigationItem (
+        screen = Screen.Home,
         titleResId = R.string.home_bottom_item,
         icon = R.drawable.ic_tab_home
     )

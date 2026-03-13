@@ -38,17 +38,21 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import coil3.compose.AsyncImage
 import com.example.mymovies.R
+import com.example.mymovies.di.LocalViewModelFactory
+import com.example.mymovies.presentation.ViewModelFactory
 import com.example.mymovies.presentation.common.ProgressBarIndicator
 import java.io.File
 
 @Composable
 fun MovieFavouriteScreen(
-    viewModel: FavouriteMoviesViewModel,
     onItemClick: (movieId: Int) -> Unit,
     modifier: Modifier = Modifier
 ) {
+    val factory = LocalViewModelFactory.current
+    val viewModel: FavouriteMoviesViewModel = viewModel(factory = factory)
     val state = viewModel.favouriteFlowTest.collectAsState()
 
     when (val stateValue = state.value) {
