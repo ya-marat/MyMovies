@@ -2,6 +2,7 @@ package com.example.mymovies.presentation.detailmovie
 
 import android.app.Application
 import android.util.Log
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.mymovies.R
@@ -13,38 +14,42 @@ import com.example.mymovies.domain.usecases.GetMovieByIdUseCase
 import com.example.mymovies.domain.usecases.ObserveMovieUseCase
 import com.example.mymovies.domain.usecases.RemoveMovieFromDbUseCase
 import com.example.mymovies.presentation.MoviePresentationMapper
-import com.example.mymovies.presentation.detailmovie.DetailMovieUIState
-import com.example.mymovies.presentation.detailmovie.FavouriteMovieOperationUIState
+import dagger.assisted.Assisted
+import dagger.assisted.AssistedFactory
+import dagger.assisted.AssistedInject
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-class MovieDetailViewModel @Inject constructor(
+class MovieDetailViewModel @AssistedInject constructor(
     private val addMovieToDbUseCase: AddMovieToDbUseCase,
     private val removeMovieFromDbUseCase: RemoveMovieFromDbUseCase,
     private val getMovieByIdUseCase: GetMovieByIdUseCase,
     private val observeMovieUseCase: ObserveMovieUseCase,
     private val application: Application,
-    private val moviePresentationMapper: MoviePresentationMapper
+    private val moviePresentationMapper: MoviePresentationMapper,
+    @Assisted movieId: Int
 ) : ViewModel() {
 
     private val _state = MutableStateFlow<DetailMovieUIState>(DetailMovieUIState.Initial)
     val state: StateFlow<DetailMovieUIState> = _state.asStateFlow()
 
-    private val _isFavouriteMovieFlow = MutableStateFlow<Boolean>(false)
-    val isFavouriteMovie: StateFlow<Boolean> = _isFavouriteMovieFlow.asStateFlow()
+//    private val _isFavouriteMovieFlow = MutableStateFlow<Boolean>(false)
+//    val isFavouriteMovie: StateFlow<Boolean> = _isFavouriteMovieFlow.asStateFlow()
 
     private val _favouriteMovieOperationUIStateFlow =
         MutableSharedFlow<FavouriteMovieOperationUIState>()
     val favouriteMovieOperationUIStateFlow = _favouriteMovieOperationUIStateFlow.asSharedFlow()
 
+    init {
+        loadMovieById(movieId)
+    }
 
     private lateinit var currentMovie: Movie
 
@@ -68,7 +73,10 @@ class MovieDetailViewModel @Inject constructor(
                     observeMovieUseCase(movieId)
                         .onEach { isFavourite ->
                             currentMovie = currentMovie.copy(isFavourite = isFavourite)
-                            _isFavouriteMovieFlow.emit(isFavourite)
+//                            _isFavouriteMovieFlow.emit(isFavourite)
+                            _state.value = DetailMovieUIState.Success(
+                                moviePresentationMapper.mapMovieToMovieDetailUI(currentMovie)
+                            )
 
                         }
                         .launchIn(viewModelScope)
@@ -120,6 +128,10 @@ class MovieDetailViewModel @Inject constructor(
         }
     }
 
+    fun onTrailerClick() {
+
+    }
+
     private fun mapError(error: DomainError): String {
         return when (error) {
             DomainError.NoInternet -> application.getString(R.string.no_internet_error)
@@ -130,5 +142,10 @@ class MovieDetailViewModel @Inject constructor(
                 ""
             }
         }
+    }
+
+    @AssistedFactory
+    interface Factory {
+        fun create(movieId: Int): MovieDetailViewModel
     }
 }

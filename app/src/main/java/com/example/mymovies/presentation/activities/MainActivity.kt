@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.example.mymovies.R
+import com.example.mymovies.presentation.movielist.MovieMainActivity
 
 class MainActivity : AppCompatActivity() {
 

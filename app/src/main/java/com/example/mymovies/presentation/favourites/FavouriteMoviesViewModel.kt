@@ -7,6 +7,7 @@ import com.example.mymovies.domain.common.Result
 import com.example.mymovies.domain.usecases.ObserveFavouriteMoviesUseCase
 import com.example.mymovies.domain.usecases.RemoveMovieFromDbUseCase
 import com.example.mymovies.presentation.MoviePresentationMapper
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
@@ -47,6 +48,7 @@ class FavouriteMoviesViewModel @Inject constructor(
                     val mappedValues = result.data.map {
                         moviePresentationMapper.mapMovieToFavouriteMovieUi(it)
                     }
+
                     FavouritesUiState.Success(movieList = mappedValues)
                 }
             }

@@ -68,7 +68,7 @@ class RemoteDataSourceImpl @Inject constructor(
         }
     }
 
-    companion object {
+    companion object Ff {
         private const val TAG = "RemoteDataSourceImpl"
     }
 }

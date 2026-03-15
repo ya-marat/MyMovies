@@ -10,7 +10,7 @@
     <string name="next">Next</string>
     <string name="previous">Previous</string>
     <string name="description_movie_detail_is_empty">(Описание отсутствует)</string>
-    <string name="starring_label">В ролях :\u0020</string>
+    <string name="starring_label">В ролях:\u0020</string>
     <string name="creators_label">Создатели :\u0020</string>
     <string name="genre_label">Жанр :\u0020</string>
     <string name="trailer_lbl">Трейлер</string>
@@ -27,4 +27,13 @@
     <string name="error_add_favourite_toast">Ошибка при добавлении в избранное</string>
     <string name="error_remove_favourite_toast">Ошибка при удалении из избранного</string>
     <string name="favourite_remove">Удалить</string>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="title_activity_movie_list">MovieListActivity</string>
+    <string name="ok_button">Понятно</string>
+    <string name="refresh">Обновить</string>
+
+<!--    Error section-->
+    <string name="error_label">Ошибка</string>
+    <string name="error_load_dialog">При загрузке произошла ошибка</string>
+    <string name="error_load">Ошибка загрузки</string>
 </resources>

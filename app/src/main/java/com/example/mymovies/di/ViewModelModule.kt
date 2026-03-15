@@ -4,9 +4,11 @@ import androidx.lifecycle.ViewModel
 import com.example.mymovies.presentation.favourites.FavouriteMoviesViewModel
 import com.example.mymovies.presentation.viewmodels.MainViewModel
 import com.example.mymovies.presentation.detailmovie.MovieDetailViewModel
-import com.example.mymovies.presentation.viewmodels.MovieListViewModel
+import com.example.mymovies.presentation.detailmovie.MovieDetailViewModelFactory
+import com.example.mymovies.presentation.movielist.MovieListViewModel
 import dagger.Binds
 import dagger.Module
+import dagger.assisted.AssistedFactory
 import dagger.multibindings.IntoMap
 
 @Module
@@ -22,13 +24,18 @@ interface ViewModelModule {
     @ViewModelKey(MovieListViewModel::class)
     fun bindMovieListViewModel(viewModel: MovieListViewModel): ViewModel
 
-    @Binds
-    @IntoMap
-    @ViewModelKey(MovieDetailViewModel::class)
-    fun bindMovieDetailViewModel(viewModel: MovieDetailViewModel): ViewModel
+//    @Binds
+//    @IntoMap
+//    @ViewModelKey(MovieDetailViewModel::class)
+//    fun bindMovieDetailViewModel(viewModel: MovieDetailViewModel): ViewModel
 
     @Binds
     @IntoMap
     @ViewModelKey(FavouriteMoviesViewModel::class)
     fun bindFavouriteMovieViewModel(viewModel: FavouriteMoviesViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(MovieDetailViewModel::class)
+    fun bindMovieDetailViewModelFactory(factory: MovieDetailViewModel.Factory): MovieDetailViewModel.Factory
 }

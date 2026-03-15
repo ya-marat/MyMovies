@@ -11,7 +11,6 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.example.mymovies.App
-import com.example.mymovies.R
 import com.example.mymovies.databinding.FragmentFavouritesMovieBinding
 import com.example.mymovies.presentation.ViewModelFactory
 import com.example.mymovies.presentation.detailmovie.MovieDetailActivity
@@ -80,7 +79,6 @@ class MovieFavouriteFragment : Fragment() {
         favouriteMoviesAdapter.onElementClick = { favouriteMovie ->
             val intent = MovieDetailActivity.newIntent(
                 requireActivity(),
-                favouriteMovie.title,
                 favouriteMovie.id
             )
             startActivity(intent)
