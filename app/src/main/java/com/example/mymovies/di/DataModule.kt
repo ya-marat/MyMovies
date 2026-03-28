@@ -1,7 +1,7 @@
 package com.example.mymovies.di
 
 import android.app.Application
-import com.example.mymovies.data.MovieRepositoryImpl
+import com.example.mymovies.data.repositories.MovieRepositoryImpl
 import com.example.mymovies.domain.MovieRepository
 import dagger.Binds
 import dagger.Module

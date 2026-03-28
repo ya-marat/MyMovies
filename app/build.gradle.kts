@@ -70,6 +70,7 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0")
     implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.5.1")
     implementation("androidx.compose.ui:ui-tooling-preview")
+    implementation("androidx.work:work-runtime-ktx:2.11.1")
 
     implementation ("com.google.dagger:dagger:2.59")
     implementation(libs.androidx.navigation.fragment.ktx)
@@ -101,6 +102,8 @@ dependencies {
 
     implementation("io.coil-kt.coil3:coil-compose:3.3.0")
     implementation("io.coil-kt.coil3:coil-network-okhttp:3.3.0")
+
+    implementation("androidx.datastore:datastore-preferences:1.0.0")
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

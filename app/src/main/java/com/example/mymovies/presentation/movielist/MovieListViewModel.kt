@@ -3,6 +3,7 @@ package com.example.mymovies.presentation.movielist
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.mymovies.Consts
+import com.example.mymovies.genremanager.MovieGenreManager
 import com.example.mymovies.domain.common.Result
 import com.example.mymovies.domain.usecases.GetMoviesByGenreUseCase
 import com.example.mymovies.domain.usecases.GetMoviesUseCase
@@ -17,7 +18,8 @@ class MovieListViewModel @Inject constructor(
     private val getMoviesUseCase: GetMoviesUseCase,
     private val getPopularMoviesUseCase: GetPopularMoviesUseCase,
     private val getMoviesByGenreUseCase: GetMoviesByGenreUseCase,
-    private val moviePresentationMapper: MoviePresentationMapper
+    private val moviePresentationMapper: MoviePresentationMapper,
+    private val movieGenreManager: MovieGenreManager
 ) : ViewModel() {
 
     companion object {
@@ -31,15 +33,21 @@ class MovieListViewModel @Inject constructor(
         loadMainPageMovies()
     }
 
-    val genre = Consts.MovieParameters.GENRE
+    private var _currentDayGenre: String? = null
+    val currentDayGenre
+        get() = _currentDayGenre
+
+
     var firstMovie: MovieItemUi? = null
 
-     fun loadMainPageMovies() {
+    fun loadMainPageMovies() {
         viewModelScope.launch {
 
             _state.value = MovieListUiState.Loading
 
             val currentPage = Consts.MovieParameters.PAGE //Todo Manager responsible
+            val genre = movieGenreManager.getCurrentGenre()
+            _currentDayGenre = genre
 
             val newLoadedMoviesResult = getMoviesUseCase.getMovies(currentPage)
             val popularMoviesResult = getPopularMoviesUseCase.loadPopularMovies(currentPage)

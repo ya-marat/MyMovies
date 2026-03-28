@@ -1,11 +1,13 @@
 package com.example.mymovies.di
 
 import android.app.Application
+import com.example.mymovies.App
 import com.example.mymovies.presentation.activities.MainActivity
 import com.example.mymovies.presentation.detailmovie.MovieDetailActivity
 import com.example.mymovies.presentation.favourites.MovieFavouriteFragment
-import com.example.mymovies.presentation.movielist.MovieMainActivity
+import com.example.mymovies.presentation.MovieMainActivity
 import com.example.mymovies.presentation.movielist.MovieListFragmentLeg
+import com.example.mymovies.worker.GenreWorkerFactory
 import dagger.BindsInstance
 import dagger.Component
 
@@ -16,7 +18,8 @@ import dagger.Component
         ViewModelModule::class,
         NetworkModule::class,
         DBModule::class,
-        DataSourceModule::class]
+        DataSourceModule::class,
+        DataStoreModule::class]
 )
 interface AppComponent {
 
@@ -28,6 +31,8 @@ interface AppComponent {
 
     fun inject(movieDetailActivity: MovieDetailActivity)
     fun inject(movieMainActivity: MovieMainActivity)
+    fun inject(app: App)
+    fun workerFactory(): GenreWorkerFactory
 
     @Component.Factory
     interface AppComponentFactory {

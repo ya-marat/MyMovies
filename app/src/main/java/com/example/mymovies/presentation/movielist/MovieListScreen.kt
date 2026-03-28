@@ -82,6 +82,7 @@ fun MovieListScreen(
                 newMovies = stateValue.newMovies,
                 popularMovies = stateValue.popularMovies,
                 genreMovies = stateValue.genreMovies,
+                genreDay = viewModel.currentDayGenre ?: "",
                 onItemClick = { onItemClick(it.id) },
                 modifier = modifier
             )
@@ -135,6 +136,7 @@ private fun MovieListScreenContentPreview() {
         newMovies,
         popularMovies,
         genreMovies,
+        "криминал",
         onItemClick = { }
     )
 }
@@ -145,6 +147,7 @@ private fun MovieListScreenContent(
     newMovies: List<MovieItemUi>,
     popularMovies: List<MovieItemUi>,
     genreMovies: List<MovieItemUi>,
+    genreDay: String,
     onItemClick: (MovieItemUi) -> Unit,
     modifier: Modifier = Modifier
 ) {
@@ -183,7 +186,7 @@ private fun MovieListScreenContent(
                 onItemClick = { onItemClick(it) })
 
             MovieCategoryItem(
-                categoryName = stringResource(R.string.list_name_day_genre),
+                categoryName = stringResource(R.string.list_name_day_genre, genreDay),
                 movies = genreMovies,
                 modifier = Modifier.padding(top = 20.dp),
                 onItemClick = { onItemClick(it) })

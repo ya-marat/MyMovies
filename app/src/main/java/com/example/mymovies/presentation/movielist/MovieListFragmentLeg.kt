@@ -76,7 +76,7 @@ class MovieListFragmentLeg : Fragment() {
         binding.movieList2.adapter = secondListAdapter
         binding.movieList3.adapter = thirdListAdapter
 
-        binding.tvListName3.text = getString(R.string.list_name_day_genre, viewModel.genre)
+        binding.tvListName3.text = getString(R.string.list_name_day_genre, "viewModel.genre")
 
         binding.movieList1.addItemDecoration(itemDecoration)
         binding.movieList2.addItemDecoration(itemDecoration)

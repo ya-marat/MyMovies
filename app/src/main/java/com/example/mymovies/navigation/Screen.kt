@@ -24,5 +24,6 @@ sealed class Screen (
         const val ROUTE_MOVIE_DETAILS = "movie_details/{$KEY_MOVIE_ID}"
         const val ROUTE_MOVIE_LIST = "movie_list"
         const val ROUTE_FAVOURITE = "favourite"
+        const val NOTIFICATION_TO_HOME_KEY = "notif_route_to_home"
     }
 }

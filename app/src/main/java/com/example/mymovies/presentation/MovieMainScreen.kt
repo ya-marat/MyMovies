@@ -9,6 +9,7 @@ import androidx.compose.material3.NavigationBarItemDefaults
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.dropShadow
@@ -18,7 +19,6 @@ import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.DpOffset
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavDestination.Companion.hierarchy
@@ -26,26 +26,27 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import com.example.mymovies.R
 import com.example.mymovies.navigation.AppNavGraph
 import com.example.mymovies.navigation.NavigationItem
-import com.example.mymovies.navigation.Screen
 import com.example.mymovies.navigation.rememberNavigationState
 import com.example.mymovies.presentation.detailmovie.DetailMovieScreen
 import com.example.mymovies.presentation.favourites.MovieFavouriteScreen
 import com.example.mymovies.presentation.movielist.MovieListScreen
 
-@Composable
-@Preview
-fun MovieMainScreenPreview() {
-//    MovieMainScreen(
-//
-//    )
-}
 
 @Composable
 fun MovieMainScreen(
-    viewModelFactory: ViewModelFactory
+    startRoute: String? = null
 ) {
 
+
     val navigationState = rememberNavigationState()
+
+    LaunchedEffect(startRoute) {
+        startRoute?.let {
+            navigationState.navHostController.navigate(it) {
+                launchSingleTop = true
+            }
+        }
+    }
 
     val listItems = listOf(
         NavigationItem.Home,
