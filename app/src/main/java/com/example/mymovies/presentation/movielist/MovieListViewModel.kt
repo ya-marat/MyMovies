@@ -11,6 +11,8 @@ import com.example.mymovies.domain.usecases.GetPopularMoviesUseCase
 import com.example.mymovies.presentation.MoviePresentationMapper
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -28,6 +30,10 @@ class MovieListViewModel @Inject constructor(
 
     private var _state = MutableStateFlow<MovieListUiState>(MovieListUiState.Initial)
     var state = _state.asStateFlow()
+
+    private var _genreListState =
+        MutableStateFlow<MovieGenreListUIState>(MovieGenreListUIState.Initial)
+    var genreListState = _genreListState.asStateFlow()
 
     init {
         loadMainPageMovies()
@@ -51,9 +57,10 @@ class MovieListViewModel @Inject constructor(
 
             val newLoadedMoviesResult = getMoviesUseCase.getMovies(currentPage)
             val popularMoviesResult = getPopularMoviesUseCase.loadPopularMovies(currentPage)
-            val genreMoviesResult = getMoviesByGenreUseCase.getMoviesByGenre(currentPage, genre)
+            updateGenres(genre)
+            //val genreMoviesResult = getMoviesByGenreUseCase.getMoviesByGenre(currentPage, genre)
 
-            val results = listOf(newLoadedMoviesResult, popularMoviesResult, genreMoviesResult)
+            val results = listOf(newLoadedMoviesResult, popularMoviesResult)
 
             results.forEach {
                 if (it is Result.Failure) {
@@ -82,16 +89,46 @@ class MovieListViewModel @Inject constructor(
             val popularMovies = (popularMoviesResult as Result.Success).data.map {
                 moviePresentationMapper.mapDomainToMovieItemUi(it)
             }
-            val genreMovies = (genreMoviesResult as Result.Success).data.map {
-                moviePresentationMapper.mapDomainToMovieItemUi(it)
-            }
+//            val genreMovies = (genreMoviesResult as Result.Success).data.map {
+//                moviePresentationMapper.mapDomainToMovieItemUi(it)
+//            }
 
             _state.value = MovieListUiState.Success(
                 firstMovie = firstMovie,
                 newMovies = newMovies,
                 popularMovies = popularMovies,
-                genreMovies = genreMovies
+                genreMovies = listOf()
             )
+        }
+
+        viewModelScope.launch {
+            movieGenreManager.genreFlow
+                .distinctUntilChanged()
+                .collect {
+                    updateGenres(it.genreName)
+                }
+        }
+    }
+
+    private suspend fun updateGenres(genre: String) {
+        _genreListState.value = MovieGenreListUIState.Loading
+        val currentPage = Consts.MovieParameters.PAGE
+        val genreMoviesResult = getMoviesByGenreUseCase.getMoviesByGenre(currentPage, genre)
+
+        when (genreMoviesResult) {
+            is Result.Failure -> {
+                _genreListState.value = MovieGenreListUIState.Error(
+                    moviePresentationMapper.mapDomainErrorToMovieUiError(genreMoviesResult.error)
+                )
+            }
+
+            is Result.Success -> {
+                _genreListState.value = MovieGenreListUIState.Success(
+                    genreMoviesResult.data.map {
+                        moviePresentationMapper.mapDomainToMovieItemUi(it)
+                    }, genreName = genre
+                )
+            }
         }
     }
 

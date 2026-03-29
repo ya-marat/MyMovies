@@ -3,6 +3,7 @@ package com.example.mymovies.presentation.movielist
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -43,6 +44,8 @@ import com.example.mymovies.presentation.ViewModelFactory
 import com.example.mymovies.presentation.common.AppAlertDialog
 import com.example.mymovies.presentation.common.ErrorContent
 import com.example.mymovies.presentation.common.ProgressBarIndicator
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 
 @Composable
 fun MovieListScreen(
@@ -52,6 +55,9 @@ fun MovieListScreen(
     val factory = LocalViewModelFactory.current
     val viewModel: MovieListViewModel = viewModel(factory = factory)
     val state = viewModel.state.collectAsState()
+    val genreState = viewModel.genreListState.collectAsState()
+
+
     when (val stateValue = state.value) {
         is MovieListUiState.Error -> {
             var showDialog by remember(stateValue) { mutableStateOf(true) }
@@ -73,7 +79,9 @@ fun MovieListScreen(
 
         MovieListUiState.Initial -> {}
         MovieListUiState.Loading -> {
-            ProgressBarIndicator()
+            ProgressBarIndicator(
+                modifier = Modifier.fillMaxSize()
+            )
         }
 
         is MovieListUiState.Success -> {
@@ -81,8 +89,7 @@ fun MovieListScreen(
                 firstMovie = stateValue.firstMovie,
                 newMovies = stateValue.newMovies,
                 popularMovies = stateValue.popularMovies,
-                genreMovies = stateValue.genreMovies,
-                genreDay = viewModel.currentDayGenre ?: "",
+                genreListUIState = genreState.value,
                 onItemClick = { onItemClick(it.id) },
                 modifier = modifier
             )
@@ -135,8 +142,7 @@ private fun MovieListScreenContentPreview() {
         firstMovie,
         newMovies,
         popularMovies,
-        genreMovies,
-        "криминал",
+        MovieGenreListUIState.Initial,
         onItemClick = { }
     )
 }
@@ -146,8 +152,7 @@ private fun MovieListScreenContent(
     firstMovie: MovieItemUi?,
     newMovies: List<MovieItemUi>,
     popularMovies: List<MovieItemUi>,
-    genreMovies: List<MovieItemUi>,
-    genreDay: String,
+    genreListUIState: MovieGenreListUIState,
     onItemClick: (MovieItemUi) -> Unit,
     modifier: Modifier = Modifier
 ) {
@@ -185,11 +190,37 @@ private fun MovieListScreenContent(
                 modifier = Modifier.padding(top = 20.dp),
                 onItemClick = { onItemClick(it) })
 
-            MovieCategoryItem(
-                categoryName = stringResource(R.string.list_name_day_genre, genreDay),
-                movies = genreMovies,
-                modifier = Modifier.padding(top = 20.dp),
-                onItemClick = { onItemClick(it) })
+
+
+            when (genreListUIState) {
+                MovieGenreListUIState.Initial -> {}
+                is MovieGenreListUIState.Error -> {
+                    Text(text = "Error")
+                }
+
+                MovieGenreListUIState.Loading -> {
+                    ProgressBarIndicator(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .height(150.dp),
+                        progressIndicatorSize = 48,
+                        strokeWidth = 5
+                    )
+                }
+
+                is MovieGenreListUIState.Success -> {
+                    val genreMovies = genreListUIState.genreMovies
+
+                    MovieCategoryItem(
+                        categoryName = stringResource(
+                            R.string.list_name_day_genre,
+                            genreListUIState.genreName
+                        ),
+                        movies = genreMovies,
+                        modifier = Modifier.padding(top = 20.dp),
+                        onItemClick = { onItemClick(it) })
+                }
+            }
         }
 
         item {

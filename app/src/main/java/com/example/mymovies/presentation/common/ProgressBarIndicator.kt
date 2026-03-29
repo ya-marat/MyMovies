@@ -14,18 +14,21 @@ import androidx.compose.ui.unit.dp
 import com.example.mymovies.R
 
 @Composable
-fun ProgressBarIndicator() {
+fun ProgressBarIndicator(
+    modifier: Modifier = Modifier,
+    progressIndicatorSize: Int = 64,
+    strokeWidth: Int = 7
+) {
     Box(
-        modifier = Modifier
-            .fillMaxSize(),
+        modifier = modifier,
         contentAlignment = Alignment.Center
     ) {
         CircularProgressIndicator(
             modifier = Modifier
-                .size(64.dp),
+                .size(progressIndicatorSize.dp),
             color = colorResource(R.color.main_color_2),
             strokeCap = ProgressIndicatorDefaults.CircularIndeterminateStrokeCap,
-            strokeWidth = 7.dp
+            strokeWidth = strokeWidth.dp
         )
     }
 }

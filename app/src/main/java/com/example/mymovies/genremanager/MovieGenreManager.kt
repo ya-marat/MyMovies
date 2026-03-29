@@ -8,6 +8,8 @@ class MovieGenreManager @Inject constructor(
     private val genrePrefsRepository: GenrePrefsRepository
 ) {
 
+    val genreFlow = genrePrefsRepository.genreFlow
+
     private val genres = listOf(
         "аниме",
         "биография",

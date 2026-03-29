@@ -92,7 +92,9 @@ fun DetailMovieScreen(
 
             }
             DetailMovieUIState.Initial, DetailMovieUIState.Loading -> {
-                ProgressBarIndicator()
+                ProgressBarIndicator(
+                    modifier = Modifier.fillMaxSize()
+                )
             }
 
             is DetailMovieUIState.Success -> {
